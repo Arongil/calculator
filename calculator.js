@@ -13,7 +13,8 @@ function isOperation(char) {
 }
 
 function isFunction(char) {
-  if (char == "sqrt"||
+  if (char == "ln"||
+      char == "sqrt"||
       char == "sin" ||
       char == "cos" ||
       char == "tan" ||
@@ -81,6 +82,12 @@ function operateFunction(equation, index) {
   var func = equation[index];
   var input = parseFloat(equation[index + 1]);
   
+  if (func == "ln") {
+    equation.splice(index, 2, LMath.ln(input).toString());
+  }
+  if (func == "sqrt") {
+    equation.splice(index, 2, LMath.sqrt(input).toString());
+  }
   if (func == "sin") {
     equation.splice(index, 2, LMath.sin(input).toString());
   }
