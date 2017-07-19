@@ -27,6 +27,7 @@
         LMath.exp, in addition to the rest of LMath methods and constants.
       </p>
       <p class="big center">How Does it Work?</p>
+      <br>
       <p class="medium center">Overview</p>
 <!--   <span class="green">parser</span>     -->
 <!--   <span class="blue">LMath</span>     -->
@@ -49,6 +50,48 @@
         know because, say, its input was 1 + ln(44).
       </p>
       <br>
+      <p class="medium center">LMath</p>
+      <p class="small">
+        The creation of LMath was an excersize in mathematics and algorithms. In programming from scratch the same functionality as the
+        built-in javascript Math library, considerations had to be made for speed in addition to functionality, as most functions build
+        off of the foundation laid by previous ones, forming a need for speed through a weakest-link dynamic. For example, the sqrt 
+        function uses the pow function which uses the ln function which uses the exp function which uses the intPow function which uses
+        the isInt function which uses the floor function which, breaking the chain, uses only addition, multiplication, and loops.
+        <br><br><span class="center"><str>sqrt -> pow -> ln -> exp -> intPow -> isInt -> floor -> basic operations</str></span><br><br>
+        <span class="blue">LMath's</span> methods and constants, linked to descriptions and examples.
+      </p>
+      <ul class="center small">
+        <li>derivativeMargin</li>
+        <li>error</li>
+        <li>PI</li>
+        <li>RECPI</li>
+        <li>TAU</li>
+        <li>RECTAU</li>
+        <li>E</li>
+        <li>RECE</li>
+        <li>LN2</li>
+        <li>SQRT2</li>
+        <li>RECSQRT2</li>
+        <li>abs(x)</li>
+        <li>floor(x)</li>
+        <li>ceil(x)</li>
+        <li>round(x)</li>
+        <li>isInt(x)</li>
+        <li>intPower(intBase, exponent)</li>
+        <li>factorial(x)</li>
+        <li>derivativeApproximation(f, x)</li>
+        <li>newtonianApproximation(f, guess)</li>
+        <li>ln(x)</li>
+        <li>exp(x)</li>
+        <li>pow(base, exponent)</li>
+        <li>sqrt(x)</li>
+        <li>sin(x)</li>
+        <li>cos(x)</li>
+        <li>tan(x)</li>
+        <li>csc(x)</li>
+        <li>sec(x)</li>
+        <li>cot(x)</li>
+      </ul>
     </div>
   </body>
 </html>
