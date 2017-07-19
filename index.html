@@ -6,8 +6,9 @@
   <body>
     <p>Equation: <input type="text" id="equationInput"></input></p>
     <br><p id="answer"></p>
-
-<!--     <script src="calculator.js"></script> -->
-    <button onclick="document.getElementById('answer').HTML = calculate(document.getElementById('equationInput').value());"><str>Calculate</str></button>
+    
+    <script src="LMath.js"></script>
+    <script src="calculator.js"></script>
+    <button onclick="outputAnswer('equationInput', 'answer');"><str>Calculate</str></button>
   </body>
 </html>
