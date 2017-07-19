@@ -1,6 +1,30 @@
-#header {
+.xbig {
+  font-size: 240%;
+}
+.big {
+  font-size: 180%;
+}
+.medium {
+  font-size: 140%;
+}
+.small {
+  font-size: 80%;
+}
+.xsmall {
+  font-size: 50%;
+}
+
+.center {
+  margin: auto;
   text-align: center;
 }
-#calculator {
-  text-align: center;
+
+.red {
+  color: rgb(255, 70, 70);
+}
+.green {
+  color: rgb(100, 240, 90);
+}
+.blue {
+  color: rgb(100, 160, 255);
 }
