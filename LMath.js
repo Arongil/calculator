@@ -113,11 +113,7 @@ var LMath = {
   },
   exp: function(x) {
     // Reduce x to a range of 0 to e, because the Taylor series for e to the x converges most quickly near 0.
-    var reduced = x, powsOfE = 0;
-    while (reduced > LMath.E) {
-      reduced--;
-      powsOfE++;
-    }
+    var reduced = x - LMath.floor(x), powsOfE = x - reduced;
     
     var guess = 0, i = 0, adjust = 1;
     do {
