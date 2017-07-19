@@ -1,1 +1,18 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="LMath.js"></script>
+    <script src="calculator.js"></script>
+  </head>
+  <body>
+    <p id="header" style="font-size: 4em;">Calculator</p>
+    <div id="calculator">
+      <p>Equation: <input type="text" id="equationInput" style="width: 60%;"></input></p>
+      <p id="answer">=</p>
+      <button id="calculate-button" onclick="outputAnswer('equationInput', 'answer');"><str>Calculate</str></button>
+    </div>
+  </body>
+</html>
