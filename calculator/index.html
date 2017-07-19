@@ -8,11 +8,17 @@
     <script src="calculator.js"></script>
   </head>
   <body>
-    <p id="header" style="font-size: 4em;">Calculator</p>
-    <div id="calculator">
-      <p>Equation: <input type="text" id="equationInput" style="width: 60%;"></input></p>
-      <p id="answer">=</p>
-      <button id="calculate-button" onclick="outputAnswer('equationInput', 'answer');"><str>Calculate</str></button>
+    <div id="header" class="center">
+      <p class="xbig">Calculator</p>
+    </div>
+    <div id="calculator" class="center">
+      <p class="medium">Equation:</p><input type="text" id="equationInput" style="width: 60%;"></input>
+      <p id="answer" class="medium">=</p>
+      <button id="calculate-button" class="medium" onclick="outputAnswer('equationInput', 'answer');"><str>Calculate</str></button>
+    </div>
+    <div id="info">
+      <p class="big">How Does it Work?</p>
+      <p class="medium">Overview</p>
     </div>
   </body>
 </html>
