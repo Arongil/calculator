@@ -1,2 +1,2 @@
-# Scientific-Calculator
-A scientific calculator.
+# My Website
+Containing my projects.
