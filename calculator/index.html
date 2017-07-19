@@ -20,7 +20,7 @@
     <div id="info" style="width: 60%; margin: auto;">
       <p class="big center">Goals</p>
       <p class="small">
-        There were two goals in building this calculator: programming a <a href="calculator.js">parser</a> and a
+          There were two goals in building this calculator: programming a <a href="calculator.js">parser</a> and a
         <a href="LMath.js">math functions library</a>. The parser should use PFEMDAS (parentheses, functions, exponents, multiplication,
         division, addition, subtraction), calculating first P, then F, then E, then M and D, and finally A and S. The goal with LMath
         was to program a library of math functions from scratch. No Math.sin, Math.floor, or Math.exp, only LMath.sin, LMath.floor, and
@@ -31,11 +31,11 @@
 <!--   <span class="green">parser</span>     -->
 <!--   <span class="blue">LMath</span>     -->
       <p class="small">
-        There are two parts to this calculator: a <span class="green">parser</span> that organizes the expression entered, 
+          There are two parts to this calculator: a <span class="green">parser</span> that organizes the expression entered, 
         breaking it up by operators and parentheses into simpler 1-step operations the computer can do, and a library of math 
         functions, such as sin, sqrt, and ln, called <span class="blue">LMath</span>.
         <br><br>
-        The <span class="green">parser</span> could, for
+          The <span class="green">parser</span> could, for
         example, take an input like <str>4 * (1 - 9)</str> and determine, first, there are parentheses, so calculate them first.
         <str>1 - 9 = -8</str> so replace <str>(1 - 9)</str> with <str>-8</str>, giving a new input of <str>4 * -8</str>. The
         <span class="green">parser</span> again checks for parentheses, finds none, so checks for functions and exponents. When it finds
@@ -45,7 +45,7 @@
         multiplication, division, addition, subtraction) on its input, recursively PFEMDASing the contents of each parenthesis pair and 
         replacing the original input's parentheses with the result.
         <br><br>
-        The <span class="blue">LMath</span> library could tell the <span class="green">parser</span> what the ln(44) is, if it needed to
+          The <span class="blue">LMath</span> library could tell the <span class="green">parser</span> what the ln(44) is, if it needed to
         know because, say, its input was 1 + ln(44).
       </p>
       <br>
