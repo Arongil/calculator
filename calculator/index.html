@@ -17,7 +17,7 @@
       <button id="calculate-button" class="medium" onclick="outputAnswer('equationInput', 'answer');"><str>Calculate</str></button>
     </div>
     <br><br>
-    <div id="info" style="width: 60%; margin: auto; text-align: center;">
+    <div id="info" style="width: 60%; margin: auto;">
       <p class="big">Goals</p>
       <p class="small">
         There were two goals in building this calculator: programming a <a href="calculator.js">parser</a> and a
@@ -34,15 +34,17 @@
         There are two parts to this calculator: a <span class="green">parser</span> that organizes the expression entered, 
         breaking it up by operators and parentheses into simpler 1-step operations the computer can do, and a library of math 
         functions, such as sin, sqrt, and ln, called <span class="blue">LMath</span>.
-        <br>
+        <br><br>
         The <span class="green">parser</span> could, for
         example, take an input like <str>4 * (1 - 9)</str> and determine, first, there are parentheses, so calculate them first.
         <str>1 - 9 = -8</str> so replace <str>(1 - 9)</str> with <str>-8</str>, giving a new input of <str>4 * -8</str>. The
         <span class="green">parser</span> again checks for parentheses, finds none, so checks for functions and exponents. When it finds
         none, it checks for multiplication and division. It finds multiplication, performs <str>4 * -8 = -32</str>, and replaces
         <str>4 * -8</str> with <str>-32</str>. When the parser finds no addition or subtraction following -32, it realizes -32 is the
-        only term left, so returns it as the answer.
-        <br>
+        only term left, so returns it as the answer. In programatic terms, the parser performs PFEMDAS (parentheses, functions, exponents,
+        multiplication, division, addition, subtraction) on its input, recursively PFEMDASing the contents of each parenthesis pair and 
+        replacing the original input's parentheses with the result.
+        <br><br>
         The <span class="blue">LMath</span> library could tell the <span class="green">parser</span> what the ln(44) is, if it needed to
         know because, say, its input was 1 + ln(44).
       </p>
