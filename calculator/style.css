@@ -29,6 +29,6 @@
   color: rgb(100, 160, 255);
 }
 
-ul {
+.noListStyle {
   list-style: none;
 }
