@@ -14,7 +14,7 @@
     <div id="calculator" class="center">
       <p class="medium">Equation:</p><input type="text" id="equationInput" style="width: 60%;"></input>
       <p id="answer" class="medium">=</p>
-      <button id="calculate-button" class="medium" onclick="outputAnswer('equationInput', 'answer');"><str>Calculate</str></button>
+      <button id="calculate-button" class="medium" onclick="outputAnswer('equationInput', 'answer');"><strong>Calculate</strong></button>
     </div>
     <br><br><br><br><br><br>
     <div id="info" style="width: 60%; margin: auto;">
@@ -37,11 +37,11 @@
         functions, such as sin, sqrt, and ln, called <span class="blue">LMath</span>.
         <br><br>
           The <span class="green">parser</span> could, for
-        example, take an input like <str>4 * (1 - 9)</str> and determine, first, there are parentheses, so calculate them first.
-        <str>1 - 9 = -8</str> so replace <str>(1 - 9)</str> with <str>-8</str>, giving a new input of <str>4 * -8</str>. The
+        example, take an input like <strong>4 * (1 - 9)</strong> and determine, first, there are parentheses, so calculate them first.
+        <strong>1 - 9 = -8</strong> so replace <strong>(1 - 9)</strong> with <strong>-8</strong>, giving a new input of <strong>4 * -8</strong>. The
         <span class="green">parser</span> again checks for parentheses, finds none, so checks for functions and exponents. When it finds
-        none, it checks for multiplication and division. It finds multiplication, performs <str>4 * -8 = -32</str>, and replaces
-        <str>4 * -8</str> with <str>-32</str>. When the parser finds no addition or subtraction following -32, it realizes -32 is the
+        none, it checks for multiplication and division. It finds multiplication, performs <strong>4 * -8 = -32</strong>, and replaces
+        <strong>4 * -8</strong> with <strong>-32</strong>. When the parser finds no addition or subtraction following -32, it realizes -32 is the
         only term left, so returns it as the answer. In programatic terms, the parser performs PFEMDAS (parentheses, functions, exponents,
         multiplication, division, addition, subtraction) on its input, recursively PFEMDASing the contents of each parenthesis pair and 
         replacing the original input's parentheses with the result.
@@ -49,7 +49,7 @@
           The <span class="blue">LMath</span> library could tell the <span class="green">parser</span> what the ln(44) is, if it needed to
         know because, say, its input was 1 + ln(44).
       </p>
-      <br>
+      <br><br><br>
       <p class="medium center">LMath</p>
       <p class="small">
         The creation of LMath was an exercise in mathematics and algorithms. In programming from scratch the same functionality as the
@@ -57,7 +57,7 @@
         off of the foundation laid by previous ones, forming a need for speed through a weakest-link dynamic. For example, the sqrt 
         function uses the pow function which uses the ln function which uses the exp function which uses the intPow function which uses
         the isInt function which uses the floor function which, breaking the chain, uses only addition, multiplication, and loops.
-        <br><br><span class="center"><str>sqrt -> pow -> ln -> exp -> intPow -> isInt -> floor -> basic operations</str></span><br><br>
+        <br><br><span class="center"><strong>sqrt -> pow -> ln -> exp -> intPow -> isInt -> floor -> basic operations</strong></span><br><br>
         <span class="blue">LMath's</span> methods and constants, linked to descriptions and examples.
       </p>
       <ul class="small noListStyle">
@@ -92,6 +92,7 @@
         <li>sec(x)</li>
         <li>cot(x)</li>
       </ul>
+      <br><br>
     </div>
   </body>
 </html>
