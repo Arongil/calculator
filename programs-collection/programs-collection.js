@@ -57,7 +57,7 @@ function populateProgramsList(programs, outputId) {
 
 var listPrograms = [
   new Program("Void", "javascript", "http://www.arongil.com/void", "http://i.imgur.com/GJUcZOr.jpg",
-              "But a speck in space, harnessing void energies may be your last chance for survival. Use the arrow keys and mouse to explore an artificial world. [Not Completed]"),
+              "But a speck in space, harnessing void energies may be your last chance for survival. Use the WASD keys and mouse to explore an artificial world. [Not Completed]"),
   new Program("Waves", "javascript", "https://s.codepen.io/Arongil/debug/zwBEMO", "https://imgur.com/kDxPBNc.png",
              "The Wave Equation implemented in 3D using methods adapted from the Projecting Heightmaps program. Click to create a distubance and behold a wave ripple, reflect, and interfere with itself, much the way a pebble thrown into a pond does."),
   new Program("Ooze", "javascript", "https://s.codepen.io/Arongil/debug/eWNZXE/YvAgOPaXQbDA", "https://i.imgur.com/N8B4sg6.png",
