@@ -64,7 +64,7 @@
       <script>
         var LMathAttributes = [
           {"name": "derivativeMargin", "description": ""},
-          {"name": "error", "description": ""},
+          {"name": "error", "description": "blobberfish"},
           {"name": "PI", "description": ""},
           {"name": "RECPI", "description": ""},
           {"name": "TAU", "description": ""},
@@ -73,12 +73,12 @@
           {"name": "RECE", "description": ""},
           {"name": "LN2", "description": ""},
           {"name": "SQRT2", "description": ""},
-          {"name": "RECSQRT2", "description": ""},
+          {"name": "RECSQRT2", "description": "test"},
           {"name": "abs", "description": ""},
           {"name": "floor", "description": ""},
           {"name": "ceil", "description": ""},
           {"name": "round", "description": ""},
-          {"name": "isInt", "description": ""},
+          {"name": "isInt", "description": "test1"},
           {"name": "intPower", "description": ""},
           {"name": "factorial", "description": ""},
           {"name": "derivativeApproximation", "description": ""},
@@ -86,7 +86,7 @@
           {"name": "ln", "description": ""},
           {"name": "exp", "description": ""},
           {"name": "pow", "description": ""},
-          {"name": "sqrt", "description": ""},
+          {"name": "sqrt", "description": "sqrt"},
           {"name": "sin", "description": ""},
           {"name": "cos", "description": ""},
           {"name": "tan", "description": ""},
@@ -95,141 +95,45 @@
           {"name": "cot", "description": ""},
         ];
         
-        var attribute, ul, li;
+        function toggleExpand(p, button) {
+          if (p.style.display == "none") {
+            p.style.display = "initial";
+            button.textContent = "-";
+          }
+          else {
+            p.style.display = "none";
+            button.textContent = "+";
+          }
+        }
+        
+        var attribute, ul, li, titleSpan, descriptionDiv, descriptionP, expandButton;
         ul = document.getElementById("LMathAttributesList");
         for (var i = 0; i < LMathAttributes.length; i++) {
           attribute = LMathAttributes[i];
           
           li = document.createElement("li");
-          li.innerHTML = "<span class='blue medium'>" + attribute.name + "</span>";
+          
+          titleSpan = document.createElement("span");
+          titleSpan.classNames = "blue medium";
+          titleSpan.textContent = attribute.name;
+          li.appendChild(titleSpan);
+          
+          descriptionDiv = document.createElement("div");
+          
+          descriptionP = document.createElement("p");
+          descriptionP.textContent = attribute.description;
+          descriptionP.style.display = none;
+          descriptionDiv.appendChild(descriptionP);
+          
+          expandButton = document.createElement("button");
+          expandButton.onclick = toggleExpand(descriptionP, expandButton);
+          descriptionDiv.appendChild(expandButton);
+          
+          li.appendChild(descriptionDiv);
+          
           ul.appendChild(li);
         }
       </script>
-<!--       <ul class="small noListStyle">
-        <li><a href="#derivativeMargin">derivativeMargin</a></li>
-        <li><a href="#error">error</a></li>
-        <li><a href="#PI">PI</a></li>
-        <li><a href="#RECPI">RECPI</a></li>
-        <li><a href="#TAU">TAU</a></li>
-        <li><a href="#RECTAU">RECTAU</a></li>
-        <li><a href="#E">E</a></li>
-        <li><a href="#RECE">RECE</a></li>
-        <li><a href="#LN2">LN2</a></li>
-        <li><a href="#SQRT2">SQRT2</a></li>
-        <li><a href="#RECSQRT2">RECSQRT2</a></li>
-        <li><a href="#abs">abs(x)</a></li>
-        <li><a href="#floor">floor(x)</a></li>
-        <li><a href="#ceil">ceil(x)</a></li>
-        <li><a href="#round">round(x)</a></li>
-        <li><a href="#isInt">isInt(x)</a></li>
-        <li><a href="#intPower">intPower(intBase, exponent)</a></li>
-        <li><a href="#factorial">factorial(x)</a></li>
-        <li><a href="#derivativeApproximation">derivativeApproximation(f, x)</a></li>
-        <li><a href="#newtonianApproximation">newtonianApproximation(f, guess)</a></li>
-        <li><a href="#ln">ln(x)</a></li>
-        <li><a href="#exp">exp(x)</a></li>
-        <li><a href="#pow">pow(base, exponent)</a></li>
-        <li><a href="#sqrt">sqrt(x)</a></li>
-        <li><a href="#sin">sin(x)</a></li>
-        <li><a href="#cos">cos(x)</a></li>
-        <li><a href="#tan">tan(x)</a></li>
-        <li><a href="#csc">csc(x)</a></li>
-        <li><a href="#sec">sec(x)</a></li>
-        <li><a href="#cot">cot(x)</a></li>
-      </ul>
-      <br><br>
-      <ul class="noListStyle">
-        <li id="derivativeMargin">
-          <span class="blue medium">derivativeMargin</span>
-        </li>
-        <li id="error">
-          <span class="blue medium">error</span>
-        </li>
-        <li id="PI">
-          <span class="blue medium">PI</span>
-        </li>
-        <li id="RECPI">
-          <span class="blue medium">RECPI</span>
-        </li>
-        <li id="TAU">
-          <span class="blue medium">TAU</span>
-        </li>
-        <li id="RECTAU">
-          <span class="blue medium">RECTAU</span>
-        </li>
-        <li id="E">
-          <span class="blue medium">E</span>
-        </li>
-        <li id="RECE">
-          <span class="blue medium">RECE</span>
-        </li>
-        <li id="LN2">
-          <span class="blue medium">LN2</span>
-        </li>
-        <li id="SQRT2">
-          <span class="blue medium">SQRT2</span>
-        </li>
-        <li id="RECSQRT2">
-          <span class="blue medium">RECSQRT2</span>
-        </li>
-        <li id="abs">
-          <span class="blue medium">abs(x)</span>
-        </li>
-        <li id="floor">
-          <span class="blue medium">floor(x)</span>
-        </li>
-        <li id="ceil">
-          <span class="blue medium">ceil(x)</span>
-        </li>
-        <li id="round">
-          <span class="blue medium">round(x)</span>
-        </li>
-        <li id="isInt">
-          <span class="blue medium">isInt(x)</span>
-        </li>
-        <li id="intPower">
-          <span class="blue medium">intPower(intBase, exponent)</span>
-        </li>
-        <li id="factorial">
-          <span class="blue medium">factorial(x)</span>
-        </li>
-        <li id="derivativeApproximation">
-          <span class="blue medium">derivativeApproximation(f, x)</span>
-        </li>
-        <li id="newtonianApproximation">
-          <span class="blue medium">newtonianApproximation(f, guess)</span>
-        </li>
-        <li id="ln">
-          <span class="blue medium">ln(x)</span>
-        </li>
-        <li id="exp">
-          <span class="blue medium">exp(x)</span>
-        </li>
-        <li id="pow">
-          <span class="blue medium">pow(base, exponent)</span>
-        </li>
-        <li id="sqrt">
-          <span class="blue medium">sqrt(x)</span>
-        </li>
-        <li id="sin">
-          <span class="blue medium">sin(x)</span>
-        </li>
-        <li id="cos">
-          <span class="blue medium">cos(x)</span>
-        </li>
-        <li id="tan">
-          <span class="blue medium">tan(x)</span>
-        </li>
-        <li id="csc">
-          <span class="blue medium">csc(x)</span>
-        </li>
-        <li id="sec">
-          <span class="blue medium">sec(x)</span>
-        </li>
-        <li id="cot">
-          <span class="blue medium">cot(x)</span>
-        </li>
-      </ul> -->
     </div>
   </body>
 </html>
