@@ -35,7 +35,7 @@ var LMath = {
     return floored;
   },
   ceil: function(x) {
-    return LMath.floor(x) + 1;
+    return LMath.floor(x + 1 - LMath.error);
   },
   round: function(x) {
     return LMath.floor(x + 0.5);
@@ -179,3 +179,36 @@ var LMath = {
     return cos / sin;
   },
 };
+
+var LMathAttributes = [
+  {"name": "derivativeMargin", "description": "h in the limit definition of a derivative: (f(x + h) - f(x))/h"},
+  {"name": "error", "description": "A guaranteed precision for results."},
+  {"name": "PI", "description": "pi = 3.14159..."},
+  {"name": "RECPI", "description": "1 / pi = 0.31830..."},
+  {"name": "TAU", "description": "tau = 2*pi = 6.28318..."},
+  {"name": "RECTAU", "description": "1 / tau = 0.15915..."},
+  {"name": "E", "description": "e = 2.71828..."},
+  {"name": "RECE", "description": "1/e = 0.36787..."},
+  {"name": "LN2", "description": "The natural log of 2 = ln(2) = 0.69314..."},
+  {"name": "SQRT2", "description": "The square root of 2 = sqrt(2) = 1.41421..."},
+  {"name": "RECSQRT2", "description": "1 / sqrt(2) = 0.70710..."},
+  {"name": "abs", "description": "The absolute value function returns x made positive: if the x is negative then return -x to make it positive, and if x is positive, then return it."},
+  {"name": "floor", "description": "The floor function returns the greatest integer below x. floor(4.9) = 4, floor(2) = 2, floor(-3.1) = -4, and floor(123.456) = 123."},
+  {"name": "ceil", "description": "The ceil function return the smallest integer above x. ceil(4.1) = 5, ceil(1) = 1, and ceil(-2.2) = -2"},
+  {"name": "round", "description": "The round function returns x rounded to the nearest integer. round(9.2) = 9, round(1.5) = 2, and round(-2.8) = -3."},
+  {"name": "isInt", "description": "The is integer function returns true if x is an integer and false if x isn't. x is an integer if (x == floor(x))"},
+  {"name": "intPower", "description": "The integer power function returns a base to the power of an integer exponent. intPower(2, 3) = 8 and intPower(2, 2.1) will throw an error because 2.1 is a float."},
+  {"name": "factorial", "description": "The factorial function returns x!, or (x) * (x-1) * (x-2) * ... 3 * 2 * 1. factorial(4) = 4*3*2*1 = 24."},
+  {"name": "derivativeApproximation", "description": "The derivative approximation function returns the approximate value of the first derivative of function f at x. derivativeApproximation(function() { return x*x; }, 5) will be about 10"},
+  {"name": "newtonianApproximation", "description": "The newtonian root approximation function returns the approximate value of a root of a function f using a guess passed in as a first estimate."},
+  {"name": "ln", "description": "The natural log function returns the natural log of x by binary searching for it with exp(reduced) and x as the guess and goal, respectively. Reduced is calculated to lower the input-range using the log property log(2^n * reduced) = n*log(2) + log(reduced), given 2^n * reduced = x."},
+  {"name": "exp", "description": "The exponential function returns e to the x by calculating Taylor polynomials to the desired accuracy on a reduced input. Reduced is calculated to lower the input-range to 0-e using exponent properties. exp(x) then returns exp(reduced) * intPower(E, powersOfEDivided)."},
+  {"name": "pow", "description": "The power function returns the base to the power of the exponent using the property that x^n = exp(n * ln(x))."},
+  {"name": "sqrt", "description": "The square root function returns the square root of x: pow(x, 0.5). sqrt(4) = 2, sqrt(81) = 9, and sqrt(2) = 1.41421..."},
+  {"name": "sin", "description": "The sine function returns the sine of x by calculating Taylor polynomials to the desired accuracy on an input reduced to the range of 0-2pi."},
+  {"name": "cos", "description": "The cosine function returns the cosine of x, or sin(x + 0.5*pi)."},
+  {"name": "tan", "description": "The tangent function returns the tangent of x, or sin(x)/cos(x)."},
+  {"name": "csc", "description": "The cosecant function returns the cosecant of x, or 1 / sin(x)."},
+  {"name": "sec", "description": "The secant function returns the secant of x, or 1 / cos(x)."},
+  {"name": "cot", "description": "The cotangent function returns the cotangent of x, or cos(x)/sin(x)."},
+];
