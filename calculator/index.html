@@ -77,14 +77,10 @@
           attribute = LMathAttributes[i];
           
           li = document.createElement("li");
-          li.style.width = "60%";
           
           titleSpan = document.createElement("span");
           titleSpan.className = "blue medium";
           titleSpan.textContent = attribute.name;
-          li.appendChild(titleSpan);
-          
-          descriptionDiv = document.createElement("div");
           
           descriptionP = document.createElement("p");
           descriptionP.id = "descriptionP" + i;
@@ -92,9 +88,7 @@
           descriptionP.style.display = "none";
           
           expandButton = document.createElement("button");
-          expandButton.className = "center";
-          expandButton.style.fontSize = "140%";
-          expandButton.style.padding = "1%";
+          expandButton.style.fontSize = "100%";
           expandButton.textContent = "+";
           expandButton.descriptionPId = descriptionP.id;
           expandButton.onclick = function() {
@@ -102,9 +96,8 @@
           };
           
           li.appendChild(expandButton);
-          descriptionDiv.appendChild(descriptionP);
-          
-          li.appendChild(descriptionDiv);
+          li.appendChild(titleSpan);
+          li.appendChild(descriptionP);
           
           ul.appendChild(li);
         }
