@@ -43,9 +43,9 @@ var Program = (function() {
   return Program;
 }());
 
-function populateProgramsList(programs) {
+function populateProgramsList(programs, outputId) {
   // Append the createDivElement() of each program to the programs list.
-  var list = document.getElementById("programs-list");
+  var list = document.getElementById(outputId);
   for (var i = 0; i < programs.length; i++) {
     var program = programs[i];
     var listItem = document.createElement("li");
