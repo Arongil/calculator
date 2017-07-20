@@ -32,3 +32,12 @@
 .noListStyle {
   list-style: none;
 }
+
+button {
+  display: inline-block;
+  margin: 2%;
+  font-family: "arial", serif;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+}
