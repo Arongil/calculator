@@ -29,8 +29,6 @@
       <p class="big center">How Does it Work?</p>
       <br>
       <p class="medium center">Overview</p>
-<!--   <span class="green">parser</span>     -->
-<!--   <span class="blue">LMath</span>     -->
       <p class="small">
           There are two parts to this calculator: a <span class="green">parser</span> that organizes the expression entered, 
         breaking it up by operators and parentheses into simpler 1-step operations the computer can do, and a library of math 
@@ -63,9 +61,9 @@
       <ul id="LMathAttributesList" class="noListStyle"></ul>
       <script>
         var LMathAttributes = [
-          {"name": "derivativeMargin", "description": ""},
-          {"name": "error", "description": "blobberfish"},
-          {"name": "PI", "description": ""},
+          {"name": "derivativeMargin", "description": "h in the limit definition of a derivative: (f(x + h) - f(x))/h"},
+          {"name": "error", "description": "A guaranteed precision for results."},
+          {"name": "PI", "description": "pi = 3.14159..."},
           {"name": "RECPI", "description": ""},
           {"name": "TAU", "description": ""},
           {"name": "RECTAU", "description": ""},
@@ -122,7 +120,7 @@
           
           descriptionP = document.createElement("p");
           descriptionP.textContent = attribute.description;
-          descriptionP.style.display = none;
+          descriptionP.style.display = "none";
           descriptionDiv.appendChild(descriptionP);
           
           expandButton = document.createElement("button");
