@@ -71,12 +71,13 @@
           }
         }
         
-        var attribute, ul, li, titleSpan, br, descriptionDiv, descriptionP, expandButton;
+        var attribute, ul, li, titleSpan, descriptionDiv, descriptionP, expandButton;
         ul = document.getElementById("LMathAttributesList");
         for (var i = 0; i < LMathAttributes.length; i++) {
           attribute = LMathAttributes[i];
           
           li = document.createElement("li");
+          li.style.width = "60%";
           
           titleSpan = document.createElement("span");
           titleSpan.className = "blue medium";
@@ -84,7 +85,6 @@
           li.appendChild(titleSpan);
           
           descriptionDiv = document.createElement("div");
-          descriptionDiv.style.display = "inline";
           
           descriptionP = document.createElement("p");
           descriptionP.id = "descriptionP" + i;
@@ -93,16 +93,15 @@
           
           expandButton = document.createElement("button");
           expandButton.className = "center";
-          expandButton.style.fontSize = "100%";
+          expandButton.style.fontSize = "140%";
+          expandButton.style.padding = "1%";
           expandButton.textContent = "+";
           expandButton.descriptionPId = descriptionP.id;
           expandButton.onclick = function() {
             toggleExpand(document.getElementById(this.descriptionPId), this);
           };
           
-          descriptionDiv.appendChild(expandButton);
-          br = document.createElement("br");
-          descriptionDiv.appendChild(br);
+          li.appendChild(expandButton);
           descriptionDiv.appendChild(descriptionP);
           
           li.appendChild(descriptionDiv);
