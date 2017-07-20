@@ -243,8 +243,13 @@ function calculate(equationInput) {
   return equation;
 }
 
+function fixedTo(number, decimals) {
+  var fixedNumber = LMath.floor(number * LMath.intPower(10, decimals)) / LMath.intPower(10, decimals);
+  return fixedNumber;
+};
+
 function outputAnswer(equationInputId, outputId) {
   var output = document.getElementById(outputId);
   var equationInput = document.getElementById(equationInputId).value;
-  output.textContent = equationInput + " = " + calculate(equationInput);
+  output.textContent = equationInput + " = " + fixedTo(calculate(equationInput), 5);
 }
