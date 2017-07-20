@@ -178,6 +178,14 @@ var LMath = {
     
     return cos / sin;
   },
+  asin: function(x) {
+  },
+  acos: function(x) {
+  },
+  atan: function(x) {
+  },
+  atan2: function(y, x) {
+  },
 };
 
 var LMathAttributes = [
@@ -211,4 +219,8 @@ var LMathAttributes = [
   {"name": "csc", "description": "The cosecant function returns the cosecant of x, or 1 / sin(x)."},
   {"name": "sec", "description": "The secant function returns the secant of x, or 1 / cos(x)."},
   {"name": "cot", "description": "The cotangent function returns the cotangent of x, or cos(x)/sin(x)."},
+  {"name": "asin", "description": ""},
+  {"name": "acos", "description": ""},
+  {"name": "atan", "description": ""},
+  {"name": "atan2", "description": ""},
 ];
