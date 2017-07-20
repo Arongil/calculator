@@ -90,7 +90,9 @@ function findNextParenthesisPair(equation, lastCloserIndex) {
   return false;
 }
 
-function replaceConstant(constant, index) {
+function replaceConstant(equation, index) {
+  var constant = equation[index];
+  
   if (constant == "pi") {
     equation.splice(index, 1, LMath.PI);
   }
@@ -190,7 +192,7 @@ function calculate(equationInput) {
   // Constants
   for (var i = 0; i < equation.length; i++) {
     if (isConstant(equation[i])) {
-      replaceConstant(equation[i], i);
+      replaceConstant(equation, i);
     }
   }
   // Functions
