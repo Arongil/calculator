@@ -95,9 +95,9 @@
           expandButton.style.marginLeft = "4%";
           expandButton.style.fontSize = "100%";
           expandButton.textContent = "+";
-          expandButton.classNames = descriptionP.id;
+          expandButton.descriptionPId = descriptionP.id;
           expandButton.onclick = function() {
-            toggleExpand(document.getElementById(this.className), this);
+            toggleExpand(document.getElementById(this.descriptionPId), this);
           };
           
           descriptionDiv.appendChild(expandButton);
