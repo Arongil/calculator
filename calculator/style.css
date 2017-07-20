@@ -29,6 +29,10 @@
   color: rgb(100, 160, 255);
 }
 
+.arial {
+  font-family: "arial";
+}
+
 .noListStyle {
   list-style: none;
 }
