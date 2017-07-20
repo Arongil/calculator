@@ -56,6 +56,8 @@ function populateProgramsList(programs, outputId) {
 }
 
 var listPrograms = [
+  new Program("3D Engine", "javascript", "https://s.codepen.io/Arongil/debug/RgEwoO", "http://i.imgur.com/JojQBB9.png",
+              "A Perspective-3D engine I built from scratch. By default, the camera moves with WASD and orients itself with the mouse, looking at a cube of spheres."),
   new Program("Void", "javascript", "http://www.arongil.com/void", "http://i.imgur.com/GJUcZOr.jpg",
               "But a speck in space, harnessing void energies may be your last chance for survival. Use the WASD keys and mouse to explore an artificial world. [Not Completed]"),
   new Program("Waves", "javascript", "https://s.codepen.io/Arongil/debug/zwBEMO", "https://imgur.com/kDxPBNc.png",
