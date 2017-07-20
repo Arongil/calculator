@@ -60,7 +60,52 @@
         <br><br><span class="center"><strong>sqrt -> pow -> ln -> exp -> intPow -> isInt -> floor -> basic operations</strong></span><br><br>
         <span class="blue">LMath's</span> methods and constants, linked to descriptions and examples.
       </p>
-      <ul class="small noListStyle">
+      <ul id="LMathAttributesList" class="noListStlye"></ul>
+      <script>
+        var LMathAttributes = [
+          {"name": "derivativeMargin", "description": ""},
+          {"name": "error", "description": ""},
+          {"name": "PI", "description": ""},
+          {"name": "RECPI", "description": ""},
+          {"name": "TAU", "description": ""},
+          {"name": "RECTAU", "description": ""},
+          {"name": "E", "description": ""},
+          {"name": "RECE", "description": ""},
+          {"name": "LN2", "description": ""},
+          {"name": "SQRT2", "description": ""},
+          {"name": "RECSQRT2", "description": ""},
+          {"name": "abs", "description": ""},
+          {"name": "floor", "description": ""},
+          {"name": "ceil", "description": ""},
+          {"name": "round", "description": ""},
+          {"name": "isInt", "description": ""},
+          {"name": "intPower", "description": ""},
+          {"name": "factorial", "description": ""},
+          {"name": "derivativeApproximation", "description": ""},
+          {"name": "newtonianApproximation", "description": ""},
+          {"name": "ln", "description": ""},
+          {"name": "exp", "description": ""},
+          {"name": "pow", "description": ""},
+          {"name": "sqrt", "description": ""},
+          {"name": "sin", "description": ""},
+          {"name": "cos", "description": ""},
+          {"name": "tan", "description": ""},
+          {"name": "csc", "description": ""},
+          {"name": "sec", "description": ""},
+          {"name": "cot", "description": ""},
+        ];
+        
+        var attribute, ul, li;
+        ul = document.getElementById("LMathAttributesList");
+        for (var i = 0; i < LMathAttributes.length; i++) {
+          attribute = LMathAttributes[i];
+          
+          li = document.createElement("li");
+          li.innerHTML = "<span class="blue medium">attribute.name</span>";
+          ul.appendChild(li);
+        }
+      </script>
+<!--       <ul class="small noListStyle">
         <li><a href="#derivativeMargin">derivativeMargin</a></li>
         <li><a href="#error">error</a></li>
         <li><a href="#PI">PI</a></li>
@@ -184,7 +229,7 @@
         <li id="cot">
           <span class="blue medium">cot(x)</span>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </body>
 </html>
