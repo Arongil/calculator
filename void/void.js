@@ -14,12 +14,12 @@ var crosshairSize;
 var start;
 
 var InputFlags = {
-  // 37 is the left arrow. 38 is the up arrow. 39 is the right arrow.
-  "37": false,
-  "38": false,
-  "39": false,
-  "40": false,
+  // 65 is the a key. 68 is the d key. 83 is the s key. 87 is the w key. 32 is the space bar.
   "32": false,
+  "65": false,
+  "68": false,
+  "83": false,
+  "87": false,
   "click": false,
   "mousepos": {
     "x": 0,
@@ -172,10 +172,10 @@ var Player = (function() {
     }
     
     // Void depletion due to movement or the dark laser.
-    var left = InputFlags["37"];
-    var up = InputFlags["38"];
-    var right = InputFlags["39"];
-    var down = InputFlags["40"];
+    var left = InputFlags["65"];
+    var up = InputFlags["87"];
+    var right = InputFlags["68"];
+    var down = InputFlags["83"];
     var space = InputFlags["32"];
     if (space) {
       left = true;
@@ -225,17 +225,17 @@ var Player = (function() {
   
   Player.prototype.fly = function() {
     // Boost with the rockets.
-    if (InputFlags["37"] && this.void > this.voidFlameCost) {
+    if (InputFlags["65"] && this.void > this.voidFlameCost) {
       // Left arrow key.
       var leftTheta = this.theta + 5/3 * pi;
       this.vel.shift(Vector2D.FromPolar(leftTheta + pi, this.speed));
     }
-    if (InputFlags["38"] && this.void > this.voidFlameCost) {
+    if (InputFlags["87"] && this.void > this.voidFlameCost) {
       // up arrow key.
       var downTheta = this.theta + pi;
       this.vel.shift(Vector2D.FromPolar(downTheta + pi, this.speed));
     }
-    if (InputFlags["39"] && this.void > this.voidFlameCost) {
+    if (InputFlags["68"] && this.void > this.voidFlameCost) {
       // Right arrow key.
       var rightTheta = this.theta + 1/3 * pi;
       this.vel.shift(Vector2D.FromPolar(rightTheta + pi, this.speed));
@@ -270,7 +270,7 @@ var Player = (function() {
     this.theta += this.omega;
     
     // Activate the dark laser if the down key (keycode: 40) is pressed.
-    this.darkLaser.activated = InputFlags["40"] || InputFlags["32"];
+    this.darkLaser.activated = InputFlags["83"] || InputFlags["32"];
     if (this.void < this.darkLaserCost) {
       this.darkLaser.activated = false;
     }
@@ -296,17 +296,17 @@ var Player = (function() {
     if (pos === undefined) {
       pos = this.pos.clone();
     }
-    if (InputFlags["37"] || InputFlags["32"] && this.void > this.voidFlameCost) {
+    if (InputFlags["65"] || InputFlags["32"] && this.void > this.voidFlameCost) {
       // Left arrow key.
       var leftTheta = this.theta + 5/3 * pi;
       this.drawFlame(pos.getShifted(Vector2D.FromPolar(leftTheta, this.radius)), leftTheta, this.radius);
     }
-    if (InputFlags["38"] || InputFlags["32"] && this.void > this.voidFlameCost) {
+    if (InputFlags["87"] || InputFlags["32"] && this.void > this.voidFlameCost) {
       // up arrow key.
       var downTheta = this.theta + pi;
       this.drawFlame(pos.getShifted(Vector2D.FromPolar(downTheta, this.radius)), downTheta, this.radius);
     }
-    if (InputFlags["39"] || InputFlags["32"] && this.void > this.voidFlameCost) {
+    if (InputFlags["68"] || InputFlags["32"] && this.void > this.voidFlameCost) {
       // Right arrow key.
       var rightTheta = this.theta + 1/3 * pi;
       this.drawFlame(pos.getShifted(Vector2D.FromPolar(rightTheta, this.radius)), rightTheta, this.radius);
