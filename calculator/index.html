@@ -80,22 +80,30 @@
           
           titleSpan = document.createElement("span");
           titleSpan.classNames = "blue medium";
-          titleSpan.style.margin = "4%";
           titleSpan.textContent = attribute.name;
           li.appendChild(titleSpan);
-          br = document.createElement("br");
           
           descriptionDiv = document.createElement("div");
+          descriptionDiv.style.display = "inline";
           
           descriptionP = document.createElement("p");
+          descriptionP.id = "descriptionP" + i;
           descriptionP.textContent = attribute.description;
           descriptionP.style.display = "none";
-          descriptionDiv.appendChild(descriptionP);
           
           expandButton = document.createElement("button");
+          expandButton.style.marginLeft = "4%";
+          expandButton.style.fontSize = "100%";
           expandButton.textContent = "+";
-          expandButton.onclick = "toggleExpand(descriptionP, expandButton);";
+          expandButton.classNames = descriptionP.id;
+          expandButton.onclick = function() {
+            toggleExpand(document.getElementById(this.className), this);
+          };
+          
           descriptionDiv.appendChild(expandButton);
+          br = document.createElement("br");
+          descriptionDiv.appendChild(br);
+          descriptionDiv.appendChild(descriptionP);
           
           li.appendChild(descriptionDiv);
           
