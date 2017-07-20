@@ -1,0 +1,11 @@
+body {
+  background-color: silver;
+}
+
+canvas {
+  cursor: none;
+  padding: 0;
+  margin: auto;
+  display: block;
+  background-color: black;
+}
