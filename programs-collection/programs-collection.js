@@ -56,6 +56,8 @@ function populateProgramsList(programs, outputId) {
 }
 
 var listPrograms = [
+  new Program("Calculator", "javascript", "http://www.arongil.com/calculator", "http://i.imgur.com/zx8A4pc.png",
+              "A Calculator built using LMath, a custom library of math functions that I built from scratch, and an advanced parser."),
   new Program("3D Engine", "javascript", "https://s.codepen.io/Arongil/debug/RgEwoO", "http://i.imgur.com/JojQBB9.png",
               "A Perspective-3D engine I built from scratch. By default, the camera moves with WASD and orients itself with the mouse, looking at a cube of spheres."),
   new Program("Void", "javascript", "http://www.arongil.com/void", "http://i.imgur.com/GJUcZOr.jpg",
