@@ -60,18 +60,18 @@
       </p>
       <ul id="LMathAttributesList" class="noListStyle"></ul>
       <script>
-        function toggleExpand(p, button) {
-          if (p.style.display == "none") {
-            p.style.display = "initial";
+        function toggleExpand(element, button) {
+          if (element.style.display == "none") {
+            element.style.display = "initial";
             button.textContent = "-";
           }
           else {
-            p.style.display = "none";
+            element.style.display = "none";
             button.textContent = "+";
           }
         }
         
-        var attribute, ul, li, titleSpan, descriptionDiv, descriptionP, expandButton;
+        var attribute, ul, li, titleSpan, descriptionDiv, br, descriptionP, expandButton;
         ul = document.getElementById("LMathAttributesList");
         for (var i = 0; i < LMathAttributes.length; i++) {
           attribute = LMathAttributes[i];
@@ -82,22 +82,27 @@
           titleSpan.className = "blue medium";
           titleSpan.textContent = attribute.name;
           
+          descriptionDiv = document.createElement("div");
+          descriptionDiv.id = "descriptionDiv" + i;
+          
           descriptionP = document.createElement("p");
-          descriptionP.id = "descriptionP" + i;
           descriptionP.textContent = attribute.description;
           descriptionP.style.display = "none";
           
           expandButton = document.createElement("button");
           expandButton.style.fontSize = "100%";
           expandButton.textContent = "+";
-          expandButton.descriptionPId = descriptionP.id;
+          expandButton.descriptionDivId = descriptionDiv.id;
           expandButton.onclick = function() {
-            toggleExpand(document.getElementById(this.descriptionPId), this);
+            toggleExpand(document.getElementById(this.descriptionDivId), this);
           };
           
           li.appendChild(expandButton);
           li.appendChild(titleSpan);
-          li.appendChild(descriptionP);
+          br = document.createElement("br");
+          descriptionDiv.appendChild(br);
+          descriptionDiv.appendChild(descriptionP);
+          li.appendChild(descriptionDiv);
           
           ul.appendChild(li);
         }
