@@ -72,7 +72,7 @@
           {"name": "LN2", "description": "The natural log of 2 = ln(2) = 0.69314..."},
           {"name": "SQRT2", "description": "The square root of 2 = sqrt(2) = 1.41421..."},
           {"name": "RECSQRT2", "description": "1 / sqrt(2) = 0.70710..."},
-          {"name": "abs", "description": "The absolute value function returns the input made positive: if the input is negative, return negative input to make it positive."},
+          {"name": "abs", "description": "The absolute value function returns the input made positive: if the input is negative, return negative input (-x) to make it positive and if the input is positive, return it."},
           {"name": "floor", "description": ""},
           {"name": "ceil", "description": ""},
           {"name": "round", "description": ""},
@@ -104,7 +104,7 @@
           }
         }
         
-        var attribute, ul, li, titleSpan, descriptionDiv, descriptionP, expandButton;
+        var attribute, ul, li, titleSpan, br, descriptionDiv, descriptionP, expandButton;
         ul = document.getElementById("LMathAttributesList");
         for (var i = 0; i < LMathAttributes.length; i++) {
           attribute = LMathAttributes[i];
@@ -115,6 +115,8 @@
           titleSpan.classNames = "blue medium";
           titleSpan.textContent = attribute.name;
           li.appendChild(titleSpan);
+          br = document.createElement("br");
+          li.appendChild(br);
           
           descriptionDiv = document.createElement("div");
           
@@ -124,6 +126,7 @@
           descriptionDiv.appendChild(descriptionP);
           
           expandButton = document.createElement("button");
+          expandButton.textContent = "+";
           expandButton.onclick = toggleExpand(descriptionP, expandButton);
           descriptionDiv.appendChild(expandButton);
           
