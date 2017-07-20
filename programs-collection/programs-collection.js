@@ -60,7 +60,7 @@ var listPrograms = [
              "The Wave Equation implemented in 3D using methods adapted from the Projecting Heightmaps program. Click to create a distubance and behold a wave ripple, reflect, and interfere with itself, much the way a pebble thrown into a pond does."),
   new Program("Ooze", "javascript", "https://s.codepen.io/Arongil/debug/eWNZXE/YvAgOPaXQbDA", "https://i.imgur.com/N8B4sg6.png",
              "Watch the eternal battle of source blocks unfold, and create new sources yourself by clicking! Enter hypermode to calculate blazingly fast or reset the canvas to a blank state. Explore Ooze!"),
-  new Program("Bird Breaker", "javascript", "https://s.codepen.io/Arongil/debug/rjEPvY/bZAQWybpLwZM", "https://i.imgur.com/UvM603K.png",
+  new Program("Bird Breaker", "javascript", "www.arongil.com/bird-breaker", "https://i.imgur.com/UvM603K.png",
              "Bird Breaker is a 2D game to kill birds. Fly through the sky in a plane, bouncing a ball-of-bird-death in a manner similar to Atari's Breakout. Try three different levels: Normal, Endless, and Bird King, and buy different planes to best each bird that you fly by."),
   new Program("Chess", "python", "https://trinket.io/library/trinkets/d56d41fffa", "https://imgur.com/NEE7lap.png",
              "Classic chess with good old castling and clocks."),
