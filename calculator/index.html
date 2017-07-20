@@ -127,7 +127,7 @@
           
           expandButton = document.createElement("button");
           expandButton.textContent = "+";
-          expandButton.onclick = toggleExpand(descriptionP, expandButton);
+          expandButton.onclick = "toggleExpand(descriptionP, expandButton);";
           descriptionDiv.appendChild(expandButton);
           
           li.appendChild(descriptionDiv);
