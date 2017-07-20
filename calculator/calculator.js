@@ -20,7 +20,19 @@ function isFunction(char) {
       char == "tan" ||
       char == "csc" ||
       char == "sec" ||
-      char == "cot") {
+      char == "cot" ||
+      char == "asin"||
+      char == "acos"||
+      char == "atan") {
+    return true;
+  }
+  
+  return false;
+}
+
+function isConstant(char) {
+  if (char == "pi" ||
+      char == "e") {
     return true;
   }
   
@@ -78,6 +90,15 @@ function findNextParenthesisPair(equation, lastCloserIndex) {
   return false;
 }
 
+function replaceConstant(constant, index) {
+  if (constant == "pi") {
+    equation.splice(index, 1, LMath.PI);
+  }
+  else if (constant == "e") {
+    equation.splice(index, 1, LMath.E);
+  }
+}
+
 function operateFunction(equation, index) {
   var func = equation[index];
   var input = parseFloat(equation[index + 1]);
@@ -85,10 +106,10 @@ function operateFunction(equation, index) {
   if (func == "ln") {
     equation.splice(index, 2, LMath.ln(input).toString());
   }
-  if (func == "sqrt") {
+  else if (func == "sqrt") {
     equation.splice(index, 2, LMath.sqrt(input).toString());
   }
-  if (func == "sin") {
+  else if (func == "sin") {
     equation.splice(index, 2, LMath.sin(input).toString());
   }
   else if (func == "cos") {
@@ -105,6 +126,15 @@ function operateFunction(equation, index) {
   }
   else if (func == "cot") {
     equation.splice(index, 2, LMath.cot(input).toString());
+  }
+  else if (func == "asin") {
+    equation.splice(index, 2, LMath.asin(input).toString());
+  }
+  else if (func == "acos") {
+    equation.splice(index, 2, LMath.acos(input).toString());
+  }
+  else if (func == "atan") {
+    equation.splice(index, 2, LMath.atan(input).toString());
   }
 }
 
@@ -156,6 +186,12 @@ function calculate(equationInput) {
     
     // End with the opener because the parentheses will be evaluated and compressed to length 1, rendering nextParentheses.closer too far ahead. closer - (closer - opener) = new closer.
     lastCloserIndex = nextParentheses.opener;
+  }
+  // Constants
+  for (var i = 0; i < equation.length; i++) {
+    if (isConstant(equation[i])) {
+      replaceConstant(equation[i], i);
+    }
   }
   // Functions
   for (var i = 0; i < equation.length; i++) {
