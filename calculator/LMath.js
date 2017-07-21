@@ -21,7 +21,22 @@ var LMath = {
       return -LMath.floor(-x) - 1;
     }
     
-    return x | 0;
+    if (x < 2147483648) { // 2^31
+      return x | 0;
+    }
+    
+    var floored = 0, approx = 1;
+    while (approx*10 < x) {
+      approx *= 10;
+    }
+    while (floored + 1 <= x) {
+      while (floored + approx <= x) {
+        floored += approx;
+      }
+      approx *= 0.1;
+    }
+    
+    return floored;
   },
   ceil: function(x) {
     return LMath.floor(x + 1 - LMath.error);
