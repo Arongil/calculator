@@ -251,5 +251,5 @@ function fixedTo(number, decimals) {
 function outputAnswer(equationInputId, outputId) {
   var output = document.getElementById(outputId);
   var equationInput = document.getElementById(equationInputId).value;
-  output.textContent = equationInput + " = " + fixedTo(calculate(equationInput), 5);
+  output.textContent = equationInput + " = " + fixedTo(calculate(equationInput), 10);
 }
