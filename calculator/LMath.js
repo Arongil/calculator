@@ -21,18 +21,7 @@ var LMath = {
       return -LMath.floor(-x) - 1;
     }
     
-    var floored = 0, approx = 1;
-    while (approx*10 < x) {
-      approx *= 10;
-    }
-    while (floored + 1 <= x) {
-      while (floored + approx <= x) {
-        floored += approx;
-      }
-      approx *= 0.1;
-    }
-    
-    return floored;
+    return x | 0;
   },
   ceil: function(x) {
     return LMath.floor(x + 1 - LMath.error);
@@ -48,7 +37,7 @@ var LMath = {
   },
   intPower: function(b, exponent) {
     if (LMath.isInt(exponent) == false) {
-      throw("ERROR: intPower only takes integer exponents.");
+      throw("TYPE ERROR: intPower only takes integer exponents.");
     }
     
     var base = 1;
@@ -69,13 +58,20 @@ var LMath = {
     }
     return fact;
   },
-  derivativeApproximation: function(f, x) {
-    return (f(x + LMath.derivativeMargin) - f(x)) / LMath.derivativeMargin;
+  derivativeApproximation: function(f, x, fx) {
+    if (fx === undefined) {
+      fx = f(x);
+    }
+    return (f(x + LMath.derivativeMargin) - fx) / LMath.derivativeMargin;
   },
   newtonianApproximation: function (f, guess) {
-    var adjust;
+    if (guess === undefined) {
+      guess = 1;
+    }
+    var adjust, fguess;
     do {
-      adjust = f(guess) / LMath.derivativeApproximation(f, guess);
+      fguess = f(guess);
+      adjust = fguess / LMath.derivativeApproximation(f, guess, fguess);
       guess = guess - adjust;
     } while(LMath.abs(adjust) > LMath.error);
     
@@ -88,8 +84,8 @@ var LMath = {
     
     // ln(x) = ln(reduced * 2^powsOf2) = ln(reduced) + ln(2^powsOf2) = ln(reduced) + powsOf2*ln(2);
     var reduced = x, powsOf2 = 0;
-    while (reduced > 4) {
-      reduced /= 2;
+    while (reduced > 2) {
+      reduced *= 0.5;
       powsOf2++;
     }
     
@@ -179,6 +175,13 @@ var LMath = {
     return cos / sin;
   },
   asin: function(x) {
+    if (LMath.abs(x) > 1) {
+      throw("DOMAIN ERROR: arcsin's domain is -1 to 1. The input passed in was out of its domain.");
+    }
+    var number = x;
+    return LMath.newtonianApproximation(function(input) {
+      return number - LMath.sin(input);
+    }, 0);
   },
   acos: function(x) {
   },
@@ -187,6 +190,29 @@ var LMath = {
   atan2: function(y, x) {
   },
 };
+
+/***
+
+BENCHMARKS
+
+For iterating 100000 (1e6) times, calculating the function on a random value of the specified range each time.
+
+LMath.floor(x)  [0<x<1e10] takes 425.320  milliseconds
+Math.floor(x)   [0<x<1e10] takes 426.530  milliseconds
+
+LMath.ln(x)     [0<x<1e10] takes 2578.095 milliseconds
+Math.log(x)     [0<x<1e10] takes 415.099  milliseconds
+
+LMath.exp(x)     [0<x<1e2] takes 2510.22  milliseconds
+Math.exp(x)      [0<x<1e2] takes 457.975  milliseconds
+
+LMath.sqrt(x)   [0<x<1e10] takes 5973.49  milliseconds    (about)
+Math.sqrt(x)    [0<x<1e10] takes 467.329  milliseconds
+
+LMath.sin(x)     [0<x<1e5] takes 932.155  milliseconds
+Math.sin(x)      [0<x<1e5] takes 457.975  milliseconds
+
+***/
 
 var LMathAttributes = [
   {"name": "derivativeMargin", "description": "h in the limit definition of a derivative: (f(x + h) - f(x))/h"},
