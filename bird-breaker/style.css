@@ -1,3 +1,24 @@
+.xbig {
+  font-size: 300%;
+}
+.big {
+  font-size: 220%;
+}
+.medium {
+  font-size: 160%;
+}
+.small {
+  font-size: 100%;
+}
+.xsmall {
+  font-size: 60%;
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+}
+
 body {
   background-color: black;
 }
