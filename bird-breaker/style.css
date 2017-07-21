@@ -19,6 +19,22 @@
   text-align: center;
 }
 
+.red {
+  color: rgb(255, 70, 70);
+}
+.green {
+  color: rgb(60, 160, 20);
+}
+.blue {
+  color: rgb(100, 160, 255);
+}
+.black {
+  color: rgb(0, 0, 0);
+}
+.white {
+  color: rgb(240, 240, 240);
+}
+
 body {
   background-color: black;
 }
