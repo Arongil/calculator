@@ -28,6 +28,12 @@
 .blue {
   color: rgb(100, 160, 255);
 }
+.black {
+  color: rgb(0, 0, 0);
+}
+.white {
+  color: rgb(240, 240, 240);
+}
 
 .arial {
   font-family: "arial", serif;
