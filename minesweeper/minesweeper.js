@@ -99,7 +99,7 @@ function GameMinefield(map, n) {
 var GameController = (function() {
   
   function GameController() {
-    this.n = 80; // how many mines
+    this.n = 70; // how many mines
     this.minefield = new GameMinefield([], this.n);
     this.playerView = new GameMinefield([], this.n);
     this.width = 25;
