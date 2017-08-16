@@ -200,7 +200,7 @@ var GameController = (function() {
   
   GameController.prototype.getTileMousedOver = function() {
     var mouseX = InputFlags.mousepos.x, mouseY = InputFlags.mousepos.y, row, col;
-    row = Math.floor(mouseY / this.blockSize);
+    row = Math.floor(mouseY / this.blockSize + 1/2);
     col = Math.floor(mouseX / this.blockSize);
     if (row > -1 && row < this.height && col > -1 && col < this.width) {
       return this.minefield.getTile(row, col);
