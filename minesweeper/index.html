@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minesweeper</title>
+    
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <canvas id="canvas" style="padding: 4%; margin: auto;" oncontextmenu="return false;"></canvas>
+    <button onclick="callEasyLogic()" style="padding: 0.2%; margin: auto;">Easy Logic</button>
+    <button onclick="callContradictionSearch()" style="padding: 0.2%; margin: auto;">Contradiction Search</button>
+    <script src="minesweeper.js"></script>
+    <script src="minesweeper-solver.js"></script>
+    <script>
+      function open(row, col) {
+        var surroundingMines = GC.getMinesSurrounding(GC.minefield.getTile(row, col));
+        if (surroundingMines == "x") {
+          GC.displayEndScreen(false);
+          return;
+        }
+        return surroundingMines;
+      }
+      function gameTilesMatrixToTiles(matrix) {
+        var tilesMatrix = [], gameTile, row, col;
+        for (row = 0; row < matrix.length; row++) {
+          tilesMatrix.push([]);
+          for (col = 0; col < matrix[row].length; col++) {
+            gameTile = matrix[row][col];
+            if (gameTile.value == "#") {
+              gameTile.value = "x";
+            }
+            tilesMatrix[row].push(new Tile(gameTile.row, gameTile.col, gameTile.value));
+          }
+        }
+        return tilesMatrix;
+      }
+      function tilesMatrixToGameTiles(matrix) {
+        var gameTilesMatrix = [], tile, row, col;
+        for (row = 0; row < matrix.length; row++) {
+          gameTilesMatrix.push([]);
+          for (col = 0; col < matrix[row].length; col++) {
+            tile = matrix[row][col];
+            if (typeof tile.value == "number") {
+              tile.value = tile.value.toString();
+            }
+            if (tile.value == "x") {
+              tile.value = "#";
+            }
+            gameTilesMatrix[row].push(new GameTile(tile.row, tile.col, tile.value));
+          }
+        }
+        return gameTilesMatrix;
+      }
+      function callEasyLogic() {
+        var minefield = new Minefield(gameTilesMatrixToTiles(GC.playerView.minefield), GC.n);
+        minefield.getUnclonedTiles().forEach(function(tile) {
+          if (typeof tile.value == "number") {
+            tile.updateWorkingValue(minefield);
+          }
+        });
+        minefield.iterateEasyLogic();
+        GC.playerView.minefield = tilesMatrixToGameTiles(minefield.minefield);
+        GC.displayMinefield();
+        GC.checkBoardCompletion();
+      }
+      function callContradictionSearch() {
+        var minefield = new Minefield(gameTilesMatrixToTiles(GC.playerView.minefield), GC.n);
+        minefield.getUnclonedTiles().forEach(function(tile) {
+          if (typeof tile.value == "number") {
+            tile.updateWorkingValue(minefield);
+          }
+        });
+        minefield.contradictionSearch();
+        GC.playerView.minefield = tilesMatrixToGameTiles(minefield.minefield);
+        GC.displayMinefield();
+        GC.checkBoardCompletion();
+      }
+    </script>
+  </body>
+</html>
