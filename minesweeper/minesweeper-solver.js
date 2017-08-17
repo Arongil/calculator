@@ -108,7 +108,7 @@ function Minefield(map, n) {
     this.minefield[tile.row][tile.col] = tile;
   };
   this.open = function(tile) {
-    this.set(new Tile(tile.row, tile.col, open(tile.row, tile.col)));
+    this.set(new Tile(tile.row, tile.col, parseInt(open(tile.row, tile.col))));
     this.getUnclonedTile(tile.row, tile.col).updateWorkingValue(this);
   };
   this.flag = function(tile) {
@@ -126,6 +126,11 @@ function Minefield(map, n) {
         safeTiles.push(unknownTile);
       }
     }, this);
+    
+    // If any the board's mines have all been flagged, all leftover squares are open.
+    if (this.getTiles().filter(function(tile) { return tile.value == "x"; }).length == this.n) {
+      this.getUnclonedUnknownTiles().forEach(function(leftOverTile) { safeTiles.push(leftOverTile); });
+    }
     
     return safeTiles;
   };
@@ -188,9 +193,11 @@ function Minefield(map, n) {
       return this.getTilesSurrounding(unknownTile).filter(function(tile) { return typeof tile.value == "number"; }).length > 0;
     }, this);
     
-    var unknownTile, hypotheticalMinefield, hypotheticalMines, impossibilities, strandedTiles;
+    var unknownTile, hypotheticalMinefield, hypotheticalMines, impossibilities, strandedTiles, minesLeftToFlag;
     for (var i in unknownTilesBorderingNumericTiles) {
       unknownTile = unknownTilesBorderingNumericTiles[i];
+      
+      minesLeftToFlag = this.n - this.getTiles().filter(function(tile) { return tile.value == "x"; }).length; // How many mines
       
       hypotheticalMinefield = this.clone();
       
@@ -217,6 +224,7 @@ function Minefield(map, n) {
         numericTile.workingValue -= 1;
       });
       addPlaceholderNumbersAround(hypotheticalAssumptionMine);
+      minesLeftToFlag -= 1;
       
       do {
         hypotheticalMines = hypotheticalMinefield.findMines(); // A
@@ -224,7 +232,15 @@ function Minefield(map, n) {
           hypotheticalMine.value = "*"; hypotheticalMine.workingValue = "*";
           addPlaceholderNumbersAround(hypotheticalMine);
         });
-        impossibilities = hypotheticalMinefield.getNumericTiles() // B part 1
+        minesLeftToFlag -= hypotheticalMines.length;
+        if (minesLeftToFlag == 0) {
+          // All tiles are safe, for all mines have been flagged.
+          hypotheticalMinefield.getUnclonedUnknownTiles().forEach(function(unknownTile) {
+            unknownTile.value =  "#"; unknownTile.workingValue =  "#";
+          });
+        }
+        // B part 1: Are there any tiles with too many mines around them?
+        impossibilities = hypotheticalMinefield.getNumericTiles()
           .filter(function(numericTile) { return numericTile.workingValue < 0; });
         // B part 2: Are there any "stranded" tiles who need more mines than they have unknown tiles around them?
         strandedTiles = hypotheticalMinefield.getNumericTiles().filter(function(numericTile) {
@@ -235,6 +251,10 @@ function Minefield(map, n) {
         strandedTiles.forEach(function(strandedTile) {
           impossibilities.push(strandedTile);
         });
+        // B part 3: Are there more mines on the board than there can be?
+        if (minesLeftToFlag < 0) {
+          impossibilities.push("impossible number of mines");
+        }
       } while(hypotheticalMines.length > 0 && impossibilities.length == 0);
       
       if (impossibilities.length > 0) {
@@ -245,6 +265,7 @@ function Minefield(map, n) {
     }
     
     // No impossibilities found: the board must be ambiguous, impossible to solve!
+    console.log(minefieldMatrixToString(minefieldTilesToMatrix(this.minefield)));
     return "?";
   };
 }
