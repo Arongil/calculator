@@ -10,6 +10,7 @@
     <canvas id="canvas" style="padding: 4%; margin: auto;" oncontextmenu="return false;"></canvas>
     <button onclick="callEasyLogic()" style="padding: 0.2%; margin: auto;">Easy Logic</button>
     <button onclick="callContradictionSearch()" style="padding: 0.2%; margin: auto;">Contradiction Search</button>
+    <button onclick="callSolveMine()" style="padding: 0.2%; margin: auto;">Solve</button>
     <script src="minesweeper.js"></script>
     <script src="minesweeper-solver.js"></script>
     <script>
@@ -72,6 +73,29 @@
           }
         });
         minefield.contradictionSearch();
+        GC.playerView.minefield = tilesMatrixToGameTiles(minefield.minefield);
+        GC.displayMinefield();
+        GC.checkBoardCompletion();
+      }
+      function callSolveMine() {
+        var minefield = new Minefield(gameTilesMatrixToTiles(GC.playerView.minefield), GC.n);
+        minefield.getUnclonedTiles().forEach(function(tile) {
+          if (typeof tile.value == "number") {
+            tile.updateWorkingValue(minefield);
+          }
+        });
+        var easyLogic, contradictionSearch;
+        while (minefield.getUnknownTiles().length > 0) {
+          easyLogic = minefield.iterateEasyLogic();
+          if (easyLogic.length == 0) {
+            // easyLogic did nothing, so try a contradiction search.
+            contradictionSearch = minefield.contradictionSearch();
+            if (contradictionSearch == "?") {
+              // The board is ambiguous, impossible to solve.
+              return "?";
+            }
+          }
+        }
         GC.playerView.minefield = tilesMatrixToGameTiles(minefield.minefield);
         GC.displayMinefield();
         GC.checkBoardCompletion();
