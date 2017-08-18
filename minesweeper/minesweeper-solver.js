@@ -255,6 +255,10 @@ function Minefield(map, n) {
         if (minesLeftToFlag < 0) {
           impossibilities.push("impossible number of mines");
         }
+        // B part 4: Are there less mines on the board than there must be?
+        if (minesLeftToFlag > hypotheticalMinefield.getUnknownTiles().length) {
+          impossibilities.push("impossible number of mines");
+        }
       } while(hypotheticalMines.length > 0 && impossibilities.length == 0);
       
       if (impossibilities.length > 0) {
