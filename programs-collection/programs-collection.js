@@ -57,7 +57,7 @@ function populateProgramsList(programs, outputId) {
 
 var listPrograms = [
   new Program("Minesweeper and Solver", "javascript", "http://www.arongil.com/minesweeper", "http://i.imgur.com/gGx88Z8.png",
-              "Minesweeper, programmed from scratch, with a built-in solver. It can take any board position you find yourself in and make logical moves predicted by the easy logic and the contradiction search functions.")
+              "Minesweeper, programmed from scratch, with a built-in solver. It can take any board position you find yourself in and make logical moves predicted by the easy logic and the contradiction search functions."),
   new Program("3D Engine", "javascript", "https://s.codepen.io/Arongil/debug/RgEwoO", "http://i.imgur.com/JojQBB9.png",
               "A Perspective-3D engine I built from scratch. By default, the camera moves with WASD and orients itself with the mouse, looking at a cube of spheres."),
   new Program("Calculator", "javascript", "http://www.arongil.com/calculator", "http://i.imgur.com/zx8A4pc.png",
