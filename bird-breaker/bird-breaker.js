@@ -482,8 +482,6 @@ var Bird = (function() {
     this.nextChance = 0.5;
     
     this.wiggleNumber = 10000 * (Math.random()*2 - 1);
-    this.wiggleErraticness = 1;
-    this.wiggleScale = this.radius / 5;
     this.flyInNumbers = [pi*(Math.random()*2 - 1), pi*(Math.random()*2 - 1), (Math.random() + 1) / 2 - 0.25, Math.floor(Math.random() * 2)*2 - 1];
   }
   
@@ -540,7 +538,7 @@ var Bird = (function() {
   Bird.prototype.wiggle = function() {
     // Wiggle around, now, if it's not falling.
     if (this.falling == false) {
-      this.pos = this.anchorPos.getShifted(new Vector2D(Math.cos((millis() + this.wiggleNumber) / (100*pi)), 1/2 * Math.sin((millis() * this.wiggleErraticness + this.wiggleNumber) / (50*pi))).getScaled(this.wiggleScale));
+      this.pos = this.anchorPos.getShifted(new Vector2D(Math.cos((millis() + this.wiggleNumber) / (100*pi)), 1/2 * Math.sin((millis() + this.wiggleNumber) / (50*pi))).getScaled(this.radius / 5));
     }
   };
   
@@ -571,8 +569,7 @@ var BirdKing = (function() {
     Bird.call(this, pos);
     
     this.radius *= 3;
-    this.maxLives = 5;
-    this.lives = this.maxLives;
+    this.lives = 5;
     
     // How many bird minions he summons per hit.
     this.power = 8;
@@ -585,11 +582,8 @@ var BirdKing = (function() {
   BirdKing.prototype = Object.create(Bird.prototype);
   
   BirdKing.prototype.hit = function() {
-    
     if (this.birdRain == false) {
       this.lives -= 1;
-      this.wiggleErraticness = (1 - this.lives / this.maxLives);
-      this.wiggleScale += this.radius/10 * this.wiggleErraticness;
 
       // Summon minions
       for (var i = 0; i < this.power; i++) {
@@ -1640,5 +1634,3 @@ function loop() {
   
   window.requestAnimationFrame(loop);
 }
-
-window.onload = init;
