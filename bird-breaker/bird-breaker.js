@@ -1640,5 +1640,3 @@ function loop() {
   
   window.requestAnimationFrame(loop);
 }
-
-window.onload = init;
