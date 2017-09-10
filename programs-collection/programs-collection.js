@@ -56,6 +56,8 @@ function populateProgramsList(programs, outputId) {
 }
 
 var listPrograms = [
+  new Program("Gravity Pong", "javascript", "http://www.arongil.com/gravity-pong", "https://i.imgur.com/kIKQL68.png",
+              "Play pong with gravity and 4 levels of AI to choose from, one as the worst, four as the best! Use the left arrow key for up and the right arrow key for down in this chaotically fun game."),
   new Program("Minesweeper and Solver", "javascript", "http://www.arongil.com/minesweeper", "http://i.imgur.com/gGx88Z8.png",
               "Minesweeper, programmed from scratch, with a built-in solver. It can take any board position you find yourself in and make logical moves predicted by the easy logic and the contradiction search functions."),
   new Program("3D Engine", "javascript", "https://s.codepen.io/Arongil/debug/RgEwoO", "http://i.imgur.com/JojQBB9.png",
