@@ -10,14 +10,24 @@
     <canvas id="canvas"></canvas>
     <div id="game-description" class="center white arial">
       <p class="small">
-        Play pong with gravity and 4 levels of AI to choose from, one as the worst, four as the best!<br>Left arrow key for up, right arrow key for down.
+        Play pong with gravity and 4 levels of AI to choose from, one as the worst, four as the best! (AI level 5 is just for show.)<br>Left arrow key for up, right arrow key for down.
       </p>
+    </div>
+    <div id="game-controls" class="center white arial">
+      <button onclick="GC.paddles[0].AI = !GC.paddles[0].AI;">Toggle AI on Left Paddle</button> <br>
+      <button onclick="GC.paddles[0].AILevel++; if (GC.paddles[0].AILevel > 5) GC.paddles[0].AILevel = 1; updateGameInfoDisplay();">Increment AI level of Left Paddle</button> <br>
+      <button onclick="GC.paddles[1].AILevel++; if (GC.paddles[1].AILevel > 5) GC.paddles[1].AILevel = 1; updateGameInfoDisplay();">Increment AI level of Right Paddle</button> <br>
+      <p id="game-information"></p>
     </div>
     
     <script src="gravity-pong.js"></script>
     <script>
       init();
+      
+      function updateGameInfoDisplay() {
+        var gameInfoDisplay = document.getElementById("game-information");
+        gameInfoDisplay.innerHTML = "Left Paddle's AI is " + (GC.paddles[0].AI ? ("on with the AI Level of " + GC.paddles[0].AILevel) : "off") + ".<br>Right Paddle's AI is " + (GC.paddles[1].AI ? ("on with the AI Level of " + GC.paddles[1].AILevel) : "off") + ".";
+      }
     </script>
-    <button onclick="GC.paddles[0].AI = !GC.paddles[0].AI;">Toggle AI on Left Paddle</button>
   </body>
 </html>
