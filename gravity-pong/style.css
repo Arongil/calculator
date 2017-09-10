@@ -1,0 +1,16 @@
+body {
+  background-color: grey;
+}
+
+canvas {
+  cursor: none;
+  padding: 0;
+  margin: auto;
+  display: block;
+  background-color: black;
+}
+
+#game-description {
+  width: 60%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
