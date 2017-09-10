@@ -334,8 +334,8 @@ var GameController = (function() {
     this.gravityBall = new GravityBall(
       0, 0, 0, Math.random() > 0.5 ? HALFHEIGHT / 60 : -HALFHEIGHT / 60);
     this.paddles = [
-      new Paddle(-HALFWIDTH + WIDTH/70, 0, true, 4),
-      new Paddle(HALFWIDTH - WIDTH/70, 0, true, 5)
+      new Paddle(-HALFWIDTH + WIDTH/70, 0, false, 1),
+      new Paddle(HALFWIDTH - WIDTH/70, 0, true, 1)
     ];
     this.paddles.forEach(paddle => paddle.initOtherPaddles(this), this);
     
