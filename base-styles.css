@@ -1,17 +1,17 @@
 .xbig {
-  font-size: 300%;
+  font-size: 3rem;
 }
 .big {
-  font-size: 220%;
+  font-size: 2.2rem;
 }
 .medium {
-  font-size: 160%;
+  font-size: 1.6rem;
 }
 .small {
-  font-size: 100%;
+  font-size: 1rem;
 }
 .xsmall {
-  font-size: 60%;
+  font-size: 0.6rem;
 }
 
 .center {
