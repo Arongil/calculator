@@ -17,5 +17,6 @@ canvas {
 }
 
 #game-controls {
+  font-size: 0.7rem;
   background-color: rgba(0, 0, 0, 0.2);
 }
