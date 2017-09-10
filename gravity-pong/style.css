@@ -3,7 +3,6 @@ body {
 }
 
 canvas {
-  position: absolute;
   cursor: none;
   padding: 0;
   margin: auto;
@@ -17,6 +16,7 @@ canvas {
 }
 
 #game-controls {
+  position: absolute;
   width: 20%;
   background-color: rgba(0, 0, 0, 0.2);
 }
