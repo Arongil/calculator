@@ -16,5 +16,6 @@ canvas {
 }
 
 #game-controls {
+  padding: 0.5%;
   background-color: rgba(0, 0, 0, 0.2);
 }
