@@ -7,7 +7,7 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div id="game-controls" class="center white xsmall arial">
+    <div id="game-controls" class="center white arial">
       <button onclick="GC.paddles[0].AI = !GC.paddles[0].AI; updateGameInfoDisplay();">Toggle AI of Left Paddle</button> <br>
       <button onclick="GC.paddles[0].AILevel++; if (GC.paddles[0].AILevel > 5) GC.paddles[0].AILevel = 1; updateGameInfoDisplay();">Increment AI level of Left Paddle</button> <br>
       <button onclick="GC.paddles[1].AILevel++; if (GC.paddles[1].AILevel > 5) GC.paddles[1].AILevel = 1; updateGameInfoDisplay();">Increment AI level of Right Paddle</button> <br>
@@ -36,6 +36,8 @@
       gameControls.style.left = WIDTH / 32 + "px";
       gameControls.style.top = HEIGHT / 4 + "px";
       gameControls.style.width = "20%";
+      gameControls.style.padding = WIDTH / 400 + "px";
+      gameControls.style.fontSize = "80%";
     </script>
   </body>
 </html>
