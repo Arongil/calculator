@@ -9,7 +9,7 @@
   <body>
     <canvas id="canvas"></canvas>
     <div id="game-controls" class="center white arial">
-      <button onclick="GC.paddles[0].AI = !GC.paddles[0].AI;">Toggle AI on Left Paddle</button> <br>
+      <button onclick="GC.paddles[0].AI = !GC.paddles[0].AI; updateGameInfoDisplay();">Toggle AI on Left Paddle</button> <br>
       <button onclick="GC.paddles[0].AILevel++; if (GC.paddles[0].AILevel > 5) GC.paddles[0].AILevel = 1; updateGameInfoDisplay();">Increment AI level of Left Paddle</button> <br>
       <button onclick="GC.paddles[1].AILevel++; if (GC.paddles[1].AILevel > 5) GC.paddles[1].AILevel = 1; updateGameInfoDisplay();">Increment AI level of Right Paddle</button> <br>
       <p id="game-information"></p>
