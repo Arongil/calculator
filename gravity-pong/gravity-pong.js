@@ -218,7 +218,7 @@ var Paddle = (function() {
   
   function Paddle(x, y, AI, AILevel) {
     this.pos = new Vector2D(x, y);
-    this.speed = HEIGHT / 20;//100;
+    this.speed = HEIGHT / 100;
     this.width = WIDTH / 35;
     this.height = HEIGHT / 4;
     
