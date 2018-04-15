@@ -65,7 +65,7 @@ var listPrograms = [
   new Program("Towers of Hanoi", "processing js", "https://www.openprocessing.org/sketch/482860", "http://i.imgur.com/zdnZaTt.png",
               "The classic puzzle of moving a tower from peg to peg, one move at a time, with no disk smaller than disks above it, is solved."),
   new Program("Neural Network", "processing js", "https://www.openprocessing.org/sketch/467182", "http://i.imgur.com/KGm1aun.png",
-              "Watch as a vanilla neural network learns to predict the output of the sine function. Change its structure or task on lines 161 to 166-167."),
+              "Watch as a vanilla neural network learns to predict the output of the sine function. Change its structure or task on lines 161 and 166-167."),
   new Program("Gravity Pong", "javascript", "http://www.arongil.com/gravity-pong", "http://i.imgur.com/kIKQL68.png",
               "Play pong with gravity and 4 levels of AI to choose from, one as the worst, four as the best! Use the left arrow key for up and the right arrow key for down in this chaotically fun game."),
   new Program("Minesweeper and Solver", "javascript", "http://www.arongil.com/minesweeper", "http://i.imgur.com/gGx88Z8.png",
