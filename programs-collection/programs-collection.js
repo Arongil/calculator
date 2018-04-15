@@ -56,6 +56,12 @@ function populateProgramsList(programs, outputId) {
 }
 
 var listPrograms = [
+  new Program("Mandelbrot Explorer", "processing js", "https://www.openprocessing.org/sketch/509865", "http://i.imgur.com/VKVhFWm.jpg",
+              "Explore the famous Mandelbrot fractal with vibrant color and adjustable detail."),
+  new Program("Visual Fourier", "processing js", "https://www.openprocessing.org/sketch/503560", "http://i.imgur.com/gREs77f.png",
+              "The Fourier Transform is arguably the most useful math ever developed. Yet, few understand it. Based off of 3blue1brown's videos on the topic, behold a visual interpretation of the Fourier Transform, visually."),
+  new Program("Vector Fields", "processing js", "https://www.openprocessing.org/sketch/494116", "http://i.imgur.com/pyVbrrW.png",
+              "Multivariable Calculus has many wonders and applications, including the vector field. Explore the concept, and make water slide on fields of your own creation."),
   new Program("Towers of Hanoi", "processing js", "https://www.openprocessing.org/sketch/482860", "http://i.imgur.com/zdnZaTt.png",
               "The classic puzzle of moving a tower from peg to peg, one move at a time, with no disk smaller than disks above it, is solved."),
   new Program("Neural Network", "processing js", "https://www.openprocessing.org/sketch/467182", "http://i.imgur.com/KGm1aun.png",
