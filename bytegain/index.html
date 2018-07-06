@@ -38,7 +38,7 @@
     };
     
     function loadDashboard() {
-      var dashboard = document.getElementById("dashboard_select").value,
+      var dashboard = document.getElementById("dashboard-select").value,
           iframe = dashboards[dashboard],
           display = document.getElementById("dashboard-display");
       display.innerHTML = "<p>" + dashboard + " Dashboard</p><br><br>" + iframe;
