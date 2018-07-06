@@ -14,32 +14,36 @@
   </head>
   <body>
   
-  <select id="dashboard-select">
-    <option value="slimvance">Slimvance</option>
-    <option value="tile">Tile</option>
-    <option value="vmware">VMware</option>
-    <option value="apartment-list">Apartment List</option>
-    <option value="9gag">9gag</option>
-    <option value="ca">CA</option>
-  </select>
-  <button id="dashboard-load" onclick="loadDashboard();">Load Selection</button>
+  <div id="selection" class="medium center">
+    <select id="dashboard-select">
+      <option value="Slimvance">Slimvance</option>
+      <option value="Tile">Tile</option>
+      <option value="VMware">VMware</option>
+      <option value="Apartment List">Apartment List</option>
+      <option value="9gag">9gag</option>
+      <option value="CA">CA</option>
+    </select>
+    <button id="dashboard-load" onclick="loadDashboard();">Load Selection</button>
+  </div>
   
-  <div class="center medium"></div>
+  <div id="dashboard-display" class="center medium"></div>
   
   <script>
-    
     var dashboards = {
-      "slimvance": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1p7OK1aeIOnXjXbawRYcQXL4tIKPYywdE/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe>',
-      "tile": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1FccGMhCZj8e9l3sIPQsaEfi2Y2sXCcbC/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe>',
-      "vmware": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1gMU4evQcMhTiYBY6aExFyJcWFjRMCEPV/page/ZFSU" frameborder="0" style="border:0" allowfullscreen></iframe>'.
-      "apartment-list": '',
+      "Slimvance": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1p7OK1aeIOnXjXbawRYcQXL4tIKPYywdE/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe>',
+      "Tile": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1FccGMhCZj8e9l3sIPQsaEfi2Y2sXCcbC/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe>',
+      "VMware": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1gMU4evQcMhTiYBY6aExFyJcWFjRMCEPV/page/ZFSU" frameborder="0" style="border:0" allowfullscreen></iframe>'.
+      "Apartment List": '',
       "9gag": '',
-      "ca": ''
+      "CA": ''
     };
     
     function loadDashboard() {
+      var dashboard = document.getElementById("dashboard_select").value(),
+          iframe = dashboards[dashboard],
+          display = document.getElementById("dashboard-display");
+      display.innerHTML = "<p>" + dashboard + " Dashboard</p><br><br>" + iframe;
     }
-  
   </script>
   
   </body>
