@@ -24,11 +24,22 @@
   </select>
   <button id="dashboard-load" onclick="loadDashboard();">Load Selection</button>
   
-  <div class="center medium"><iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1p7OK1aeIOnXjXbawRYcQXL4tIKPYywdE/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+  <div class="center medium"></div>
   
   <script>
+    
+    var dashboards = {
+      "slimvance": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1p7OK1aeIOnXjXbawRYcQXL4tIKPYywdE/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe>',
+      "tile": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1FccGMhCZj8e9l3sIPQsaEfi2Y2sXCcbC/page/Zc5T" frameborder="0" style="border:0" allowfullscreen></iframe>',
+      "vmware": '<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/1gMU4evQcMhTiYBY6aExFyJcWFjRMCEPV/page/ZFSU" frameborder="0" style="border:0" allowfullscreen></iframe>'.
+      "apartment-list": '',
+      "9gag": '',
+      "ca": ''
+    };
+    
     function loadDashboard() {
     }
+  
   </script>
   
   </body>
