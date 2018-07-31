@@ -3,51 +3,51 @@
 }
 
 #nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #d8d8d8;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d8d8d8;
 }
 
 #nav li {
-    float: right;
+  float: right;
 }
 
 #nav li a {
-    display: inline-block;
-    color: #666666;
-    text-align: center;
-    font-size: 4vh;
-    padding: 3vh 3.4vw;
-    text-decoration: none;
+  display: inline-block;
+  color: #666666;
+  text-align: center;
+  font-size: 4vh;
+  padding: 3vh 3.4vw;
+  text-decoration: none;
 }
 
 #nav li:not(#logo) a:hover, .dropdown:hover .dropbtn {
-    background-color: #ccf6ff;
+  background-color: #ccf6ff;
 }
 
 #nav li.dropdown {
-    display: inline-block;
+  display: inline-block;
 }
 
 #nav .dropdown-content {
-    display: none;
-    position: absolute;
-    font-size: 3vh;
-    padding: 2.6vh;
-    background-color: #f9f9f9;
-    box-shadow: 0vh 1.2vh 1.2vw 0.2vw rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  font-size: 3vh;
+  padding: 2.6vh;
+  background-color: #f9f9f9;
+  box-shadow: 0vh 1.2vh 1.2vw 0.2vw rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 #nav .dropdown-content a {
-    color: black;
-    font-size: 3vh;
-    padding: 2.6vh 2.4vh;
-    text-decoration: none;
-    display: block;
-    text-align: left;
+  color: black;
+  font-size: 3vh;
+  padding: 2.6vh 2.4vh;
+  text-decoration: none;
+  display: block;
+  text-align: left;
 }
 
 #nav .dropdown-content a:hover {
@@ -55,17 +55,33 @@
 }
 
 #nav .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
-.class-header {
+.block {
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 6vw;
+  padding-right: 6vw;
+  margin-top: 2vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.block-header {
   color: #202020;
+  text-align: center;
+  font-size: 6vh;
 }
 .topic-header {
   color: #303030;
+  font-size: 4vh;
+  margin-bottom: 1vh;
+  margin-top: 4vh;
 }
 .video-link {
   color: #0000ff;
+  font-size: 3vh;
 }
 .video-link:visited {
   color: #404080;
