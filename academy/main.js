@@ -88,9 +88,9 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=JLvJZkQy6kk&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=32"},{
                 "title": "Solving DEs",
                 "link": "https://www.youtube.com/watch?v=QojhnJXdGOU&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=33"},{
-                "title": "Solving DEs with Translations",
+                "title": "Solving DEs: Translation",
                 "link": "https://www.youtube.com/watch?v=b_rbPWodb-s&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=34"},{
-                "title": "Solving DEs with Partial Fraction Decomposition",
+                "title": "Solving DEs: Partial Fraction Decomposition",
                 "link": "https://www.youtube.com/watch?v=WKqu-0_PjiM&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=35"}]
       }
     ]
@@ -163,7 +163,7 @@ var data = [
         "topic": "Miscellaneous",
         "videos": [{"title": "Children's Book Narrated: The Magic Seed",
                 "link": "https://www.youtube.com/watch?v=0C0kS2gLt9g&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=3"},{
-                "title": "How do Exchange Networks Develop and Expand?",
+                "title": "Exchange Networks",
                 "link": "https://www.youtube.com/watch?v=SL-Nd28DCGo&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=7"},{
                 "title": "How did Change Accelerate?",
                 "link": "https://www.youtube.com/watch?v=L8tlLIk1Zls&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=14"}]
@@ -205,7 +205,7 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=9_1brP8t_xs&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=20"},{
                 "title": "The Corner Cube Problem",
                 "link": "https://www.youtube.com/watch?v=O7YoNFyW_lc&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=21"},{
-                "title": "erf(x): Why 68% of Data Falls within 1 Standard Deviation",
+                "title": "Why 68% of Data Falls within 1 Standard Deviation",
                 "link": "https://www.youtube.com/watch?v=q4gK6tQnuYM&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=22"},{
                 "title": "Defining the Cross Product from Scratch",
                 "link": "https://www.youtube.com/watch?v=QI2TLsRgObk&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=23"}]
@@ -213,6 +213,29 @@ var data = [
     ]
   }
 ];
+
+function playVideo(link, title) {
+  var popup = document.getElementById("video-popup"),
+      titleElement = document.getElementById("video-title"),
+      player = document.getElementById("video-player"),
+      greyout = document.getElementById("greyout"),
+      body = document.getElementsByTagName("body")[0];
+  body.style.overflow = "hidden";
+  greyout.style.display = "initial";
+  popup.style.display = "initial";
+  titleElement.textContent = title;
+  player.src = "https://www.youtube.com/embed/" + link;
+}
+function exitVideo() {
+  var popup = document.getElementById("video-popup"),
+      player = document.getElementById("video-player"),
+      greyout = document.getElementById("greyout"),
+      body = document.getElementsByTagName("body")[0];
+  body.style.overflow = "initial";
+  greyout.style.display = "none";
+  popup.style.display = "none";
+  player.src = "";
+}
 
 var subjects = document.getElementById("subjects"),
     subjectDropdown = document.getElementById("subject-dropdown");
@@ -250,8 +273,10 @@ for (var i = 0, j, k, subject, header, topics, topic, topicDiv, videoList, video
       video = topic.videos[k];
       link = document.createElement("a");
       link.className = "video-link";
-      link.href = video.link;
       link.textContent = video.title;
+      link.href = "javascript:void(0)";
+      // The lambda function ensures that passing the parameter doesn't call the function. Splitting after the ? and before the & in youtube.com/watch? ... & ... takes only the video ID.
+      link.setAttribute("onclick", 'playVideo("' + video.link.split("?v=")[1].split("&")[0] + '", "' + (topic.topic + " | " + video.title) + '")');
       videoList.appendChild(link);
       if (k < topic.videos.length - 1) {
         br = document.createElement("br");
