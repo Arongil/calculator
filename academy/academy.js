@@ -5,6 +5,7 @@ function playVideo(link, title) {
       greyout = document.getElementById("greyout"),
       body = document.getElementsByTagName("body")[0];
   body.style.overflow = "hidden";
+  body.style.position = "relative";
   greyout.style.display = "initial";
   popup.style.display = "initial";
   titleElement.textContent = title;
@@ -16,6 +17,7 @@ function exitVideo() {
       greyout = document.getElementById("greyout"),
       body = document.getElementsByTagName("body")[0];
   body.style.overflow = "initial";
+  body.style.position = "static";
   greyout.style.display = "none";
   popup.style.display = "none";
   player.src = "";
