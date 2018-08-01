@@ -86,9 +86,9 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=JLvJZkQy6kk&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=32"},{
                 "title": "Solving DEs",
                 "link": "https://www.youtube.com/watch?v=QojhnJXdGOU&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=33"},{
-                "title": "Solving DEs with Translations",
+                "title": "Solving DEs: Translation",
                 "link": "https://www.youtube.com/watch?v=b_rbPWodb-s&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=34"},{
-                "title": "Solving DEs with Partial Fraction Decomposition",
+                "title": "Solving DEs: Partial Fraction Decomposition",
                 "link": "https://www.youtube.com/watch?v=WKqu-0_PjiM&list=PLapqQU8bF_--sm6FERs9lbhx2hRVnLKJw&index=35"}]
       }
     ]
@@ -161,7 +161,7 @@ var data = [
         "topic": "Miscellaneous",
         "videos": [{"title": "Children's Book Narrated: The Magic Seed",
                 "link": "https://www.youtube.com/watch?v=0C0kS2gLt9g&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=3"},{
-                "title": "How do Exchange Networks Develop and Expand?",
+                "title": "Exchange Networks",
                 "link": "https://www.youtube.com/watch?v=SL-Nd28DCGo&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=7"},{
                 "title": "How did Change Accelerate?",
                 "link": "https://www.youtube.com/watch?v=L8tlLIk1Zls&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=14"}]
@@ -203,7 +203,7 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=9_1brP8t_xs&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=20"},{
                 "title": "The Corner Cube Problem",
                 "link": "https://www.youtube.com/watch?v=O7YoNFyW_lc&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=21"},{
-                "title": "erf(x): Why 68% of Data Falls within 1 Standard Deviation",
+                "title": "Why 68% of Data Falls within 1 Standard Deviation",
                 "link": "https://www.youtube.com/watch?v=q4gK6tQnuYM&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=22"},{
                 "title": "Defining the Cross Product from Scratch",
                 "link": "https://www.youtube.com/watch?v=QI2TLsRgObk&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=23"}]
