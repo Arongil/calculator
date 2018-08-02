@@ -23,6 +23,13 @@
   text-decoration: none;
 }
 
+#logo img {
+  margin: 1vh 2vh;
+  padding: 1vh;
+  height: 6vh;
+  background-color: #777777;
+}
+
 #nav li:not(#logo) a:hover, .dropdown:hover .dropbtn {
   background-color: #ccf6ff;
 }
