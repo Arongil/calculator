@@ -180,6 +180,14 @@ var data = [
                 "title": "Part 2",
                 "link": "https://www.youtube.com/watch?v=F9NnVIhvXns&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=18"}]
       },{
+        "topic": "Number Theory",
+        "videos": [{"title": "The Sum of All Terminating Fractions",
+                "link": "https://www.youtube.com/watch?v=wAUBMUWnRKQ&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=25"},{
+                "title": "The Sum of the Factors of 11!",
+                "link": "https://www.youtube.com/watch?v=iFRuJ-X0sLg&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=26"},{
+                "title": "Factors of 11! satisfying gcd(d, 396) = 12",
+                "link": "https://www.youtube.com/watch?v=HnDWa1Vy7VY&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=27"}]
+      },{
         "topic": "The Best of Math",
         "videos": [{"title": "Derivation of the Sum of a Geometric Series",
                 "link": "https://www.youtube.com/watch?v=gBgZ1sRCoIk&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=4"},{
