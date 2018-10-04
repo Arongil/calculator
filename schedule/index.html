@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <title>Scheduler</title> 
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1 class="center"> Server Working </h1>
+   
+    <div class="center" id="quick-buttons" style="padding: 5%"> 
+      <button onclick="var s = measureBestSchedule(10, 10);">Compute bestSchedule for 10 iterations with 10 minimizeConflicts steps.</button><br>
+      <button onclick="var s = measureBestSchedule(10, 100);">Compute bestSchedule for 10 iterations with 100 minimizeConflicts steps.</button><br>
+      <button onclick="var s = measureBestSchedule(10, 1000);">Compute bestSchedule for 10 iterations with 1000 minimizeConflicts steps.</button><br>
+      <button onclick="var s = measureBestSchedule(10, 10000);">Compute bestSchedule for 10 iterations with 10000 minimizeConflicts steps.</button><br>
+      <button onclick="var s = measureBestSchedule(100, 10000);">Compute bestSchedule for 100 iterations with 10000 minimizeConflicts steps.</button><br>
+      <button onclick="var s = measureBestSchedule(1000, 10000);">Compute bestSchedule for 1000 iterations with 10000 minimizeConflicts steps.</button><br>
+      <button onclick="var s = measureBestSchedule(10000, 10000);">Compute bestSchedule for 10000 iterations with 10000 minimizeConflicts steps.</button>
+    </div>
+
+    <script src="scheduler.js"></script>
+    <script src="canvas.js"></script>
+    <script src="ui.js"></script>
+
+    <div id="user-interface" class="center" style="padding: 5%"> 
+        <input id="schedule-json" placeholder="Paste JSON text here."></input>
+        <button id="load-json" onclick="loadJSON();">Load JSON</button><br><br>
+        <div id="ui-level-1" style="display: none">
+            <select id="level-select"></select>
+            <button id="load-levels" onclick="loadLevels();">Load Levels</button>
+            <button id="load-all-levels" onclick="loadAllLevels()">Load All Levels</button><br>
+            <div id="ui-level-2" style="display: none;">
+                <select id="person-select"></select>
+                <button id="load-schedule" onclick="loadSchedule();">Load Schedule</button>
+                <button id="load-all-schedules" onclick="loadAllSchedules();">Load All Schedules</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="canvases" class="center" style="padding: 2%;"></div>
+  </body>
+</html>
