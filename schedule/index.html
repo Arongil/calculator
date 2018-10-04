@@ -6,7 +6,8 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="center" id="quick-buttons" style="padding: 5%"> 
+    <h1 class="center" style="font-family: Helvetica, Verdana, Arial;">Scheduler</h1>
+    <div class="center" id="quick-buttons" style="padding: 2%; padding-bottom: 0px;"> 
       <button onclick="var s = measureBestSchedule(10, 10);">Compute bestSchedule for 10 iterations with 10 minimizeConflicts steps.</button><br>
       <button onclick="var s = measureBestSchedule(10, 100);">Compute bestSchedule for 10 iterations with 100 minimizeConflicts steps.</button><br>
       <button onclick="var s = measureBestSchedule(10, 1000);">Compute bestSchedule for 10 iterations with 1000 minimizeConflicts steps.</button><br>
@@ -20,12 +21,24 @@
     <script src="canvas.js"></script>
     <script src="ui.js"></script>
 
-    <div id="user-interface" class="center" style="padding: 5%"> 
+    <div id="user-interface" class="center" style="padding: 2%;"> 
+        <h2>Instructions</h2>
+        <ol style="text-align: initial">
+            <li>Paste a JSON-stringified scheduled into the below textbox.</li>
+            <li>Click the "load JSON" button. A selection of teachers and
+                specific independence levels will appear.</li>
+            <li>Choose a category to load, or press "Load All Levels"
+                to load them all. A selection of persons in the category
+                will appear</li>
+            <li>Choose the person whose schedule you desire displayed
+                and press "Load Schedule", or press "Load All Schedules"
+                to load them all.</li>
+        </ol>
         <input id="schedule-json" placeholder="Paste JSON text here."></input>
         <button id="load-json" onclick="loadJSON();">Load JSON</button><br><br>
         <div id="ui-level-1" style="display: none">
             <select id="level-select"></select>
-            <button id="load-levels" onclick="loadLevels();">Load Levels</button>
+            <button id="load-levels" onclick="loadLevels();">Load Level</button>
             <button id="load-all-levels" onclick="loadAllLevels()">Load All Levels</button><br>
             <div id="ui-level-2" style="display: none;">
                 <select id="person-select"></select>
