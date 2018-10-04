@@ -1,6 +1,9 @@
 /*****
+
 Scheduler aims to solve scheduling with constraint satisfaction problem (CSP) approaches.
+
 The schedule has time slots as follows:
+
 |_____________|_MONDAY____|_TUESDAY___|_WEDNESDAY_|_THURSDAY__|_FRIDAY____|
 |__9:15-10:00_|_(1)_______|_(8)_______|_(15)______|_(22)______|_(29)______|
 |_10:00-10:45_|_(2)_______|_(9)_______|_(16)______|_(23)______|_(30)______|
@@ -9,9 +12,12 @@ The schedule has time slots as follows:
 |___1:15-2:00_|_(5)_______|_(12)______|_(19)______|_(26)______|_(33)______|
 |___2:00-2:45_|_(6)_______|_(13)______|_(20)______|_(27)______|_(34)______|
 |___2:45-3:45_|_(7)_______|_(14)______|_(21)______|_(28)______|_(35)______|
+
 Blocks 26, 27, 28, 33, 34, 35 are studio blocks for all students.
+
 Constraints are allDifferent for all student's class times and allDifferent for 
 all teacher's class times.
+
 *****/
 
 class CSP {
@@ -605,16 +611,18 @@ for (i = 0; i < variables.length; i += variables[i].meetings) {
 // console.log("The calculation took " + (end - start)/iterations + " milliseconds.");
 
 function measureBestSchedule(iterations, steps, plateauInterval = 100) {
-  var start = performance.now();
-  var bestSchedule = getBestSchedule(variables, constraints, iterations, steps, plateauInterval);
-  var end = performance.now();
-  console.log("The calculation took " + (end - start)/1000/60 + " minutes.");
-  console.log("The best schedule has " + bestSchedule.conflicts().length + " conflicts weighted at " + bestSchedule.weightedConflicts() + ".");
-  bestSchedule.printVariables();
-  console.log(getCleanJSON(bestSchedule, teachers, students)); 
+    var start = performance.now();
+    var bestSchedule = getBestSchedule(variables, constraints, iterations, steps, plateauInterval);
+    var end = performance.now();
+    console.log("The calculation took " + (end - start)/1000/60 + " minutes.");
+    console.log("The best schedule has " + bestSchedule.conflicts().length + " conflicts weighted at " + bestSchedule.weightedConflicts() + ".");
+    bestSchedule.printVariables();
+    var cleanJSON = getCleanJSON(bestSchedule, teachers, students); 
+    console.log(cleanJSON);
+    document.getElementById("schedule-json").value = cleanJSON;
 
-  // var cleanJSON = getCleanJSON(bestSchedule, teachers, students);
-  // console.log(cleanJSON);
-  
-  return bestSchedule;
+    // var cleanJSON = getCleanJSON(bestSchedule, teachers, students);
+    // console.log(cleanJSON);
+
+    return bestSchedule;
 }
