@@ -26,14 +26,15 @@ class Canvas {
         this.canvas.onmouseup = function(e) {
             this.inputs["click"] = true;
         }.bind(this);
-        document.onmousemove = function(e) {
-            var x = e.clientX - window.innerWidth/2;
+        this.canvas.onmousemove = function(e) {
+            var rect = this.canvas.getBoundingClientRect();
+            var x = e.clientX - rect.left - this.canvas.width/2;
+            var y = e.clientY - rect.top - this.canvas.height/2;
 
-            var canvas = document.getElementById("canvas"); 
-            var offset = this.canvas.getBoundingClientRect().top + window.scrollY;
-            var y = e.clientY - HALFHEIGHT + offset;
             this.inputs["mouseX"] = x;
             this.inputs["mouseY"] = y;
+
+            schedule.checkMouse(this);
         }.bind(this);
     }
 
