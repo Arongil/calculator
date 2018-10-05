@@ -103,43 +103,49 @@ class Schedule {
         }
         else {
             // There's a conflict: return the class with the highest weight and
-            // the others noted as conflicts.
-            var highestWeighted, highestWeight = -1;
+            // the others noted as conflicts. Add not highest weighted to the 
+            // conflicts list, and whenever a new class is the highest
+            // weighted, transfer the previous champion into the list.
+            var conflicts = [], highestWeighted, highestWeight = -1;
             for (i = 0; i < classes.length; i++) {
                 if (this.classes[classes[i].id].weight > highestWeight) {
+                    if (highestWeighted !== undefined)
+                        conflicts.push(this.classes[highestWeighted]);
                     highestWeight = this.classes[classes[i].id].weight;
                     highestWeighted = classes[i].id;
                 }
+                else
+                    conflicts.push(this.classes[classes[i].id]);
             }
             return {
                 "name": this.classes[highestWeighted].name,
                 "id": highestWeighted,
-                "conflicts": classes
+                "conflicts": conflicts
             };
         }
-   }
+    }
 
     displayClass(person, day, block) {
         // Get data of class in given day and block.
         var classData = this.getClass(person, day - 1, block - 1),
             color = this.getColor(classData.id);
         // Draw background rectangle in the color of the class's subject.
+        var centerX = WIDTH*(-1/2 + (day + 1)/(this.blocks + 1)),
+            centerY = HEIGHT*(-1/3 + 5/6 * block/(this.blocks + 1)),
+            width = WIDTH/(this.blocks + 1),
+            height = 5/6 * HEIGHT/(this.blocks + 1);
         this.canvas.fill(color[0], color[1], color[2]);
-        this.canvas.rect(WIDTH*(-1/2 + (day + 1)/(this.blocks + 1)),
-            HEIGHT*(-1/3 + 5/6 * block/(this.blocks + 1)),
-            WIDTH/(this.blocks + 1), 5/6 * HEIGHT/(this.blocks + 1));
+        this.canvas.rect(centerX, centerY, width, height);
         // If there is a conflict, draw a red rectangle at the top of the box.
         if (classData.conflicts.length > 0) {
             this.canvas.fill(220, 0, 0);
-            this.canvas.rect(WIDTH*(-1/2 + (day + 1)/(this.blocks + 1)),
-                HEIGHT*(-1/3 + 5/6 * (block - 3/10)/(this.blocks + 1)),
-                0.8 * WIDTH/(this.blocks + 1), 1/6 * HEIGHT/(this.blocks + 1));
+            this.canvas.rect(centerX, centerY - 0.25/(this.blocks + 1) * HEIGHT,
+                0.8 * width, height/5);
         }
+        var fontSize = HEIGHT/45;
         this.canvas.fill(0, 0, 0);
-        this.canvas.textWrap(classData.name,
-            WIDTH*(-1/2 + (day + 1)/(this.blocks + 1)),
-            HEIGHT*(-1/3 - 1/90 + 5/6 * block/(this.blocks + 1)),
-            0.9 * WIDTH/(this.blocks + 1), HEIGHT/45);
+        this.canvas.textWrap(classData.name, centerX, centerY - fontSize/2,
+            0.9 * width, fontSize); 
     }
 
     displayBackground() {
@@ -150,7 +156,9 @@ class Schedule {
         this.canvas.fill(0, 0, 0);
     }
 
-    display(name) {
+    display(canvas, name) {
+        canvas.name = name;
+        this.setCanvas(canvas);
         var person = this.getPerson(name), i, j;
         this.displayBackground();
         this.canvas.textSize(HEIGHT/20);
@@ -174,6 +182,55 @@ class Schedule {
                 }
             }
         }
+    }
+
+    infoPanel(classData) {
+        // Compile additional information about the class, conflicts for now.
+        var info = "Conflicts: ";
+        classData.conflicts.forEach( (conflict, index) => {
+            info += conflict.name;
+            if (index < classData.conflicts.length - 1)
+                info += ", ";
+        });
+        // Display information.
+        var fontSize = HEIGHT/40;
+        this.canvas.fill(255, 255, 200);
+        this.canvas.rect(WIDTH*(1/2 - 0.8/(this.blocks + 1)), HEIGHT/12,
+            WIDTH/(this.blocks + 1), 2/3 * HEIGHT*(1 + 5/12/(this.blocks + 1)));
+        this.canvas.fill(0, 0, 0);
+        this.canvas.textWrap(info, WIDTH*(1/2 - 0.8/(this.blocks + 1)) + 1,
+            HEIGHT/12 - fontSize/2, 0.9 * WIDTH/(this.blocks + 1), fontSize);
+    }
+
+    clearInfoPanel() {
+        this.canvas.noStroke();
+        this.canvas.fill(220, 220, 220);
+        this.canvas.rect(WIDTH*(1/2 - 0.8/(this.blocks + 1)), HEIGHT/12,
+            WIDTH/(this.blocks + 1) + 2, 2/3 * HEIGHT*(1 + 5/12/(this.blocks + 1)) + 2);
+    }
+
+    checkMouse(canvas) {
+        this.setCanvas(canvas);
+        var person = this.getPerson(canvas.name), classData;
+        var x, y, mouseX = canvas.inputs.mouseX, mouseY = canvas.inputs.mouseY,
+            width = WIDTH/(this.blocks + 1), height = 5/6 * HEIGHT/(this.blocks + 1);
+        for (i = 1; i < this.days + 1; i++) {
+            for (j = 1; j < this.blocks + 1; j++) {
+                x = WIDTH*(-1/2 + (i + 1)/(this.blocks + 1));
+                y = HEIGHT*(-1/3 + 5/6 * j/(this.blocks + 1));
+                if (mouseX > x - width/2 && mouseX < x + width/2 &&
+                    mouseY > y - height/2 && mouseY < y + height/2) {
+                    classData = this.getClass(person, i - 1, j - 1);
+                    if (classData.conflicts.length > 0)
+                        this.infoPanel(classData);
+                    else
+                        this.clearInfoPanel();
+                    return;
+                }
+            }
+        }
+        // No additional information, so clear the info panel.
+        this.clearInfoPanel();
     }
 
 }
@@ -250,10 +307,11 @@ function loadSchedule() {
         canvasElements = document.getElementById("canvases");
     while (canvasElements.firstChild)
         canvasElements.removeChild(canvasElements.firstChild);
+    canvases = [];
     var canvas = new Canvas("canvas0");
+    canvases.push(canvas);
     canvas.resize();
-    schedule.setCanvas(canvas);
-    schedule.display(personSelect.value);
+    schedule.display(canvas, personSelect.value);
 }
 
 function loadAllSchedules() {
@@ -263,13 +321,14 @@ function loadAllSchedules() {
         canvasElements = document.getElementById("canvases"), canvas, br, i;
     while (canvasElements.firstChild)
         canvasElements.removeChild(canvasElements.firstChild);
+    canvases = [];
     for (i = 0; i < personSelect.options.length; i++) {
         br = document.createElement("br");
         document.getElementById("canvases").appendChild(br);
         canvas = new Canvas("canvas" + i);
+        canvases.push(canvas);
         canvas.resize();
-        schedule.setCanvas(canvas);
-        schedule.display(personSelect.options[i].textContent);
+        schedule.display(canvas, personSelect.options[i].textContent);
     }
 }
 
