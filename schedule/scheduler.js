@@ -1,9 +1,6 @@
 /*****
-
 Scheduler aims to solve scheduling with constraint satisfaction problem (CSP) approaches.
-
 The schedule has time slots as follows:
-
 |_____________|_MONDAY____|_TUESDAY___|_WEDNESDAY_|_THURSDAY__|_FRIDAY____|
 |__9:15-10:00_|_(1)_______|_(8)_______|_(15)______|_(22)______|_(29)______|
 |_10:00-10:45_|_(2)_______|_(9)_______|_(16)______|_(23)______|_(30)______|
@@ -12,12 +9,9 @@ The schedule has time slots as follows:
 |___1:15-2:00_|_(5)_______|_(12)______|_(19)______|_(26)______|_(33)______|
 |___2:00-2:45_|_(6)_______|_(13)______|_(20)______|_(27)______|_(34)______|
 |___2:45-3:45_|_(7)_______|_(14)______|_(21)______|_(28)______|_(35)______|
-
 Blocks 26, 27, 28, 33, 34, 35 are studio blocks for all students.
-
 Constraints are allDifferent for all student's class times and allDifferent for 
 all teacher's class times.
-
 *****/
 
 class CSP {
@@ -30,6 +24,11 @@ class CSP {
     // computeVariableConstraints if it's not provided and is used in
     // getOptimizedVariable to narrow the constraints needed to check.
     this.constraintsByVariable = constraintsByVariable;
+    // conflictingVariables stores all conflicting variables at a given time.
+    // If a conflictingVariable is optimized but doesn't change, it is removed
+    // from the list so that it won't be called again. Whenever a variable
+    // does improve, conflictingVariables is rebuilt from the new information.
+    this.conflictingVariables = [];
   }
 
   printVariables() {
@@ -50,7 +49,7 @@ class CSP {
   getVariables() {
     return JSON.parse(JSON.stringify(this.variables));
   }
- 
+
   computeVariableConstraints() {
       var constraintsByVariable = [], constraint, i, j;
       for (i = 0; i < this.variables.length; i++) {
@@ -74,7 +73,7 @@ class CSP {
                   constraintsByVariable[j].associated.push(i);
           }
       }
-      // The algorithm below populates the unnoassociated list with every
+      // The algorithm below populates the unassociated list with every
       // element not in the associated list. Starting from the first
       // constraint, it only needs to check whether the next largest in the
       // associated list exists. Because the associated list is sorted from
@@ -103,6 +102,39 @@ class CSP {
       this.constraintsByVariable = constraintsByVariable;
   }
 
+  computeMilestones(milestoneInterval = 100, iterations = 20, max = 1000, percentile = 0.8) {
+      var milestones = [], i, j;
+      for (i = 0; i < iterations; i++) {
+          this.randomizeVariables();
+          this.fullyOptimized = false;
+          for (j = 0; j*milestoneInterval < max && !this.fullyOptimized; j++) {
+              this.minimizeConflicts(milestoneInterval);
+              if (j >= milestones.length) 
+                  milestones.push([this.weightedConflicts()]);
+              else
+                  milestones[j].push(this.weightedConflicts());
+          }
+      }
+      var milestoneAverages = milestones.map( (conflicts) => {
+          // Pick the appropriate percentile. Smaller is better.
+          return conflicts.sort( (a, b) => b - a )[
+              Math.floor(conflicts.length * percentile)
+          ];
+      });
+      // The first milestoneInterval is a grace period.
+      milestones = (new Array(milestoneInterval)).fill(1e99);
+      for (i = 0; i < milestoneAverages.length; i++) {
+          for (j = 0; j < milestoneInterval; j++)
+              milestones.push(milestoneAverages[i]);
+          // If the required milestone ever increases, terminate. Any schedule
+          // that's made it here is already lower than would be required next.
+          if (i < milestoneAverages.length - 1)
+              if (milestoneAverages[i + 1] > milestoneAverages[i])
+                  break;
+      }
+      return milestones;
+  }
+
   conflicts(variables = this.variables) {
     var conflicts = [], i;
     for (i = 0; i < this.constraints.length; i++)
@@ -110,9 +142,9 @@ class CSP {
         conflicts.push(this.constraints[i]);
     return conflicts;
   }
- 
+
   weightedConflicts(variables = this.variables, constraints = this.constraints,
-                    breakWeight = 1e99, recordConflicts = true) {
+                    breakWeight = 1e99) {
     // breakWeight is an optional parameter that stops the summing if the weight
     // ever exceeds its threshold.
     // constraints is an optional parameter that focuses weightedConflicts to
@@ -121,19 +153,14 @@ class CSP {
     for (i = 0; i < constraints.length; i++) {
       if (constraints[i].conflict(variables)) {
         sum += constraints[i].weight;
-        // If desired, violated constraints can be incremented in an ordering
-        // weight so that often-broken constraints can be evaluated first.
-        if (recordConflicts)
-          constraints[i].orderingWeight++;
         if (sum > breakWeight)
        	  break;
       }
     }
     return sum;
   }
- 
-  markConflictingVariables(variables = this.variables) {
-    // Consider whether checking only DifferentConstraints is enough.
+
+  markConflictingVariables(variables = this.variables, changed = -1) {
     for (i = 0; i < variables.length; i++)
       variables[i].conflicts = 0;
     var constraint;
@@ -149,27 +176,54 @@ class CSP {
     }
   }
 
-  getConflictingVariables(variables = this.variables) {
+  getConflictingVariables(variables = this.variables, changed = -1) {
+    this.markConflictingVariables(variables, changed);
     var conflictingVariables = [], i;
-    this.markConflictingVariables();
-    for (i = 0; i < variables.length; i++)
-      if (variables[i].conflicts > 0)
-        conflictingVariables.push(variables[i]);
+    for (i = 0; i < variables.length; i++) {
+        if (i == changed)
+            continue;
+        if (variables[i].conflicts > 0)
+            conflictingVariables.push(variables[i]);
+    }
     return conflictingVariables;
   }
 
-  getOptimizedVariable(variable) {
+  getPrunedAssociated(variable) {
+      // Assuming only the one passed variable will change, which constraints
+      // are still necessary to consider? For example, a QuantityConstraint
+      // with only three classes of six cannot be overflowed, even if the
+      // passed variable is put in its slot: it should not be included.
+      var necessaryConstraints = [],
+          associated = this.constraintsByVariable[variable].associated, i;
+      for (i = 0; i < associated.length; i++) {
+          if (associated[i].type === "QuantityConstraint") {
+              // If a QuantityConstraint has fewer overlaps than its maximum,
+              // then it doesn't matter where the variable is placed: the
+              // QuantityConstraint will still not exceed its limit.
+              if (associated[i].getOverlap(this.variables) >= associated[i].maximum)
+                  necessaryConstraints.push(associated[i]);
+          }
+          else {
+              // There's no good way to ensure that a DifferentConstraint or
+              // a RepeatConstraint is unnecessary, so include them all.
+              necessaryConstraints.push(associated[i]);
+          }
+      }
+      return necessaryConstraints;
+  }
+
+  getOptimizedVariable(variable, variableIndex) {
     // Find the option from the variable's domain that minimizes conflicts.
     // baseWeight is the summed weights of all constraints unrelated to the
     // variable at hand. To be efficient, baseWeight is henceforce added to
     // the summed weights of constraints associated with variable.
-    var variableIndex = this.variables.indexOf(variable),
-        baseWeight = this.weightedConflicts(this.variables,
+    var baseWeight = this.weightedConflicts(this.variables,
             this.constraintsByVariable[variableIndex].unassociated),
+        prunedAssociated = this.getPrunedAssociated(variableIndex),
         minConflict = {
             "value": variable.value,
             "conflicts": baseWeight + this.weightedConflicts(this.variables,
-                this.constraintsByVariable[variableIndex].associated)
+                prunedAssociated)
         }, originalValue = variable.value, hypotheticalConflicts, i;
     for (i = 0; i < variable.domain.length; i++) {
       if (variable.domain[i] === variable.value)
@@ -180,8 +234,7 @@ class CSP {
       // summing weights if they exceed it. In this case, if the weight sum exceeds
       // the lowest associated-variables weight so far, terminate the search.
       hypotheticalConflicts = baseWeight + this.weightedConflicts(this.variables,
-          this.constraintsByVariable[variableIndex].associated,
-          minConflict.conflicts - baseWeight);
+          prunedAssociated, minConflict.conflicts - baseWeight);
       if (hypotheticalConflicts < minConflict.conflicts)
         minConflict = {
             "value": variable.domain[i],
@@ -193,55 +246,62 @@ class CSP {
     return minConflict;
   }
 
-  plateaued() {
-    // A plateau is when all changes are detrimental except doing nothing.
-    var weightedConflicts = this.weightedConflicts(),
-        conflictingVariables = this.getConflictingVariables(),
-        conflictVariable, minConflict, i;
-    for (i = 0; i < conflictingVariables.length; i++) {
-      conflictVariable = conflictingVariables[i];
-      minConflict = this.getOptimizedVariable(conflictVariable);
-      if (minConflict.value !== conflictVariable.value) {
-        return false; // There is a possible improvement or, at least, shift.
-      }
-    }
-    // After checking all possibilities for all variables, the schedule's improvement is stagnant.
-    return true;
-  }
+  minimizeConflicts(maxSteps = 1e3, milestones = []) {
+      if (this.constraintsByVariable.length == 0)
+          this.computeVariableConstraints();
+      if (this.conflictingVariables.length == 0)
+          this.conflictingVariables = this.getConflictingVariables();
+      var conflicts = this.weightedConflicts(), conflictVariable,
+          conflictIndex, minConflict, i;
+      for (i = 0; i < maxSteps; i++) {
+          // If there are no conflicts, terminate. 
+          if (conflicts === 0)
+              return this.variables;
+            
+          // If the optimization is underperforming, terminate.
+          if (milestones.length > i)
+              if (conflicts > milestones[i])
+                  return this.variables;
+           
+          // If no more variables can be optimized advantageously, terminate.
+          if (this.conflictingVariables.length == 0) {
+              this.fullyOptimized = true;
+              return this.variables;
+          }
+      
+          // Find a conflicting variable at random.
+          conflictVariable = this.conflictingVariables[
+              Math.floor(Math.random() * this.conflictingVariables.length)
+          ];
+          conflictIndex = this.variables.indexOf(conflictVariable);
 
-  minimizeConflicts(maxSteps = 1e3, plateauInterval = 1e2) {
-    // Before starting anything, compute the constraints associated
-    // with each variable so that getOptimizedVariable is more efficient.
-    if (this.constraintsByVariable.length == 0)
-        this.computeVariableConstraints();
-    var conflicts = this.weightedConflicts(), conflictingVariables, conflictVariable, minConflict, i;
-    for (i = 0; i < maxSteps; i++) {
-      // If the current state has no conflicts, return the solution.
-      if (conflicts === 0)
-        return this.variables;
-      
-      // Every plateauInterval steps, check for a plateau (all changes are detrimental except doing nothing).
-      if (i % plateauInterval === 0) {
-        if (this.plateaued()) {
-          // console.log("Plateau at " + i + "!");
-          return this.variables;
-        }
+        
+          // Find the option from the variable's domain that minimizes conflicts.
+          minConflict = this.getOptimizedVariable(conflictVariable, conflictIndex);
+
+          // If the optimized value equals the original value, remove the
+          // variable from this.conflictingVariables so it is not chosen in the
+          // future. If the optimized value is not the same, recalculate
+          // this.conflictingVariables, because the change likely induced new
+          // conflicts. In this way, no variables proven to be un-optimizable
+          // are chosen: dead ends are left untouched.
+          if (conflictVariable.value == minConflict.value) {
+              this.conflictingVariables.splice(
+                  this.conflictingVariables.indexOf(conflictVariable), 1
+              );
+          }
+          else {
+              // If the optimized value is different, set it, set conflicts,
+              // and recalculate the conflicting variables, excluding the variable
+              // just optimized, because it is by definition a new dead end.
+              conflictVariable.value = minConflict.value;
+              conflicts = minConflict.conflicts;
+              this.conflictingVariables = this.getConflictingVariables(
+                  this.variables, conflictIndex, true
+              );
+          }
       }
-      
-      // Find a conflicting variable at random.
-      conflictingVariables = this.getConflictingVariables(this.variables);
-      conflictVariable = conflictingVariables[Math.floor(Math.random() * conflictingVariables.length)];
-      
-      // Find the option from the variable's domain that minimizes conflicts.
-      minConflict = this.getOptimizedVariable(conflictVariable);
-      
-      // Set the chosen conflicting variable's value to the minimizing one.
-      conflictVariable.value = minConflict.value;
-      // Update conflicts.
-      conflicts = minConflict.conflicts;
-    }
-    
-    return this.variables;
+
   }
  
 }
@@ -254,11 +314,6 @@ class Constraint {
     // weight conveys the importance of a constraint. Constraints with high weights
     // must be solved with a higher priority than constraints with low weights.
     this.weight = weight;
-    // orderingWeight describes how often this constraint is violated.
-    // When minimizing conflicts, constraints are sorted by their
-    // orderingWeight at constant intervals so that often-broken constraints
-    // are evaluated first.
-    this.orderingWeight = 0;
   }
  
 }
@@ -293,10 +348,22 @@ class QuantityConstraint extends Constraint {
     this.type = "QuantityConstraint";
   }
   
+  // Return all variables in the slot.
+  getOverlap(variables) {
+    // Loop through all variables and add any in the slot to occupying.
+    var overlap = 0, i;
+    for (i = 0; i < variables.length; i++) {
+      if (variables[i].value === this.value) {
+          overlap++;
+      }
+    }
+    return overlap;
+  }
+  
   conflict(variables) {
     // Return true if there is a conflict; return false if there is not.
     var overlap = 0, i;
-    // Loop through once across all quantity constraints and check that none are more than max.
+    // Check that there are fewer than this.maximum variables in this.slot.
     for (i = 0; i < variables.length; i++) {
       if (variables[i].value === this.value) {
         overlap++;
@@ -376,28 +443,29 @@ function setDifferentConstraints(constraints, variables, list) {
   } 
 }
 
-function getBestSchedule(variables, constraints, iterations = 1e2, minConflictsSteps = 1e3, plateauInterval = 1e2) {
-  // For iterations random schedules, compute minimizeConflicts for minConflictsSteps steps. Every plateauInterval, check to be sure that the schedule hasn't plateaued (all changes are detrimental except doing nothing). Run minimizeConflicts for additionalSteps steps on the best schedule.
-  var bestSchedule = {"schedule": null, conflicts: 1e99}, schedule, conflicts, i;
+function getBestSchedule(iterations = 1e2, steps = 1e3, milestones = []) {
+  // For iterations random schedules, compute minimizeConflicts for
+  // minConflictsSteps steps.
+  var bestSchedule = {"variables": null, conflicts: 1e99}, conflicts, i,
+        schedule = new CSP(variables, constraints, constraintsByVariable);
   for (i = 0; i < iterations; i++) {
-    schedule = new CSP(variables, constraints, constraintsByVariable);
     schedule.randomizeVariables();
-    schedule.minimizeConflicts(minConflictsSteps, plateauInterval);
+    schedule.minimizeConflicts(steps, milestones);
     conflicts = schedule.weightedConflicts();
-    if (i % Math.floor(iterations/100) == 0) {
+    if (iterations > 100 && i % Math.floor(iterations/100) == 0) {
       console.log(Math.floor(i/iterations * 100) + "%");
       console.log(conflicts);
     }
     if (conflicts < bestSchedule.conflicts) {
       bestSchedule = {"variables": schedule.getVariables(), "conflicts": conflicts};
-      if (conflicts < 6000) {
+      if (conflicts < 3000) {
         // Add each new best schedule to the localStorage, just in case.
-        var cleanJSON = JSON.stringify(schedule.getVariables());
+        var cleanJSON = getCleanJSON(schedule, teachers, students);
         localStorage.setItem("[" + i + "] Conflicts: " + conflicts + " (" + Math.random().toFixed(8) + ")", cleanJSON);
       }
     }
   }
-  bestSchedule = new CSP(bestSchedule.variables, constraints);
+  bestSchedule = new CSP(bestSchedule.variables, constraints, constraintsByVariable);
   return bestSchedule;
 }
 
@@ -433,6 +501,15 @@ function getCleanJSON(schedule, teachers, students) {
     });
   }
   return JSON.stringify(cleanJSON);
+}
+
+function getScheduleFromJSON(json) {
+    var s = new CSP(variables, constraints, constraintsByVariable),
+        classes = JSON.parse(json).classes;
+    classes.forEach( (c, index) => {
+        s.variables[index].value = c.value;
+    });
+    return s;
 }
 
 // There are five schooldays in a week, each with seven blocks.
@@ -693,21 +770,15 @@ var temp = new CSP(variables, constraints), constraintsByVariable;
 temp.computeVariableConstraints();
 constraintsByVariable = temp.constraintsByVariable;
 
-// var schedule = new CSP(variables, constraints);
-// schedule.randomizeVariables();
-// schedule.minimizeConflicts(10000, 100);
-// schedule.printVariables();
-// var iterations = 1;
-// var start = performance.now();
-// for (i = 0; i < iterations; i++) {
-//   schedule.plateaued();
-// }
-// var end = performance.now();
-// console.log("The calculation took " + (end - start)/iterations + " milliseconds.");
+var milestones = [];
+function computeMilestones(interval = 10, iterations = 10, max = 1000, percentile = 0.5) {
+    var temp = new CSP(variables, constraints, constraintsByVariable);
+    milestones = temp.computeMilestones(interval, iterations, max, percentile);
+}
 
-function measureBestSchedule(iterations, steps, plateauInterval = 100) {
+function measureBestSchedule(iterations, steps) {
     var start = performance.now();
-    var bestSchedule = getBestSchedule(variables, constraints, iterations, steps, plateauInterval);
+    var bestSchedule = getBestSchedule(iterations, steps, milestones);
     var end = performance.now();
     console.log("The calculation took " + (end - start)/1000 + " seconds.");
     console.log("The best schedule has " + bestSchedule.conflicts().length + " conflicts weighted at " + bestSchedule.weightedConflicts() + ".");
