@@ -8,13 +8,20 @@
   <body>
     <h1 class="center" style="font-family: Helvetica, Verdana, Arial;">Scheduler</h1>
     <div class="center" id="quick-buttons" style="padding: 2%; padding-bottom: 0px;"> 
-      <button onclick="var s = measureBestSchedule(10, 10);">Compute bestSchedule for 10 iterations with 10 minimizeConflicts steps.</button><br>
-      <button onclick="var s = measureBestSchedule(10, 100);">Compute bestSchedule for 10 iterations with 100 minimizeConflicts steps.</button><br>
-      <button onclick="var s = measureBestSchedule(10, 1000);">Compute bestSchedule for 10 iterations with 1000 minimizeConflicts steps.</button><br>
-      <button onclick="var s = measureBestSchedule(10, 10000);">Compute bestSchedule for 10 iterations with 10000 minimizeConflicts steps.</button><br>
-      <button onclick="var s = measureBestSchedule(100, 10000);">Compute bestSchedule for 100 iterations with 10000 minimizeConflicts steps.</button><br>
-      <button onclick="var s = measureBestSchedule(1000, 10000);">Compute bestSchedule for 1000 iterations with 10000 minimizeConflicts steps.</button><br>
-      <button onclick="var s = measureBestSchedule(10000, 10000);">Compute bestSchedule for 10000 iterations with 10000 minimizeConflicts steps.</button>
+      <button onclick="computeMilestones(10, 10, 1000, 0.2)">Compute milestones every 10 steps averaged 10 times at the 20th percentile.</button><br>
+      <button onclick="computeMilestones(10, 10, 1000, 0.5)">Compute milestones every 10 steps averaged 10 times at the 50th percentile.</button><br>
+      <button onclick="computeMilestones(10, 10, 1000, 0.8)">Compute milestones every 10 steps averaged 10 times at the 80th percentile.</button><br>
+      <button onclick="computeMilestones(20, 100, 200, 0.1)">Compute milestones every 20 steps averaged 100 times at the 10th percentile.</button><br>
+      <button onclick="computeMilestones(20, 100, 200, 0.2)">Compute milestones every 20 steps averaged 100 times at the 20th percentile.</button><br><br>
+      <button onclick="measureBestSchedule(10, 10);">Compute bestSchedule for 10 iterations with 10 steps (0.01s).</button><br>
+      <button onclick="measureBestSchedule(10, 100);">Compute bestSchedule for 10 iterations with 100 steps (0.10s).</button><br>
+      <button onclick="measureBestSchedule(10, 1000);">Compute bestSchedule for 10 iterations with 1000 steps (1.00s).</button><br>
+      <button onclick="measureBestSchedule(10, 10000);">Compute bestSchedule for 10 iterations with 10000 steps (1.00s).</button><br>
+      <button onclick="measureBestSchedule(100, 10000);">Compute bestSchedule for 100 iterations with 10000 steps (10.00s).</button><br>
+      <button onclick="measureBestSchedule(1000, 10000);">Compute bestSchedule for 1000 iterations with 10000 steps (100.00s).</button><br>
+      <button onclick="measureBestSchedule(10000, 10000);">Compute bestSchedule for 10000 iterations with 10000 steps (1000.00s).</button><br>
+      <button onclick="measureBestSchedule(100000, 10000);">Compute bestSchedule for 100000 iterations with 10000 steps (10000.00s).</button><br>
+      <button onclick="measureBestSchedule(1000000, 10000);">Compute bestSchedule for 1000000 iterations with 10000 steps (100000.00s).</button>
     </div>
 
     <script src="scheduler.js"></script>
@@ -50,4 +57,4 @@
 
     <div id="canvases" class="center" style="padding: 2%;"></div>
   </body>
-<
+</html>
