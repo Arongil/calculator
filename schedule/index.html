@@ -1,60 +1,87 @@
 <!DOCTYPE html>
 <html> 
-  <head> 
-    <title>Scheduler</title> 
+    <head> 
+        <title>Scheduler</title> 
 
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <h1 class="center" style="font-family: Helvetica, Verdana, Arial;">Scheduler</h1>
-    <div class="center" id="quick-buttons" style="padding: 2%; padding-bottom: 0px;"> 
-      <button onclick="computeMilestones(10, 10, 1000, 0.2)">Compute milestones every 10 steps averaged 10 times at the 20th percentile.</button><br>
-      <button onclick="computeMilestones(10, 10, 1000, 0.5)">Compute milestones every 10 steps averaged 10 times at the 50th percentile.</button><br>
-      <button onclick="computeMilestones(10, 10, 1000, 0.8)">Compute milestones every 10 steps averaged 10 times at the 80th percentile.</button><br>
-      <button onclick="computeMilestones(20, 100, 200, 0.1)">Compute milestones every 20 steps averaged 100 times at the 10th percentile.</button><br>
-      <button onclick="computeMilestones(20, 100, 200, 0.2)">Compute milestones every 20 steps averaged 100 times at the 20th percentile.</button><br><br>
-      <button onclick="measureBestSchedule(10, 10);">Compute bestSchedule for 10 iterations with 10 steps (0.01s).</button><br>
-      <button onclick="measureBestSchedule(10, 100);">Compute bestSchedule for 10 iterations with 100 steps (0.10s).</button><br>
-      <button onclick="measureBestSchedule(10, 1000);">Compute bestSchedule for 10 iterations with 1000 steps (1.00s).</button><br>
-      <button onclick="measureBestSchedule(10, 10000);">Compute bestSchedule for 10 iterations with 10000 steps (1.00s).</button><br>
-      <button onclick="measureBestSchedule(100, 10000);">Compute bestSchedule for 100 iterations with 10000 steps (10.00s).</button><br>
-      <button onclick="measureBestSchedule(1000, 10000);">Compute bestSchedule for 1000 iterations with 10000 steps (100.00s).</button><br>
-      <button onclick="measureBestSchedule(10000, 10000);">Compute bestSchedule for 10000 iterations with 10000 steps (1000.00s).</button><br>
-      <button onclick="measureBestSchedule(100000, 10000);">Compute bestSchedule for 100000 iterations with 10000 steps (10000.00s).</button><br>
-      <button onclick="measureBestSchedule(1000000, 10000);">Compute bestSchedule for 1000000 iterations with 10000 steps (100000.00s).</button>
-    </div>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1 class="center">Scheduler</h1>
+        <div id="instructions" class="center">
+            <h2>Instructions</h2>
+            <h4>Finding a Good Schedule</h4>
+            <p><em>You will use the buttons below to calculate schedules.</em></p>
+            <ol style="text-align: initial;">
+                <li><strong>Choose your milestone setting.</strong> Milestones are
+                    used to discard unpromising schedules early in the search. The
+                    recommended option is the first button with the 10th percentile,
+                    which is more leniant.</li>
+                <li><strong>Choose how long the search will run.</strong> You can
+                    safely halve the time estimates given in parentheses at the
+                    end if you chose to use milestones. A light search might be
+                    1000 iterations with 10000 steps, which will run in about a
+                    minute. A heavy search might be 100000 iterations with 10000
+                    steps, which will run in about three hours.</li>
+                <li><strong>Right-click to open Inspect Element and switch to the
+                    "console" tab to see progress.</strong></li>
+            </ol>
+            <h4>Viewing the Good Schedule</h4>
+            <ol style="text-align: initial">
+                <li>A JSON string will be automatically copied into the text-box
+                    below when the search for a schedule is complete. If you wish
+                    to view a different schedule, copy its JSON string into the
+                    box instead.</li>
+                <li><strong>Click the "load JSON" button.</strong> A selection of
+                    teachers and specific independence levels will appear.</li>
+                <li><strong>Choose a category to load</strong>, or press
+                    "Load All Levels" to load them all. A selection of persons
+                    in the category will appear.</li>
+                <li><strong>Choose the person whose schedule you desire displayed
+                    </strong> and press "Load Schedule", or press
+                    "Load All Schedules" to load them all.</li>
+                <li><strong>Mouse over or touch blocks with a red bar for
+                    additional information about the conflict.</strong></li>
+            </ol>
+        </div>
 
-    <script src="scheduler.js"></script>
-    <script src="canvas.js"></script>
-    <script src="ui.js"></script>
+        <div class="center" id="quick-buttons" style="padding: 2%; padding-bottom: 0px;">
+            <h2>Milestones</h2>
+            <button class="small button" onclick="computeMilestones(20, 100, 200, 0.1)">Compute milestones every 20 steps averaged 100 times at the 10th percentile.</button><br>
+            <button class="small button" onclick="computeMilestones(20, 100, 200, 0.2)">Compute milestones every 20 steps averaged 100 times at the 20th percentile.</button><br><br>
+            <h2>Schedules</h2>
+            <button class="small button" onclick="measureBestSchedule(10, 10);">Compute bestSchedule for 10 iterations with 10 steps (0.01s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(10, 100);">Compute bestSchedule for 10 iterations with 100 steps (0.10s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(10, 1000);">Compute bestSchedule for 10 iterations with 1000 steps (1.00s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(10, 10000);">Compute bestSchedule for 10 iterations with 10000 steps (1.00s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(100, 10000);">Compute bestSchedule for 100 iterations with 10000 steps (10.00s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(1000, 10000);">Compute bestSchedule for 1000 iterations with 10000 steps (100.00s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(10000, 10000);">Compute bestSchedule for 10000 iterations with 10000 steps (1000.00s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(100000, 10000);">Compute bestSchedule for 100000 iterations with 10000 steps (10000.00s).</button><br>
+            <button class="small button" onclick="measureBestSchedule(1000000, 10000);">Compute bestSchedule for 1000000 iterations with 10000 steps (100000.00s).</button>
+            <h2>Progress</h2>
+            <p id="progress"></p>
+        </div>
 
-    <div id="user-interface" class="center" style="padding: 2%;"> 
-        <h2>Instructions</h2>
-        <ol style="text-align: initial">
-            <li>Paste a JSON-stringified scheduled into the below textbox.</li>
-            <li>Click the "load JSON" button. A selection of teachers and
-                specific independence levels will appear.</li>
-            <li>Choose a category to load, or press "Load All Levels"
-                to load them all. A selection of persons in the category
-                will appear</li>
-            <li>Choose the person whose schedule you desire displayed
-                and press "Load Schedule", or press "Load All Schedules"
-                to load them all.</li>
-        </ol>
-        <input id="schedule-json" placeholder="Paste JSON text here."></input>
-        <button id="load-json" onclick="loadJSON();">Load JSON</button><br><br>
-        <div id="ui-level-1" style="display: none">
-            <select id="level-select"></select>
-            <button id="load-levels" onclick="loadLevels();">Load Level</button>
-            <button id="load-all-levels" onclick="loadAllLevels()">Load All Levels</button><br>
-            <div id="ui-level-2" style="display: none;">
-                <select id="person-select"></select>
-                <button id="load-schedule" onclick="loadSchedule();">Load Schedule</button>
-                <button id="load-all-schedules" onclick="loadAllSchedules();">Load All Schedules</button>
+        <div id="user-interface" class="center" style="padding: 1%; margin: 0px;"> 
+            <br>
+            <input id="schedule-json" placeholder="Paste JSON text here."></input>
+            <button id="load-json" class="small button" onclick="loadJSON();">Load JSON</button><br><br>
+            <div id="ui-level-1" style="display: none">
+                <select id="level-select"></select>
+                <button id="load-levels" class="small button" onclick="loadLevels();">Load Level</button>
+                <button id="load-all-levels" class="small button" onclick="loadAllLevels()">Load All Levels</button><br>
+                <div id="ui-level-2" style="display: none;">
+                    <select id="person-select"></select>
+                    <button id="load-schedule" class="small button" onclick="loadSchedule();">Load Schedule</button>
+                    <button id="load-all-schedules" class="small button" onclick="loadAllSchedules();">Load All Schedules</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="canvases" class="center" style="padding: 2%;"></div>
-  </body>
+        <div id="canvases" class="center" style="padding: 2%;"></div>
+
+        <script src="scheduler.js"></script>
+        <script src="canvas.js"></script>
+        <script src="ui.js"></script>
+    </body>
 </html>
