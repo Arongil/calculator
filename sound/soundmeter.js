@@ -130,3 +130,14 @@ class SoundMeter {
 	}
 	
 }
+
+function factorial(n) {
+	var product = 1, i;
+	for (i = 2; i <= n; i++) {
+		product *= i;
+	}
+	return product;
+}
+function binomial(n, k) {
+	return factorial(n) / (factorial(k) * factorial(n - k));
+}
