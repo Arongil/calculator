@@ -174,10 +174,10 @@ function binomial(n, k) {
 
 var p5 = new p5();
 var shushes = [
-	p5.loadSound("shush1.mp3"),
-	p5.loadSound("shush2.mp3"),
-	p5.loadSound("shush3.mp3"),
-	p5.loadSound("shush4.mp3")
+	p5.loadSound("audio/shush1.mp3"),
+	p5.loadSound("audio/shush2.mp3"),
+	p5.loadSound("audio/shush3.mp3"),
+	p5.loadSound("audio/shush4.mp3")
 ];
 
 function setup() {
