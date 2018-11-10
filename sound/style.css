@@ -1,0 +1,9 @@
+* {
+    font-family: Helvetica, Verdana, Arial;
+}
+
+.center {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
