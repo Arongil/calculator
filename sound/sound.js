@@ -10,8 +10,8 @@ var shushes = [
 	p5.loadSound("audio/shush4.mp3")
 ];
 
-var canvas = new Canvas("canvas");
-canvas.resize();
+var ctx = new Canvas("canvas");
+ctx.resize();
 
 var shusher = new Shusher(shushes, 0.008, 6);
 // var meter = new SoundMeter(shusher, 0.02, 0.9, 0.02, 0.5, 3); // Khan Academy
@@ -26,8 +26,6 @@ function init() {
 }
 
 function loop() {
-  translate(WIDTH/2, HEIGHT/2);
-
   meter.listen();
   meter.display();
   
