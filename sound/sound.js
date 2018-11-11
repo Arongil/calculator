@@ -11,6 +11,7 @@ var shushes = [
 ];
 
 var canvas = new Canvas("canvas");
+canvas.resize();
 
 var shusher = new Shusher(shushes, 0.01, 6);
 // var meter = new SoundMeter(shusher, 0.02, 0.9, 0.02, 0.5, 3); // Khan Academy
