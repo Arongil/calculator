@@ -13,7 +13,7 @@ var shushes = [
 var canvas = new Canvas("canvas");
 canvas.resize();
 
-var shusher = new Shusher(shushes, 0.01, 6);
+var shusher = new Shusher(shushes, 0.008, 6);
 // var meter = new SoundMeter(shusher, 0.02, 0.9, 0.02, 0.5, 3); // Khan Academy
 // var meter = new SoundMeter(shusher, 0.02, 0.9, 0.03, 0.8, 3); // Goal Time
 var meter = new SoundMeter(shusher, 0.02, 0.9, 0.04, 0.8, 3); // Break
