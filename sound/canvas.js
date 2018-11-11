@@ -37,7 +37,7 @@ class Canvas {
     }
 
     resize() {
-        this.ctx.translate(-HALFWIDTH, -HALFHEIGHT);
+        this.ctx.translate(-WIDTH/2, -HEIGHT/2);
 
         this.canvas.width = 4/5 * window.innerWidth;
         this.canvas.height = this.canvas.width;
@@ -49,10 +49,8 @@ class Canvas {
 
         WIDTH = this.canvas.width;
         HEIGHT = this.canvas.height;
-        HALFWIDTH = WIDTH / 2;
-        HALFHEIGHT = HEIGHT / 2;
 
-        this.ctx.translate(HALFWIDTH, HALFHEIGHT);
+        this.ctx.translate(WIDTH/2, HEIGHT/2);
     }
 
     fill(red, green, blue, alpha) {
