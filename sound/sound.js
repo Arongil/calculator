@@ -20,11 +20,18 @@ var meter = new SoundMeter(shusher, 0.02, 0.9, 0.04, 0.8, 3); // Break
 // var meter = new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3); // Lunch
 meter.init();
 
+function init() {
+  mic.start();
+  window.requestAnimationFrame(loop);
+}
+
 function loop() {
-	translate(WIDTH/2, HEIGHT/2);
-	
-	meter.listen();
-	meter.display();
+  translate(WIDTH/2, HEIGHT/2);
+
+  meter.listen();
+  meter.display();
   
   window.requestAnimationFrame(loop);
 }
+
+window.onload = init;
