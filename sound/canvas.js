@@ -33,8 +33,6 @@ class Canvas {
 
             this.inputs["mouseX"] = x;
             this.inputs["mouseY"] = y;
-
-            schedule.checkMouse(this);
         }.bind(this);
     }
 
