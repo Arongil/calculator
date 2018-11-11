@@ -81,9 +81,9 @@ class SoundMeter {
 	}
 	
 	displayBars() {
-		canvas.noStroke();
-		canvas.fill(0, 0, 0);
-		canvas.rect(-WIDTH/2, -HEIGHT/2, WIDTH, HEIGHT * this.barsYFraction);
+		ctx.noStroke();
+		ctx.fill(0, 0, 0);
+		ctx.rect(-WIDTH/2, -HEIGHT/2, WIDTH, HEIGHT * this.barsYFraction);
 		
 		var interpolation, color, height, i;
 		for (i = 0; i < this.bars; i++) {
@@ -95,16 +95,16 @@ class SoundMeter {
 				height = 1;
 			else // If meter is upon the bar, set its height accordingly.
 				height = this.meter % (1 / this.bars) * this.bars;
-			canvas.noStroke();
-			canvas.fill(color.r, color.g, color.b);
-			canvas.rect(-WIDTH/2 + WIDTH * interpolation, -HEIGHT/2 + HEIGHT * this.barsYFraction, WIDTH / this.bars, -HEIGHT * this.barsYFraction * height);
+			ctx.noStroke();
+			ctx.fill(color.r, color.g, color.b);
+			ctx.rect(-WIDTH/2 + WIDTH * interpolation, -HEIGHT/2 + HEIGHT * this.barsYFraction, WIDTH / this.bars, -HEIGHT * this.barsYFraction * height);
 		}
 	}
 	
 	initGraph() {
-		canvas.noStroke();
-		canvas.fill(0, 0, 0);
-		canvas.rect(-WIDTH/2, HEIGHT/2, WIDTH, -HEIGHT * (1 - this.barsYFraction));
+		ctx.noStroke();
+		ctx.fill(0, 0, 0);
+		ctx.rect(-WIDTH/2, HEIGHT/2, WIDTH, -HEIGHT * (1 - this.barsYFraction));
 	}
 	
 	displayGraph() {
@@ -118,9 +118,9 @@ class SoundMeter {
 			var date = new Date(), hour = date.getHours(), minute = date.getMinutes(), second = date.getSeconds();
 			var percentage = (hour*3600 + minute*60 + second) / 86400;
 			this.graphY = this.graphY * this.smoothness + this.meter * (1 - this.smoothness);
-			canvas.noStroke();
-			canvas.fill(0, 255, 0);
-			canvas.rect(-WIDTH/2 + WIDTH*percentage, HEIGHT/2, this.recordInterval/86400, -HEIGHT*this.graphYFraction*this.graphY);
+			ctx.noStroke();
+			ctx.fill(0, 255, 0);
+			ctx.rect(-WIDTH/2 + WIDTH*percentage, HEIGHT/2, this.recordInterval/86400, -HEIGHT*this.graphYFraction*this.graphY);
 		}
 	}
 	
