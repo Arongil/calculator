@@ -62,10 +62,11 @@ class SoundMeter {
 		
 		this.graphInitialized = false;
 		this.timestamps = 12; // number of timestamps drawn on to the graph
+		this.subticks = 1; // the number of sub-timestamps per timestamp
 		this.timestampYFraction = 0.2; // percentage of the graph slot that displays timestamps
 		this.startTime = 8 * 60 * 60; // the time in seconds at which the graph begins
 		this.endTime = 20 * 60 * 60; // the time in seconds at which the graph ends
-		this.recordInterval = 1 * 1000; // milliseconds between plotting on the graph
+		this.recordInterval = 60 * 1000; // milliseconds between plotting on the graph
 		this.records = 0;
 		this.graphY = 0;
 		// When a new datum is recorded on the graph, it is placed at the position
@@ -142,11 +143,10 @@ class SoundMeter {
 		rect(-WIDTH/2, HEIGHT/2, WIDTH, -HEIGHT * (1 - this.barsYFraction));
 		
 		// Draw the timestamps and their corresponding line markers.
-		var centeringFraction = 0.9, textSizeCoefficient = 0.8 * centeringFraction, percentage, minute, hour, i;
+		var centeringFraction = 0.9, textSizeCoefficient = 0.8 * centeringFraction, percentage, minute, hour, i, j;
 		for (i = 0; i < this.timestamps; i++) {
 			// Stretch the percentage according to the start and end times for the time calculation.
 			percentage = (i / this.timestamps * (this.endTime - this.startTime) + this.startTime)/86400;
-			console.log(percentage);
 			minute = Math.round(60*24 * percentage) % 60;
 			hour = Math.round(24 * percentage) % 12;
 			if (hour == 0) hour = 12;
@@ -161,6 +161,12 @@ class SoundMeter {
 			stroke(255, 255, 0);
 			line(-WIDTH/2 + percentage * WIDTH, HEIGHT/2,
 					 -WIDTH/2 + percentage * WIDTH, HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction);
+			for (j = 1; j <= this.subticks; j++) {
+				line(-WIDTH/2 + (percentage + j / (this.subticks + 1) / this.timestamps) * WIDTH,
+						 HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction * textSizeCoefficient,
+					   -WIDTH/2 + (percentage + j / (this.subticks + 1) / this.timestamps) * WIDTH,
+						 HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction);
+			}
 		}
 	}
 	
@@ -232,19 +238,23 @@ var meter, shusher;
 var shushers = {
 	"default": new Shusher(shushes, 0.01, 6),
 	"null": new Shusher(shushes, 0.0, 6),
-    "active": new Shusher(shushes, 0.02, 5),
-    "apathetic": new Shusher(shushes, 0.005, 8)
+        "active": new Shusher(shushes, 0.02, 5),
+        "apathetic": new Shusher(shushes, 0.005, 8),
+	"hyper": new Shusher(shushes, 0.2, 4)
 };
 shusher = shushers[getUrlKeyword("shusher")];
+if (shusher == undefined) shusher = shushers["default"];
 
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
 	"null": new SoundMeter(shusher, 0.0, 0.9, 0.04, 0.5, 3),
-	"active": new SoundMeter(shusher, 0.03, 0.9, 0.042, 0.5, 3),
+	"active": new SoundMeter(shusher, 0.03, 0.9, 0.04, 0.8, 3),
 	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
+	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.8, 3)
 }
 meter = meters[getUrlKeyword("meter")];
+if (meter == undefined) meter = meters["default"];
 
 meter.init();
 
