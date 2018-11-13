@@ -146,7 +146,6 @@ class SoundMeter {
 		for (i = 0; i < this.timestamps; i++) {
 			// Stretch the percentage according to the start and end times for the time calculation.
 			percentage = i / this.timestamps * (this.endTime - this.startTime)/86400 + this.startTime/86400;
-			console.log(percentage);
 			minute = Math.floor(60*24 * percentage) % 60;
 			hour = 1 + Math.floor(24 * percentage) % 12;
 			// Recalibrate the percentage to be between 0 and 1 for the display.
