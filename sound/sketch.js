@@ -61,6 +61,10 @@ class SoundMeter {
 		this.barColors = [];
 		
 		this.graphInitialized = false;
+		this.timestamps = 12; // number of timestamps drawn on to the graph
+		this.timestampYFraction = 0.2; // percentage of the graph slot that displays timestamps
+		this.startTime = 7 * 60 * 60; // the time in seconds at which the graph begins
+		this.endTime = 19 * 60 * 60; // the time in seconds at which the graph ends
 		this.recordInterval = 60 * 1000; // milliseconds between plotting on the graph
 		this.records = 0;
 		this.graphY = 0;
@@ -132,9 +136,31 @@ class SoundMeter {
 	}
 	
 	initGraph() {
+		// Draw the black background.
 		noStroke();
 		fill(0, 0, 0);
 		rect(-WIDTH/2, HEIGHT/2, WIDTH, -HEIGHT * (1 - this.barsYFraction));
+		
+		// Draw the timestamps and their corresponding line markers.
+		var centeringFraction = 0.9, textSizeCoefficient = 0.8 * centeringFraction, percentage, minute, hour, i;
+		for (i = 0; i < this.timestamps; i++) {
+			// Stretch the percentage according to the start and end times for the time calculation.
+			percentage = i / this.timestamps * (this.endTime - this.startTime)/86400 + this.startTime/86400;
+			console.log(percentage);
+			minute = Math.floor(60*24 * percentage) % 60;
+			hour = 1 + Math.floor(24 * percentage) % 12;
+			// Recalibrate the percentage to be between 0 and 1 for the display.
+			percentage = (percentage - this.startTime/86400) * 86400/(this.endTime - this.startTime);
+			noStroke();
+			fill(255, 255, 0);
+			textSize(HEIGHT * this.graphYFraction * this.timestampYFraction * textSizeCoefficient);
+			text(hour + ":" + (minute < 10 ? "0" : "") + minute,
+				   -WIDTH/2 + (percentage + (1 - centeringFraction)/this.timestamps) * WIDTH,
+					 HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction * textSizeCoefficient / 2);
+			stroke(255, 255, 0);
+			line(-WIDTH/2 + percentage * WIDTH, HEIGHT/2,
+					 -WIDTH/2 + percentage * WIDTH, HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction);
+		}
 	}
 	
 	displayGraph() {
@@ -147,10 +173,13 @@ class SoundMeter {
 			this.records++;
 			var date = new Date(), hour = date.getHours(), minute = date.getMinutes(), second = date.getSeconds();
 			var percentage = (hour*3600 + minute*60 + second) / 86400;
+			// Recalibrate the percentage to be between 0 and 1 for the display.
+			percentage = (percentage - this.startTime/86400) * 86400/(this.endTime - this.startTime);
 			this.graphY = this.graphY * this.smoothness + this.meter * (1 - this.smoothness);
 			noStroke();
 			fill(0, 255, 0);
-			rect(-WIDTH/2 + WIDTH*percentage, HEIGHT/2, this.recordInterval/86400, -HEIGHT*this.graphYFraction*this.graphY);
+			rect(-WIDTH/2 + WIDTH*percentage, HEIGHT/2 - HEIGHT*this.graphYFraction*this.timestampYFraction,
+					 this.recordInterval/(this.endTime - this.startTime), -HEIGHT*this.graphYFraction*(1 - this.timestampYFraction)*this.graphY);
 		}
 	}
 	
@@ -185,11 +214,43 @@ function setup() {
 	mic.start();
 }
 
-var shusher = new Shusher(shushes, 0.01, 6);
-// var meter = new SoundMeter(shusher, 0.02, 0.9, 0.02, 0.5, 3); // Khan Academy
-// var meter = new SoundMeter(shusher, 0.02, 0.9, 0.03, 0.8, 3); // Goal Time
-var meter = new SoundMeter(shusher, 0.02, 0.9, 0.04, 0.8, 3); // Break
-// var meter = new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3); // Lunch
+var url = window.location.href, keyword, index, substr, meter, shusher;
+
+var shushers = {
+	"default": new Shusher(shushes, 0.01, 6),
+	"null": new Shusher(shushes, 0.0, 6),
+  "active": new Shusher(shushes, 0.02, 5),
+  "apathetic": new Shusher(shushes, 0.005, 8)
+};
+keyword = "shusher";
+if (url.indexOf(keyword + "=") == -1) {
+	shusher = shushers["default"];
+}
+else {
+	index = url.indexOf(keyword + "=");
+	substr = url.slice(index);
+	info = substr.slice(substr.indexOf("=") + 1, substr.indexOf("&" != -1) ? index + substr.indexOf("&") : url.length);
+	shusher = shushers[info];
+}
+
+var meters = {
+	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
+	"null": new SoundMeter(shusher, 0.0, 0.9, 0.04, 0.5, 3),
+	"active": new SoundMeter(shusher, 0.02, 0.9, 0.04, 0.5, 3),
+	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
+	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
+}
+keyword = "meter";
+if (url.indexOf(keyword + "=") == -1) {
+	meter = meters["default"];
+}
+else {
+	index = url.indexOf(keyword + "=");
+	substr = url.slice(index);
+	info = substr.slice(substr.indexOf("=") + 1, substr.indexOf("&" != -1) ? index + substr.indexOf("&") : url.length);
+	meter = meters[info];
+}
+
 meter.init();
 
 function draw() {
