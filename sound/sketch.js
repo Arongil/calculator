@@ -63,9 +63,9 @@ class SoundMeter {
 		this.graphInitialized = false;
 		this.timestamps = 12; // number of timestamps drawn on to the graph
 		this.timestampYFraction = 0.2; // percentage of the graph slot that displays timestamps
-		this.startTime = 7 * 60 * 60; // the time in seconds at which the graph begins
-		this.endTime = 19 * 60 * 60; // the time in seconds at which the graph ends
-		this.recordInterval = 60 * 1000; // milliseconds between plotting on the graph
+		this.startTime = 8 * 60 * 60; // the time in seconds at which the graph begins
+		this.endTime = 20 * 60 * 60; // the time in seconds at which the graph ends
+		this.recordInterval = 1 * 1000; // milliseconds between plotting on the graph
 		this.records = 0;
 		this.graphY = 0;
 		// When a new datum is recorded on the graph, it is placed at the position
@@ -145,10 +145,11 @@ class SoundMeter {
 		var centeringFraction = 0.9, textSizeCoefficient = 0.8 * centeringFraction, percentage, minute, hour, i;
 		for (i = 0; i < this.timestamps; i++) {
 			// Stretch the percentage according to the start and end times for the time calculation.
-			percentage = i / this.timestamps * (this.endTime - this.startTime)/86400 + this.startTime/86400;
+			percentage = (i / this.timestamps * (this.endTime - this.startTime) + this.startTime)/86400;
 			console.log(percentage);
-			minute = Math.floor(60*24 * percentage) % 60;
-			hour = 1 + Math.floor(24 * percentage) % 12;
+			minute = Math.round(60*24 * percentage) % 60;
+			hour = Math.round(24 * percentage) % 12;
+			if (hour == 0) hour = 12;
 			// Recalibrate the percentage to be between 0 and 1 for the display.
 			percentage = (percentage - this.startTime/86400) * 86400/(this.endTime - this.startTime);
 			noStroke();
