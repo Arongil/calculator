@@ -146,6 +146,7 @@ class SoundMeter {
 		for (i = 0; i < this.timestamps; i++) {
 			// Stretch the percentage according to the start and end times for the time calculation.
 			percentage = i / this.timestamps * (this.endTime - this.startTime)/86400 + this.startTime/86400;
+			console.log(percentage);
 			minute = Math.floor(60*24 * percentage) % 60;
 			hour = 1 + Math.floor(24 * percentage) % 12;
 			// Recalibrate the percentage to be between 0 and 1 for the display.
@@ -213,42 +214,36 @@ function setup() {
 	mic.start();
 }
 
-var url = window.location.href, keyword, index, substr, meter, shusher;
+function getUrlKeyword(keyword) {
+	var url = window.location.href, keyword, index, substr;
+	if (url.indexOf(keyword + "=") == -1 || url.indexOf("?") == -1) {
+		return "default";
+	}
+	else {
+		index = url.indexOf(keyword + "=");
+		substr = url.slice(index);
+		return substr.slice(substr.indexOf("=") + 1, substr.indexOf("&") != -1 ? substr.indexOf("&") : substr.length);
+	}
+}
+
+var meter, shusher;
 
 var shushers = {
 	"default": new Shusher(shushes, 0.01, 6),
 	"null": new Shusher(shushes, 0.0, 6),
-  "active": new Shusher(shushes, 0.02, 5),
-  "apathetic": new Shusher(shushes, 0.005, 8)
+    "active": new Shusher(shushes, 0.02, 5),
+    "apathetic": new Shusher(shushes, 0.005, 8)
 };
-keyword = "shusher";
-if (url.indexOf(keyword + "=") == -1) {
-	shusher = shushers["default"];
-}
-else {
-	index = url.indexOf(keyword + "=");
-	substr = url.slice(index);
-	info = substr.slice(substr.indexOf("=") + 1, substr.indexOf("&" != -1) ? index + substr.indexOf("&") : url.length);
-	shusher = shushers[info];
-}
+shusher = shushers[getUrlKeyword("shusher")];
 
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
 	"null": new SoundMeter(shusher, 0.0, 0.9, 0.04, 0.5, 3),
-	"active": new SoundMeter(shusher, 0.02, 0.9, 0.04, 0.5, 3),
+	"active": new SoundMeter(shusher, 0.03, 0.9, 0.042, 0.5, 3),
 	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
 }
-keyword = "meter";
-if (url.indexOf(keyword + "=") == -1) {
-	meter = meters["default"];
-}
-else {
-	index = url.indexOf(keyword + "=");
-	substr = url.slice(index);
-	info = substr.slice(substr.indexOf("=") + 1, substr.indexOf("&" != -1) ? index + substr.indexOf("&") : url.length);
-	meter = meters[info];
-}
+meter = meters[getUrlKeyword("meter")];
 
 meter.init();
 
