@@ -210,10 +210,10 @@ function binomial(n, k) {
 
 var p5 = new p5();
 var shushes = [
-	p5.loadSound("audio/shush1.mp3"),
-	p5.loadSound("audio/shush2.mp3"),
-	p5.loadSound("audio/shush3.mp3"),
-	p5.loadSound("audio/shush4.mp3")
+	p5.loadSound("shush1.mp3"),
+	p5.loadSound("shush2.mp3"),
+	p5.loadSound("shush3.mp3"),
+	p5.loadSound("shush4.mp3")
 ];
 
 function setup() {
@@ -238,9 +238,9 @@ var meter, shusher;
 var shushers = {
 	"default": new Shusher(shushes, 0.01, 6),
 	"null": new Shusher(shushes, 0.0, 6),
-    "active": new Shusher(shushes, 0.02, 5),
-    "apathetic": new Shusher(shushes, 0.005, 8),
-	"hyper": new Shusher(shushes, 0.2, 4)
+	"active": new Shusher(shushes, 0.02, 5),
+	"apathetic": new Shusher(shushes, 0.005, 8),
+	"hyper": new Shusher(shushes, 0.2, 3)
 };
 shusher = shushers[getUrlKeyword("shusher")];
 if (shusher == undefined) shusher = shushers["default"];
@@ -248,10 +248,10 @@ if (shusher == undefined) shusher = shushers["default"];
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
 	"null": new SoundMeter(shusher, 0.0, 0.9, 0.04, 0.5, 3),
-	"active": new SoundMeter(shusher, 0.03, 0.9, 0.03, 0.8, 3),
+	"active": new SoundMeter(shusher, 0.03, 0.9, 0.04, 0.8, 3),
 	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
-	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.8, 3)
+	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.6, 3)
 }
 meter = meters[getUrlKeyword("meter")];
 if (meter == undefined) meter = meters["default"];
