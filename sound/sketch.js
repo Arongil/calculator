@@ -71,7 +71,7 @@ class SoundMeter {
 		this.graphY = 0;
 		// When a new datum is recorded on the graph, it is placed at the position
 		// defined by oldPos*smoothFactor + newPos*(1 - smoothFactor).
-		this.smoothness = 0.8;
+		this.smoothness = 0.5;
 	}
 	
 	initBarColors() {
@@ -178,8 +178,7 @@ class SoundMeter {
 		
 		if (window.performance.now() > this.records*this.recordInterval) {
 			this.records++;
-			var date = new Date(), hour = date.getHours(), minute = date.getMinutes(), second = date.getSeconds();
-			var percentage = (hour*3600 + minute*60 + second) / 86400;
+			var percentage = getSeconds() / 86400;
 			// Recalibrate the percentage to be between 0 and 1 for the display.
 			percentage = (percentage - this.startTime/86400) * 86400/(this.endTime - this.startTime);
 			this.graphY = this.graphY * this.smoothness + this.meter * (1 - this.smoothness);
@@ -197,6 +196,11 @@ class SoundMeter {
 	
 }
 
+function getSeconds() {
+	var date = new Date(), hour = date.getHours(), minute = date.getMinutes(), second = date.getSeconds();
+	return hour*3600 + minute*60 + second;
+}
+
 function factorial(n) {
 	var product = 1, i;
 	for (i = 2; i <= n; i++) {
@@ -210,10 +214,10 @@ function binomial(n, k) {
 
 var p5 = new p5();
 var shushes = [
-	p5.loadSound("audio/shush1.mp3"),
-	p5.loadSound("audio/shush2.mp3"),
-	p5.loadSound("audio/shush3.mp3"),
-	p5.loadSound("audio/shush4.mp3")
+	p5.loadSound("shush1.mp3"),
+	p5.loadSound("shush2.mp3"),
+	p5.loadSound("shush3.mp3"),
+	p5.loadSound("shush4.mp3")
 ];
 
 function setup() {
@@ -242,7 +246,8 @@ var shushers = {
 	"apathetic": new Shusher(shushes, 0.005, 8),
 	"hyper": new Shusher(shushes, 0.2, 3)
 };
-shusher = shushers[getUrlKeyword("shusher")];
+var shusherType = getUrlKeyword("shusher");
+shusher = shushers[shusherType];
 if (shusher == undefined) shusher = shushers["default"];
 
 var meters = {
@@ -253,8 +258,12 @@ var meters = {
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
 	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.6, 3)
 }
-meter = meters[getUrlKeyword("meter")];
+var meterType = getUrlKeyword("meter");
+meter = meters[meterType];
 if (meter == undefined) meter = meters["default"];
+
+var recordInterval = getUrlKeyword("recordInterval");
+if (recordInterval !== undefined) meter.recordInterval = recordInterval * 1000;
 
 meter.init();
 
@@ -263,8 +272,33 @@ function mouseReleased() {
 	meter.shusher.shush();
 }
 
+//
+var shusherShutoffTimes = [
+	{ // 10:30 - 10:45
+		"start": 37800,
+		"end": 38700
+	},
+	{ // 3:45 - 4:00
+		"start": 56700,
+		"end": 57600
+	},
+];
+
+function checkShusherShutoffs() {
+	for (var i = 0, shutoff; i < shusherShutoffTimes.length; i++) {
+		shutoff = shusherShutoffTimes[i];
+		if (getSeconds() > shutoff.start && getSeconds() < shutoff.end) {
+			meter.shusher = shushers["null"];
+			return;
+		}
+	}
+	meter.shusher = shushers[shusherType];
+}
+
 function draw() {
 	translate(WIDTH/2, HEIGHT/2);
+	
+	checkShusherShutoffs();
 	
 	meter.listen();
 	meter.display();
