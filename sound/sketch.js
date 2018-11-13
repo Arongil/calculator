@@ -163,7 +163,7 @@ class SoundMeter {
 					 -WIDTH/2 + percentage * WIDTH, HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction);
 			for (j = 1; j <= this.subticks; j++) {
 				line(-WIDTH/2 + (percentage + j / (this.subticks + 1) / this.timestamps) * WIDTH,
-						 HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction * textSizeCoefficient,
+						 HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction * (0.8 + textSizeCoefficient/5),
 					   -WIDTH/2 + (percentage + j / (this.subticks + 1) / this.timestamps) * WIDTH,
 						 HEIGHT/2 - HEIGHT * this.graphYFraction * this.timestampYFraction);
 			}
@@ -238,8 +238,8 @@ var meter, shusher;
 var shushers = {
 	"default": new Shusher(shushes, 0.01, 6),
 	"null": new Shusher(shushes, 0.0, 6),
-        "active": new Shusher(shushes, 0.02, 5),
-        "apathetic": new Shusher(shushes, 0.005, 8),
+    "active": new Shusher(shushes, 0.02, 5),
+    "apathetic": new Shusher(shushes, 0.005, 8),
 	"hyper": new Shusher(shushes, 0.2, 4)
 };
 shusher = shushers[getUrlKeyword("shusher")];
@@ -248,7 +248,7 @@ if (shusher == undefined) shusher = shushers["default"];
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
 	"null": new SoundMeter(shusher, 0.0, 0.9, 0.04, 0.5, 3),
-	"active": new SoundMeter(shusher, 0.03, 0.9, 0.04, 0.8, 3),
+	"active": new SoundMeter(shusher, 0.03, 0.9, 0.03, 0.8, 3),
 	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
 	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.8, 3)
