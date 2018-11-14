@@ -350,55 +350,55 @@ var specialTimes = [
 		"endAction": () => meter.shusher = shushers[shusherType]
 	},
 	// Class times and their reminders
-	{ // 9:00: class time => reminder
-		"start": 32400,
-		"end": 32400 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 9:45: class time => reminder
-		"start": 35100,
-		"end": 35100 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 11:00: class time => reminder
-		"start": 39600,
-		"end": 39600 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 11:45: class time => reminder
-		"start": 42300,
-		"end": 42300 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 1:15: class time => reminder
-		"start": 47700,
-		"end": 47700 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 2:00: class time => reminder
-		"start": 50400,
-		"end": 50400 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 2:45: class time => reminder
-		"start": 53100,
-		"end": 53100 + 1,
-		"happening": false,
-		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-		"endAction": () => null
-	}
+// 	{ // 9:00: class time => reminder
+// 		"start": 32400,
+// 		"end": 32400 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	},
+// 	{ // 9:45: class time => reminder
+// 		"start": 35100,
+// 		"end": 35100 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	},
+// 	{ // 11:00: class time => reminder
+// 		"start": 39600,
+// 		"end": 39600 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	},
+// 	{ // 11:45: class time => reminder
+// 		"start": 42300,
+// 		"end": 42300 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	},
+// 	{ // 1:15: class time => reminder
+// 		"start": 47700,
+// 		"end": 47700 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	},
+// 	{ // 2:00: class time => reminder
+// 		"start": 50400,
+// 		"end": 50400 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	},
+// 	{ // 2:45: class time => reminder
+// 		"start": 53100,
+// 		"end": 53100 + 1,
+// 		"happening": false,
+// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+// 		"endAction": () => null
+// 	}
 ];
 
 function checkSpecialTimes() {
