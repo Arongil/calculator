@@ -4,13 +4,19 @@ var HEIGHT = window.innerHeight;
 
 class Shusher {
 	
-	constructor(shushes, tolerance = 0.1, exponent = 5) {
+	constructor(shushes, warnings, tolerance = 0.1, exponent = 5) {
 		this.shushes = shushes;
+		this.warnings = warnings;
 		this.shushing = false;
+		this.warning = false;
 		// Tolerance is a positive number that scales the chance to shush.
 		this.tolerance = tolerance;
 		// Exponent is a positive number describing how the meter affects the chance to shush.
 		this.exponent = exponent;
+	}
+	
+	isPlaying() {
+		return this.warning || this.shushing;
 	}
 	
 	shush() {
@@ -19,6 +25,14 @@ class Shusher {
 		audio.play(0, 1, 1);
 		this.shushing = true;
 		window.setTimeout((() => this.shushing = false).bind(this), audio.duration() * 1000);
+	}
+	
+	warn() {
+		var audio = this.warnings[ Math.floor(Math.random() * this.warnings.length) ];
+		// .play parameters, all optional: [startTime], [rate], [amp], [cueStart], [duration].
+		audio.play(0, 1, 1);
+		this.warning = true;
+		window.setTimeout((() => this.warning = false).bind(this), audio.duration() * 1000);
 	}
 	
 	update(meter) {
@@ -97,21 +111,30 @@ class SoundMeter {
 	}
 	
 	listen() {
-		if (!this.shusher.shushing)
+		if (!this.shusher.isPlaying())
 			this.velocity += (mic.getLevel() - this.ambience*(1 - this.shift + this.shift*this.meter)) * this.sensitivity;
 		this.velocity *= this.friction;
 		this.meter += this.velocity;
 		
 		if (this.meter < 0) {
 			this.meter = 0;
-			this.velocity *= -1; // Add in a little bounce for fun.
+			this.velocity = 1 * Math.abs(this.velocity); // Add in a little bounce for fun. Absolute value it to ensure it goes up.
 		}
 		if (this.meter > 1) {
 			this.meter = 1;
-			this.velocity *= -0.2; // Add in a little bounce for fun.
+			this.velocity = -0.2 * Math.abs(this.velocity); // Add in a little bounce for fun. Absolute value it to ensure it goes down.
+			// Warn that it's too loud.
+			if (this.shusher.shushing) {
+				this.shusher.warning = true; // Tell the shusher to stop shushing until the warning happens.
+				// Assume that maximum shush length is 5 seconds and that the space won't get quiet in that time.
+				window.setTimeout((() => this.shusher.warn()).bind(this), 5 * 1000);
+			}
+			else {
+				this.shusher.warn();
+			}
 		}
 		
-		if (!this.shusher.shushing)
+		if (!this.shusher.isPlaying())
 			this.shusher.update(this.meter);
 	}
 	
@@ -214,10 +237,19 @@ function binomial(n, k) {
 
 var p5 = new p5();
 var shushes = [
-	p5.loadSound("shush1.mp3"),
-	p5.loadSound("shush2.mp3"),
-	p5.loadSound("shush3.mp3"),
-	p5.loadSound("shush4.mp3")
+	p5.loadSound("audio/shush1.mp3"),
+	p5.loadSound("audio/shush2.mp3"),
+	p5.loadSound("audio/shush3.mp3"),
+	p5.loadSound("audio/shush4.mp3")
+];
+var bells = [
+	p5.loadSound("audio/bell.mp3")
+];
+var warnings = [
+	p5.loadSound("audio/megan_warning.mp3")
+];
+var classtimes = [
+	p5.loadSound("audio/classtime.mp3")
 ];
 
 function setup() {
@@ -240,11 +272,11 @@ function getUrlKeyword(keyword) {
 var meter, shusher;
 
 var shushers = {
-	"default": new Shusher(shushes, 0.01, 6),
-	"null": new Shusher(shushes, 0.0, 6),
-	"active": new Shusher(shushes, 0.02, 5),
-	"apathetic": new Shusher(shushes, 0.005, 8),
-	"hyper": new Shusher(shushes, 0.2, 3)
+	"default": new Shusher(shushes, warnings, 0.01, 6),
+	"null": new Shusher(shushes, warnings, 0.0, 6),
+	"active": new Shusher(shushes, warnings, 0.02, 5),
+	"apathetic": new Shusher(shushes, warnings, 0.005, 8),
+	"hyper": new Shusher(shushes, warnings, 0.2, 3)
 };
 var shusherType = getUrlKeyword("shusher");
 shusher = shushers[shusherType];
@@ -267,38 +299,112 @@ if (recordInterval !== undefined) meter.recordInterval = recordInterval * 1000;
 
 meter.init();
 
+var specialTimes = [
+	// Meetings and their bell rings
+	{ // 10:30 - 10:30 and 5 seconds: morning meeting => ring bell
+		"start": 37800,
+		"end": 37800 + 5,
+		"happening": false,
+		"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
+		"endAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1)
+	},
+	{ // 10:30 - 10:45: morning meeting => disable shusher
+		"start": 37800,
+		"end": 38700,
+		"happening": false,
+		"startAction": () => meter.shusher = shushers["null"],
+		"endAction": () => meter.shusher = shushers[shusherType]
+	},
+	{ // 10:30 - 10:30 and 5 seconds: morning meeting => ring bell
+		"start": 56700,
+		"end": 56700 + 5,
+		"happening": false,
+		"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
+		"endAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1)
+	},
+	{ // 3:45 - 4:00: closing meeting => disable shusher
+		"start": 56700,
+		"end": 57600,
+		"happening": false,
+		"startAction": () => meter.shusher = shushers["null"],
+		"endAction": () => meter.shusher = shushers[shusherType]
+	},
+	// Class times and their reminders
+	{ // 9:00: class time => reminder
+		"start": 32400,
+		"end": 32400 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	},
+	{ // 9:45: class time => reminder
+		"start": 35100,
+		"end": 35100 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	},
+	{ // 11:00: class time => reminder
+		"start": 39600,
+		"end": 39600 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	},
+	{ // 11:45: class time => reminder
+		"start": 42300,
+		"end": 42300 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	},
+	{ // 1:15: class time => reminder
+		"start": 47700,
+		"end": 47700 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	},
+	{ // 2:00: class time => reminder
+		"start": 50400,
+		"end": 50400 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	},
+	{ // 2:45: class time => reminder
+		"start": 53100,
+		"end": 53100 + 1,
+		"happening": false,
+		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+		"endAction": () => null
+	}
+];
+
+function checkSpecialTimes() {
+	println(getSeconds());
+	for (var i = 0, time; i < specialTimes.length; i++) {
+		time = specialTimes[i];
+		if (getSeconds() >= time.start && getSeconds() <= time.end && !time.happening) {
+			time.startAction();
+			time.happening = true;
+		}
+		else if (getSeconds() > time.end && time.happening) {
+			time.endAction();
+			time.happening = false;
+		}
+	}
+}
+
 function mouseReleased() {
 	// Shush on click.
 	meter.shusher.shush();
 }
 
-//
-var shusherShutoffTimes = [
-	{ // 10:30 - 10:45
-		"start": 37800,
-		"end": 38700
-	},
-	{ // 3:45 - 4:00
-		"start": 56700,
-		"end": 57600
-	},
-];
-
-function checkShusherShutoffs() {
-	for (var i = 0, shutoff; i < shusherShutoffTimes.length; i++) {
-		shutoff = shusherShutoffTimes[i];
-		if (getSeconds() > shutoff.start && getSeconds() < shutoff.end) {
-			meter.shusher = shushers["null"];
-			return;
-		}
-	}
-	meter.shusher = shushers[shusherType];
-}
-
 function draw() {
 	translate(WIDTH/2, HEIGHT/2);
 	
-	checkShusherShutoffs();
+	checkSpecialTimes();
 	
 	meter.listen();
 	meter.display();
