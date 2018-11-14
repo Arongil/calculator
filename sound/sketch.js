@@ -295,7 +295,6 @@ var shushers = {
 };
 var shusherType = getUrlKeyword("shusher");
 shusher = shushers[shusherType];
-if (shusher == undefined) shusher = shushers["default"];
 
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
@@ -307,10 +306,9 @@ var meters = {
 }
 var meterType = getUrlKeyword("meter");
 meter = meters[meterType];
-if (meter == undefined) meter = meters["default"];
 
 var recordInterval = getUrlKeyword("recordInterval");
-if (recordInterval !== undefined) meter.recordInterval = recordInterval * 1000;
+if (recordInterval !== "default") meter.recordInterval = recordInterval * 1000;
 
 meter.init();
 
