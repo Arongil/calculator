@@ -32,7 +32,7 @@ class Shusher {
 	warn() {
 		var audio = this.warnings[ Math.floor(Math.random() * this.warnings.length) ];
 		// .play parameters, all optional: [startTime], [rate], [amp], [cueStart], [duration].
-		audio.play(0, 1, 1);
+		audio.play(0, 1, 2); // Play warnings twice as loudly.
 		this.warning = true;
 		window.setTimeout((() => this.warning = false).bind(this), audio.duration() * 1000);
 	}
@@ -252,19 +252,19 @@ function binomial(n, k) {
 
 var p5 = new p5();
 var shushes = [
-	p5.loadSound("audio/shush1.mp3"),
-	p5.loadSound("audio/shush2.mp3"),
-	p5.loadSound("audio/shush3.mp3"),
-	p5.loadSound("audio/shush4.mp3")
+	p5.loadSound("shush1.mp3"),
+	p5.loadSound("shush2.mp3"),
+	p5.loadSound("shush3.mp3"),
+	p5.loadSound("shush4.mp3")
 ];
 var bells = [
-	p5.loadSound("audio/bell.mp3")
+	p5.loadSound("bell.mp3")
 ];
 var warnings = [
-	p5.loadSound("audio/megan_warning.mp3")
+	p5.loadSound("megan_warning.mp3")
 ];
 var classtimes = [
-	p5.loadSound("audio/classtime.mp3")
+	p5.loadSound("classtime.mp3")
 ];
 
 function setup() {
@@ -314,26 +314,33 @@ meter.init();
 
 var specialTimes = [
 	// Meetings and their bell rings
-	{ // 10:30 - 10:30 and 5 seconds: morning meeting => ring bell
+	{ // 10:30 - 10:30 and 1 second: morning meeting => ring bell
 		"start": 37800,
-		"end": 37800 + 5,
+		"end": 37800 + 1,
 		"happening": false,
 		"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
-		"endAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1)
+		"endAction": () => null
 	},
 	{ // 10:30 - 10:45: morning meeting => disable shusher
 		"start": 37800,
 		"end": 38700,
 		"happening": false,
 		"startAction": () => meter.shusher = shushers["null"],
-		"endAction": () => meter.shusher = shushers[shusherType]
+		"endAction": () => meter.shusher = shushers["apathetic"]
 	},
-	{ // 10:30 - 10:30 and 5 seconds: morning meeting => ring bell
+	{ // 11:00 - 11:00 and 1 second: break over => normal shusher
+		"start": 37800,
+		"end": 38700 + 1,
+		"happening": false,
+		"startAction": () => meter.shusher = shushers[shusherType],
+		"endAction": () => null
+	},
+	{ // 3:45 - 3:45 and 1 second: morning meeting => ring bell
 		"start": 56700,
-		"end": 56700 + 5,
+		"end": 56700 + 1,
 		"happening": false,
 		"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
-		"endAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1)
+		"endAction": () => null
 	},
 	{ // 3:45 - 4:00: closing meeting => disable shusher
 		"start": 56700,
