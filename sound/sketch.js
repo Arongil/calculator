@@ -4,7 +4,7 @@ var HEIGHT = window.innerHeight;
 
 class Shusher {
 	
-	constructor(shushes, warnings, tolerance = 0.1, exponent = 5) {
+	constructor(shushes, warnings, tolerance = 0.1, exponent = 5, warningChance = 0.2) {
 		this.shushes = shushes;
 		this.warnings = warnings;
 		this.shushing = false;
@@ -13,6 +13,8 @@ class Shusher {
 		this.tolerance = tolerance;
 		// Exponent is a positive number describing how the meter affects the chance to shush.
 		this.exponent = exponent;
+		// The chance that a warning occurs.
+		this.warningChance = warningChance;
 	}
 	
 	isPlaying() {
@@ -35,10 +37,20 @@ class Shusher {
 		window.setTimeout((() => this.warning = false).bind(this), audio.duration() * 1000);
 	}
 	
-	update(meter) {
+	tryWarn() {
+		if (Math.random() < this.warningChance) {
+			this.warn();
+			return true;
+		}
+		return false;
+	}
+	
+	tryShush(meter) {
 		if (Math.random() < this.tolerance * Math.pow(meter, this.exponent)) {
 			this.shush();
+			return true;
 		}
+		return false;
 	}
 }
 
@@ -124,18 +136,21 @@ class SoundMeter {
 			this.meter = 1;
 			this.velocity = -0.2 * Math.abs(this.velocity); // Add in a little bounce for fun. Absolute value it to ensure it goes down.
 			// Warn that it's too loud.
-			if (this.shusher.shushing) {
-				this.shusher.warning = true; // Tell the shusher to stop shushing until the warning happens.
+			if (this.shusher.isPlaying()) {
+				this.shusher.warning = true; // Tell the shusher to not shush until the warning happens.
 				// Assume that maximum shush length is 5 seconds and that the space won't get quiet in that time.
-				window.setTimeout((() => this.shusher.warn()).bind(this), 5 * 1000);
+				window.setTimeout((() => {
+					if (!this.shusher.tryWarn()) // If the shusher decides not to warn, still reset the warning setting.
+						this.shusher.warning = false;
+				}).bind(this), 5 * 1000);
 			}
 			else {
-				this.shusher.warn();
+				this.shusher.tryWarn();
 			}
 		}
 		
 		if (!this.shusher.isPlaying())
-			this.shusher.update(this.meter);
+			this.shusher.tryShush(this.meter);
 	}
 	
 	displayBars() {
@@ -272,11 +287,11 @@ function getUrlKeyword(keyword) {
 var meter, shusher;
 
 var shushers = {
-	"default": new Shusher(shushes, warnings, 0.01, 6),
-	"null": new Shusher(shushes, warnings, 0.0, 6),
-	"active": new Shusher(shushes, warnings, 0.02, 5),
-	"apathetic": new Shusher(shushes, warnings, 0.005, 8),
-	"hyper": new Shusher(shushes, warnings, 0.2, 3)
+	"default": new Shusher(shushes, warnings, 0.01, 6, 0.2),
+	"null": new Shusher(shushes, warnings, 0.0, 6, 0),
+	"active": new Shusher(shushes, warnings, 0.02, 5, 0.5),
+	"apathetic": new Shusher(shushes, warnings, 0.005, 8, 0.1),
+	"hyper": new Shusher(shushes, warnings, 0.2, 3, 1)
 };
 var shusherType = getUrlKeyword("shusher");
 shusher = shushers[shusherType];
