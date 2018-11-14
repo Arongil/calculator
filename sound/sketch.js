@@ -382,7 +382,6 @@ var specialTimes = [
 ];
 
 function checkSpecialTimes() {
-	println(getSeconds());
 	for (var i = 0, time; i < specialTimes.length; i++) {
 		time = specialTimes[i];
 		if (getSeconds() >= time.start && getSeconds() <= time.end && !time.happening) {
