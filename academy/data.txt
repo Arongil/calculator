@@ -214,7 +214,9 @@ var data = [
                 "title": "Why 68% of Data Falls within 1 Standard Deviation",
                 "link": "https://www.youtube.com/watch?v=q4gK6tQnuYM&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=22"},{
                 "title": "Defining the Cross Product from Scratch",
-                "link": "https://www.youtube.com/watch?v=QI2TLsRgObk&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=23"}]
+                "link": "https://www.youtube.com/watch?v=QI2TLsRgObk&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=23"},{
+                "title": "Circles are Infinity-Sided Polygons",
+                "link": "https://www.youtube.com/watch?v=Wm5OKfu8H34&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=28"}]
       },
     ]
   }
