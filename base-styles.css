@@ -109,3 +109,26 @@
 #nav .dropdown:hover .dropdown-content {
   display: block;
 }
+
+
+.block {
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 6vw;
+  padding-right: 6vw;
+  margin-top: 2vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.block-header {
+  color: #202020;
+  text-align: center;
+  font-size: 6vh;
+}
+.topic-header {
+  color: #303030;
+  font-size: 4vh;
+  margin-bottom: 1vh;
+  margin-top: 4vh;
+}
