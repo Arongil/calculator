@@ -4,7 +4,7 @@ var HEIGHT = window.innerHeight;
 
 class Shusher {
 	
-	constructor(shushes, warnings, tolerance = 0.1, exponent = 5, warningChance = 0.2) {
+	constructor(shushes, warnings, tolerance = 0.1, exponent = 5, warningChance = 0.2, warningTimeout = 60 * 1000) {
 		this.shushes = shushes;
 		this.warnings = warnings;
 		this.shushing = false;
@@ -15,6 +15,9 @@ class Shusher {
 		this.exponent = exponent;
 		// The chance that a warning occurs.
 		this.warningChance = warningChance;
+		// The minimum time between warnings.
+		this.warningTimeout = warningTimeout;
+		this.lastWarning = 0;
 	}
 	
 	isPlaying() {
@@ -38,8 +41,9 @@ class Shusher {
 	}
 	
 	tryWarn() {
-		if (Math.random() < this.warningChance) {
+		if (Math.random() < this.warningChance && Date.now() > this.lastWarning + this.warningTimeout) {
 			this.warn();
+			this.lastWarning = Date.now();
 			return true;
 		}
 		return false;
@@ -250,23 +254,6 @@ function binomial(n, k) {
 	return factorial(n) / (factorial(k) * factorial(n - k));
 }
 
-var p5 = new p5();
-var shushes = [
-	p5.loadSound("audio/shush1.mp3"),
-	p5.loadSound("audio/shush2.mp3"),
-	p5.loadSound("audio/shush3.mp3"),
-	p5.loadSound("audio/shush4.mp3")
-];
-var bells = [
-	p5.loadSound("audio/bell.mp3")
-];
-var warnings = [
-	p5.loadSound("audio/megan_warning.mp3")
-];
-var classtimes = [
-	p5.loadSound("audio/classtime.mp3")
-];
-
 function setup() {
 	createCanvas(WIDTH, HEIGHT);
 	mic.start();
@@ -287,11 +274,11 @@ function getUrlKeyword(keyword) {
 var meter, shusher;
 
 var shushers = {
-	"default": new Shusher(shushes, warnings, 0.01, 6, 0.2),
-	"null": new Shusher(shushes, warnings, 0.0, 6, 0),
-	"active": new Shusher(shushes, warnings, 0.02, 5, 0.5),
-	"apathetic": new Shusher(shushes, warnings, 0.005, 8, 0.1),
-	"hyper": new Shusher(shushes, warnings, 0.2, 3, 1)
+	"default": new Shusher(shushes, warnings, 0.01, 6, 0.2, 60 * 1000),
+	"null": new Shusher(shushes, warnings, 0.0, 6, 0, 60 * 1000),
+	"active": new Shusher(shushes, warnings, 0.02, 5, 0.5, 60 * 1000),
+	"apathetic": new Shusher(shushes, warnings, 0.005, 8, 0.1, 60 * 1000),
+	"hyper": new Shusher(shushes, warnings, 0.2, 3, 1, 60 * 1000)
 };
 var shusherType = getUrlKeyword("shusher");
 shusher = shushers[shusherType];
@@ -299,7 +286,7 @@ shusher = shushers[shusherType];
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
 	"null": new SoundMeter(shusher, 0.0, 0.9, 0.04, 0.5, 3),
-	"active": new SoundMeter(shusher, 0.03, 0.9, 0.04, 0.8, 3),
+	"active": new SoundMeter(shusher, 0.03, 0.9, 0.03, 0.8, 3),
 	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
 	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.6, 3)
@@ -350,55 +337,55 @@ var specialTimes = [
 		"endAction": () => meter.shusher = shushers[shusherType]
 	},
 	// Class times and their reminders
-// 	{ // 9:00: class time => reminder
-// 		"start": 32400,
-// 		"end": 32400 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	},
-// 	{ // 9:45: class time => reminder
-// 		"start": 35100,
-// 		"end": 35100 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	},
-// 	{ // 11:00: class time => reminder
-// 		"start": 39600,
-// 		"end": 39600 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	},
-// 	{ // 11:45: class time => reminder
-// 		"start": 42300,
-// 		"end": 42300 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	},
-// 	{ // 1:15: class time => reminder
-// 		"start": 47700,
-// 		"end": 47700 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	},
-// 	{ // 2:00: class time => reminder
-// 		"start": 50400,
-// 		"end": 50400 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	},
-// 	{ // 2:45: class time => reminder
-// 		"start": 53100,
-// 		"end": 53100 + 1,
-// 		"happening": false,
-// 		"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
-// 		"endAction": () => null
-// 	}
+	// { // 9:00: class time => reminder
+	// 	"start": 32400,
+	// 	"end": 32400 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 9:45: class time => reminder
+	// 	"start": 35100,
+	// 	"end": 35100 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 11:00: class time => reminder
+	// 	"start": 39600,
+	// 	"end": 39600 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 11:45: class time => reminder
+	// 	"start": 42300,
+	// 	"end": 42300 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 1:15: class time => reminder
+	// 	"start": 47700,
+	// 	"end": 47700 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 2:00: class time => reminder
+	// 	"start": 50400,
+	// 	"end": 50400 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 2:45: class time => reminder
+	// 	"start": 53100,
+	// 	"end": 53100 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => classtimes[Math.floor(Math.random() * classtimes.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// }
 ];
 
 function checkSpecialTimes() {
