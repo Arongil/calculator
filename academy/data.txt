@@ -219,5 +219,16 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=Wm5OKfu8H34&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=28"}]
       },
     ]
+  },
+  {
+    "class": "US History",
+    "subjectLink": "history",
+    "color": "#dbbb97",
+    "topics": [{
+        "topic": "Class Notes",
+        "videos": [{"title": "US History 2016-17 Notes",
+                "link": "/data/History Notes 2016-17.pdf"}]
+      }
+    ]
   }
 ];
