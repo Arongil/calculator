@@ -63,8 +63,13 @@ for (var i = 0, j, k, subject, header, topics, topic, topicDiv, videoList, video
       link.className = "video-link";
       link.textContent = video.title;
       link.href = "javascript:void(0)";
-      // The lambda function ensures that passing the parameter doesn't call the function. Splitting after the ? and before the & in youtube.com/watch? ... & ... takes only the video ID.
-      link.setAttribute("onclick", 'playVideo("' + video.link.split("?v=")[1].split("&")[0] + '", "' + (topic.topic + " | " + video.title) + '")');
+      if (video.link.indexOf("https://www.youtube.com") !== -1) {
+        // The lambda function ensures that passing the parameter doesn't call the function. Splitting after the ? and before the & in youtube.com/watch? ... & ... takes only the video ID.
+        link.setAttribute("onclick", 'playVideo("' + video.link.split("?v=")[1].split("&")[0] + '", "' + (topic.topic + " | " + video.title) + '")');
+      }
+      else { // The video could be a link to a document outside of YouTube.
+        link.href = video.link;
+      }
       videoList.appendChild(link);
       if (k < topic.videos.length - 1) {
         br = document.createElement("br");
