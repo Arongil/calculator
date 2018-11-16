@@ -223,7 +223,7 @@ var data = [
   {
     "class": "US History",
     "subjectLink": "history",
-    "color": "#dbbb97",
+    "color": "#fffaad",
     "topics": [{
         "topic": "Class Notes",
         "videos": [{"title": "US History 2016-17 Notes",
