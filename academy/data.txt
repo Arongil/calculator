@@ -227,7 +227,7 @@ var data = [
     "topics": [{
         "topic": "Class Notes",
         "videos": [{"title": "US History 2016-17 Notes",
-                "link": "/data/History Notes 2016-17.pdf"}]
+                "link": "https://www.arongil.com/academy/data/history_notes_2016-17.pdf"}]
       }
     ]
   }
