@@ -1,54 +1,43 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-
-  <title>Function Fudger</title>
-  <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-  <link rel="manifest" href="/favicons/manifest.json">
-  <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="theme-color" content="#ffffff">
-
-  <link href="/base-styles.css" rel="stylesheet" type="text/css" />
-  
-</head>
-<body>
-  
-  <div id="wrapper" class="center" style="margin-left: 10%; margin-right: 10%;">
-    <h1>The Function Fudger</h1>
-    <p>Enter an expression involving the variable <em>x</em>, the degree of the approximation, and its lower and upper bounds. The computer will  then find <a href="https://en.wikipedia.org/wiki/Least-squares_function_approximation">the least-squares polynomial approximation</a>.</p>
-    <div id="example-functions">
-      <script>
-        function get(id) {
-          return document.getElementById(id);
-        }
-        function presetSettings() {
-          get("dimension").value = "8";
-          get("lowerBound").value = "-1";
-          get("upperBound").value = "1";
-        }
-      </script>
-      <button onclick="get('input').value = 'Math.sin(4*x);'; presetSettings();">Example Function 1</button>
-      <button onclick="get('input').value = 'Math.exp(-x*x);'; presetSettings();">Example Function 2</button>
-      <button onclick="get('input').value = 'if (x < 0) {\n  return 0;\n} else {\n  return 1;\n}'; presetSettings();">Example Function 3</button>
-    </div>
-    <p>Here is what to put in each box. Function: expression to approximate; steps: precision; digits: digits displayed for each term; degree: degree of the polynomial plus one; lower and upper: lower and upper bounds of the approximation.</p>
-    <textarea id="input" placeholder="function" rows="5" cols="40"></textarea>
-    <br>
-    steps: 1 &lt <input id="steps" placeholder="integration steps" value="10000"> &lt ∞ </input><br>
-    digits: 1 &lt <input id="digits" placeholder="display digits" value="12"></input> &lt ∞ <br>
-    degree: 0 &lt <input id="dimension" placeholder="degree" value="8"></input> &lt ∞ <br>
-    lower: -∞ &lt <input id="lowerBound" placeholder="lower bound" value="-1"></input> &lt ∞ <br>
-    upper: -∞ &lt <input id="upperBound" placeholder="upper bound" value="1"></input> &lt ∞ <br><br>
-    <button id="calculate" onclick="approximate(get('input').value);">Go!</button>
-    <div style="margin-left: 15%; margin-right: 15%">
-      <h3>Best Polynomial Approximation:</h3>
-      <p id="approximation"></p>
-    </div>
+<div id="wrapper" class="center" style="margin-left: 10%; margin-right: 10%;">
+  <h1>The Function Fudger</h1>
+  <p>Enter an expression involving the variable <em>x</em>, the degree of the approximation, and its lower and upper bounds. The computer will  then find <a href="https://en.wikipedia.org/wiki/Least-squares_function_approximation">the least-squares polynomial approximation</a>.</p>
+  <div id="example-functions">
+    <script>
+      function get(id) {
+        return document.getElementById(id);
+      }
+      function presetSettings() {
+        get("dimension").value = "8";
+        get("lowerBound").value = "-1";
+        get("upperBound").value = "1";
+      }
+    </script>
+    <button onclick="get('input').value = 'Math.sin(4*x);'; presetSettings();">Example Function 1</button>
+    <button onclick="get('input').value = 'Math.exp(-x*x);'; presetSettings();">Example Function 2</button>
+    <button onclick="get('input').value = 'if (x < 0) {\n  return 0;\n} else {\n  return 1;\n}'; presetSettings();">Example Function 3</button>
+  </div>
+  <p>Here is what to put in each box. Function: expression to approximate; steps: precision; digits: digits displayed for each term; degree: degree of the polynomial plus one; lower and upper: lower and upper bounds of the approximation.</p>
+  <textarea id="input" placeholder="function" rows="5" cols="40"></textarea>
+  <br>
+  steps: 1 &lt <input id="steps" placeholder="integration steps" value="10000"> &lt ∞ </input><br>
+  digits: 1 &lt <input id="digits" placeholder="display digits" value="12"></input> &lt ∞ <br>
+  degree: 0 &lt <input id="dimension" placeholder="degree" value="8"></input> &lt ∞ <br>
+  lower: -∞ &lt <input id="lowerBound" placeholder="lower bound" value="-1"></input> &lt ∞ <br>
+  upper: -∞ &lt <input id="upperBound" placeholder="upper bound" value="1"></input> &lt ∞ <br><br>
+  <button id="calculate" onclick="approximate(get('input').value);">Go!</button>
+  <div style="margin-left: 15%; margin-right: 15%">
+    <h3>Best Polynomial Approximation:</h3>
+    <p id="approximation"></p>
   </div>
 
-  <script src="function-fudger.js"></script>
-  <script src="orth40.js"></script>
-  
-</body>
-</html>
+  <div id="graph" style="display: none;">
+    <h3>Graph of Approximation</h3>
+  <p>Explore the fudged function at different degrees by sliding the variable <em>n</em>.</p>
+    <script src="https://www.desmos.com/api/v1.1/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <div id="calculator" class="center" style="width: 600px; height: 400px;"></div>
+    <script>
+      var elt = document.getElementById('calculator');
+      var calculator = Desmos.GraphingCalculator(elt);
+    </script>
+  </div>
+</div>
