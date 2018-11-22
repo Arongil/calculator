@@ -230,5 +230,16 @@ var data = [
                 "link": "https://www.arongil.com/academy/data/history_notes_2016-17.pdf"}]
       }
     ]
+  },
+  {
+    "class": "Tools",
+    "subjectLink": "tools",
+    "color": "#ffe4bc",
+    "topics": [{
+        "topic": "Linear Algebra",
+        "videos": [{"title": "Function Fudger",
+                "link": "https://www.arongil.com/academy/tools/function-fudger"}]
+      }
+    ]
   }
 ];
