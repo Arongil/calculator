@@ -172,7 +172,7 @@ function approximate(functionString) {
 function graph(approximations) {
   get("graph").style.display = "block";
   get("calculator").style.width = Math.floor(window.innerWidth * 0.75) + "px";
-  get("calculator").style.height = Math.floor(window.innerWidth * 0.5) + "px";
+  get("calculator").style.height = Math.floor(window.innerHeight * 0.75) + "px";
   var conditionalStr = "f(x) = \\{", digits = parseInt(get("digits").value);
   if (digits > 32) {
     digits = 32;
