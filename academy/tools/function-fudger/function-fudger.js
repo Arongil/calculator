@@ -182,6 +182,8 @@ function graph(approximations) {
   }
   calculator.setExpression({id: "function", latex: conditionalStr});
   calculator.setExpression({id: "degreeSlider", latex: "n = " + (approximations.length - 1), sliderBounds: {min: "0", max: (approximations.length - 1).toString(), step: "1"}});
+  calculator.setExpression({id: "lowerBound", latex: "x = " + lowerBound, lineStyle: Desmos.Styles.DASHED, color: Desmos.Colors.RED});
+  calculator.setExpression({id: "upperBound", latex: "x = " + upperBound, lineStyle: Desmos.Styles.DASHED, color: Desmos.Colors.RED});
 }
 
 var orth40 = [new Vector([1.00000000000000000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]),
