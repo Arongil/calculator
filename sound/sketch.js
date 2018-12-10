@@ -289,7 +289,8 @@ var meters = {
 	"active": new SoundMeter(shusher, 0.03, 0.9, 0.03, 0.8, 3),
 	"apathetic": new SoundMeter(shusher, 0.02, 0.8, 0.06, 0.8, 3),
 	"slick": new SoundMeter(shusher, 0.04, 0.95, 0.04, 0.8, 3),
-	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.6, 3)
+	"dull": new SoundMeter(shusher, 0.01, 0.7, 0.06, 0.6, 3),
+	"hyper": new SoundMeter(shusher, 0.05, 0.9, 0.022, 0.8, 3)
 }
 var meterType = getUrlKeyword("meter");
 meter = meters[meterType];
