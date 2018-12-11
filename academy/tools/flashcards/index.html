@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flashcards</title> 
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h2 class="center">Flashcard Frenzy</h2><br>
+    <div id="instructions" class="center">
+        <ol id="instructions" class="not-center">
+            <li>Load a flashcards file or use a preset.</li>
+            <li>Left click to flip.</li>
+            <li>Right click for next.</li>
+        </ol>
+    </div><br>
+    <div id="sets" class="center">
+        <input type="file" id="file" class="center" accept="text/plain" onchange="readFile(event.target.files[0]);"></input>
+        Downloadable Presets:
+        <a href="flashcardSets/EnglishVocabulary.txt" download>English Vocabulary</a>
+        <a href="flashcardSets/SpanishVocabulary.txt" download>Spanish Vocabulary</a>
+    </div><br>
+    <ul id="navigation" class="center">
+        <li><button class="center" onclick="flashcards.previousFlashcard(1);">Previous Flashcard</button></li>
+        <li><button class="center" onclick="flashcards.nextFlashcard(1);">Next Flashcard</button></li>
+        <li><button class="center" onclick="flashcards.nextFlashcard(10);">10 Forward</button></li>
+        <li><button class="center" onclick="flashcards.nextFlashcard(100);">100 Forward</button></li>
+    </ul><br><br>
+    <div id="flashcard" class="center" oncontextmenu="flashcards.nextFlashcard(1); return false;">
+        <p id="front-content" style="font-size: 2.2em"></p>
+        <p id="back-content" style="font-size: 1.6em"></p>
+    </div>
+    <script src="Flashcard.js"></script>
+    <script src="FlashcardSet.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
