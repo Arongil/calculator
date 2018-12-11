@@ -236,6 +236,10 @@ var data = [
     "subjectLink": "tools",
     "color": "#ffe4bc",
     "topics": [{
+        "topic": "General",
+        "videos": [{"title": "Flashcards",
+                "link": "https://www.arongil.com/academy/tools/flashcards"}]
+      }, {
         "topic": "Linear Algebra",
         "videos": [{"title": "Function Fudger",
                 "link": "https://www.arongil.com/academy/tools/function-fudger"}]
