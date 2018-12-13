@@ -15,10 +15,11 @@
     </div><br>
     <div id="sets" class="center">
         <input type="file" id="file" class="center" accept="text/plain" onchange="readFile(event.target.files[0]);"></input>
-        Downloadable Presets:
+        Download Presets:
         <a href="flashcardSets/EnglishVocabulary.txt" download>English Vocabulary</a>
         <a href="flashcardSets/SpanishVocabulary.txt" download>Spanish Vocabulary</a>
     </div><br>
+    <button id="randomize" class="center" onclick="flashcards.randomize();">Randomize Order</button>
     <ul id="navigation" class="center">
         <li><button class="center" onclick="flashcards.previousFlashcard(1);">Previous Flashcard</button></li>
         <li><button class="center" onclick="flashcards.nextFlashcard(1);">Next Flashcard</button></li>
