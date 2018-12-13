@@ -12,6 +12,22 @@ class FlashcardSet {
             ));
         }
         this.currentFlashcard = 0;
+        this.flashcards[this.currentFlashcard].init();
+    }
+
+    randomize() {
+        var randomized = [], remaining = [], i;
+        for (i = 0; i < this.flashcards.length; i++) {
+            remaining.push(i);
+        }
+        while (remaining.length > 0) {
+            var index = Math.floor(Math.random() * remaining.length);
+            randomized.push(this.flashcards[remaining[index]]);
+            remaining.splice(index, 1);
+        }
+        this.flashcards = randomized;
+        this.currentFlashcard = 0;
+        this.flashcards[this.currentFlashcard].init();
     }
 
     nextFlashcard(number = 1) {
