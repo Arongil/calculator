@@ -5,7 +5,6 @@ function readFile(file) {
     reader.onload = function() {
         text = reader.result; 
         flashcards = new FlashcardSet(text);
-        flashcards.nextFlashcard(1);
     }
     reader.readAsText(file);
 }
