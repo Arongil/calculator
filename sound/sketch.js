@@ -254,6 +254,24 @@ function binomial(n, k) {
 	return factorial(n) / (factorial(k) * factorial(n - k));
 }
 
+var p5 = new p5();
+var shushes = [
+	p5.loadSound("shush1.mp3"),
+	p5.loadSound("shush2.mp3"),
+	p5.loadSound("shush3.mp3"),
+	p5.loadSound("shush4.mp3")
+];
+var bells = [
+	p5.loadSound("bell.mp3")
+];
+var warnings = [
+	p5.loadSound("megan_warning.mp3"),
+	p5.loadSound("gabrielle_warning.mp3")	
+];
+var classtimes = [
+	p5.loadSound("classtime.mp3")
+];
+
 function setup() {
 	createCanvas(WIDTH, HEIGHT);
 	mic.start();
@@ -282,6 +300,7 @@ var shushers = {
 };
 var shusherType = getUrlKeyword("shusher");
 shusher = shushers[shusherType];
+shusher.warningChance = 0;
 
 var meters = {
 	"default": new SoundMeter(shusher, 0.02, 0.9, 0.05, 0.8, 3),
@@ -302,41 +321,41 @@ meter.init();
 
 var specialTimes = [
 	// Meetings and their bell rings
-	{ // 10:30 - 10:30 and 1 second: morning meeting => ring bell
-		"start": 37800,
-		"end": 37800 + 1,
-		"happening": false,
-		"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 10:30 - 10:45: morning meeting => disable shusher
-		"start": 37800,
-		"end": 38700,
-		"happening": false,
-		"startAction": () => meter.shusher = shushers["null"],
-		"endAction": () => meter.shusher = shushers["apathetic"]
-	},
-	{ // 11:00 - 11:00 and 1 second: break over => normal shusher
-		"start": 37800,
-		"end": 38700 + 1,
-		"happening": false,
-		"startAction": () => meter.shusher = shushers[shusherType],
-		"endAction": () => null
-	},
-	{ // 3:45 - 3:45 and 1 second: morning meeting => ring bell
-		"start": 56700,
-		"end": 56700 + 1,
-		"happening": false,
-		"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
-		"endAction": () => null
-	},
-	{ // 3:45 - 4:00: closing meeting => disable shusher
-		"start": 56700,
-		"end": 57600,
-		"happening": false,
-		"startAction": () => meter.shusher = shushers["null"],
-		"endAction": () => meter.shusher = shushers[shusherType]
-	},
+	// { // 10:30 - 10:30 and 1 second: morning meeting => ring bell
+	// 	"start": 37800,
+	// 	"end": 37800 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 10:30 - 10:45: morning meeting => disable shusher
+	// 	"start": 37800,
+	// 	"end": 38700,
+	// 	"happening": false,
+	// 	"startAction": () => meter.shusher = shushers["null"],
+	// 	"endAction": () => meter.shusher = shushers["apathetic"]
+	// },
+	// { // 11:00 - 11:00 and 1 second: break over => normal shusher
+	// 	"start": 37800,
+	// 	"end": 38700 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => meter.shusher = shushers[shusherType],
+	// 	"endAction": () => null
+	// },
+	// { // 3:45 - 3:45 and 1 second: morning meeting => ring bell
+	// 	"start": 56700,
+	// 	"end": 56700 + 1,
+	// 	"happening": false,
+	// 	"startAction": () => bells[Math.floor(Math.random() * bells.length)].play(0, 1, 1),
+	// 	"endAction": () => null
+	// },
+	// { // 3:45 - 4:00: closing meeting => disable shusher
+	// 	"start": 56700,
+	// 	"end": 57600,
+	// 	"happening": false,
+	// 	"startAction": () => meter.shusher = shushers["null"],
+	// 	"endAction": () => meter.shusher = shushers[shusherType]
+	// },
 	// Class times and their reminders
 	// { // 9:00: class time => reminder
 	// 	"start": 32400,
