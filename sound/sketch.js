@@ -104,6 +104,16 @@ class SoundMeter {
 		this.smoothness = 0.5;
 	}
 	
+	setSensitivity(sensitivity) {
+		this.sensitivity = Math.tan(sensitivity / (Math.PI/2) );
+	}
+	setAmbience(ambience) {
+		this.ambience = ambience;
+	}
+	setShift(shift) {
+		this.shift = shift;
+	}
+	
 	initBarColors() {
 		this.barColors = [];
 		for (var i = 0, n = this.colorPoints.length, j, interpolation, color; i < this.bars; i++) {
@@ -295,9 +305,25 @@ var meters = {
 }
 var meterType = getUrlKeyword("meter");
 meter = meters[meterType];
+var sensitivity = getUrlKeyword("sensitivity");
+if (sensitivity !== "default") {
+	meter.setSensitivity(parseFloat(sensitivity));
+}
+var ambience = getUrlKeyword("ambience");
+if (ambience !== "default") {
+	meter.setAmbience(parseFloat(ambience));
+}
+var shift = getUrlKeyword("shift");
+if (shift !== "default") {
+	meter.setShift(parseFloat(shift));
+}
+println(window.location.href);
+		
 
 var recordInterval = getUrlKeyword("recordInterval");
-if (recordInterval !== "default") meter.recordInterval = recordInterval * 1000;
+if (recordInterval !== "default") {
+	meter.recordInterval = recordInterval * 1000;
+}
 
 meter.init();
 
