@@ -2,6 +2,8 @@ var mic = new p5.AudioIn();
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
 
+mic.start();
+
 class Shusher {
 	
 	constructor(shushes, warnings, tolerance = 0.1, exponent = 5, warningChance = 0.2, warningTimeout = 60 * 1000) {
@@ -266,7 +268,6 @@ function binomial(n, k) {
 
 function setup() {
 	createCanvas(WIDTH, HEIGHT);
-	mic.start();
 }
 
 function getUrlKeyword(keyword) {
