@@ -317,8 +317,6 @@ var shift = getUrlKeyword("shift");
 if (shift !== "default") {
 	meter.setShift(parseFloat(shift));
 }
-println(window.location.href);
-		
 
 var recordInterval = getUrlKeyword("recordInterval");
 if (recordInterval !== "default") {
