@@ -56,6 +56,8 @@ function populateProgramsList(programs, outputId) {
 }
 
 var listPrograms = [
+  new Program("Fourier Sketch", "javascript", "https://www.arongil.com/fourier", "https://i.imgur.com/NmL1Hrn.png",
+              "Sketch. The magic of Fourier will follow."),
   new Program("Mandelbrot Explorer", "processing js", "https://www.openprocessing.org/sketch/509865", "https://i.imgur.com/VKVhFWm.jpg",
               "Explore the famous Mandelbrot fractal with vibrant color and adjustable detail."),
   new Program("Visual Fourier", "processing js", "https://www.openprocessing.org/sketch/503560", "https://i.imgur.com/gREs77f.png",
