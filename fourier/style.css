@@ -1,0 +1,18 @@
+body {
+  background-color: darkgray;
+}
+
+canvas {
+  padding: 0;
+  margin: auto;
+  display: block;
+}
+
+#settings {
+    margin-top: 0.5%;
+    font-size: 1vw;
+}
+
+button {
+    font-size: 1vw;
+}
