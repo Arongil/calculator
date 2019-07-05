@@ -11,8 +11,8 @@
     
     <div id="settings" class="center">
         <button onclick="fourier.drawDots = !fourier.drawDots;">Toggle Dot Display</button>
-        <button onclick="fourier.cyclesVisible = !fourier.cyclesVisible;">Toggle Fourier Circles Visible</button>
-        <button onclick="fourier.all = !fourier.all; fourier.cyclesVisible = false;">Toggle All Trace Visible</button>
+        <button onclick="fourier.cyclesVisible = !fourier.cyclesVisible; fourier.all = false;">Toggle Fourier Circles Visible</button>
+        <button onclick="fourier.all = !fourier.all; fourier.cyclesVisible = !fourier.all;">Toggle All Trace Visible</button>
         <p style="color: white; margin: 0.2%;"><em>arrows: up = more circles, down = fewer circles, right = longer trace, left = shorter trace</em></p>
         <p style="margin: 0.2%;" id="settings-display"></p>
     </div>
