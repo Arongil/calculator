@@ -92,13 +92,16 @@ class Fourier {
         this.min = -50;
         this.max = 50;
         this.range = this.max - this.min;
+
         this.integrationSteps = 4000; // The precision of the numerical integration.
 
         this.all = false; // Draw all of the Fourier loop at once or animate it.
         this.allPrecision = 400; // The number of points drawn when this.all is true.
+        this.prevTime = millis(); // The previous frame's millis, used for updating this.t.
+        this.t = 0; // The time within a current cycle, between 0 and 1.
         this.time = 10; // The time a cycle will take when this.all is false.
         this.cyclesVisible = true; // Do or don't draw the rotating circles.
-        this.drawDots = true; // Draw the dots.
+        this.drawDots = true; // Draw the dots or not.
         this.firstLastConnect = false; // Connect the first and last dots.
 
         this.settingsDisplay = document.getElementById("settings-display");
@@ -125,10 +128,12 @@ class Fourier {
             }
         } else if (InputFlags["37"]) { // left arrow
             if (this.time > 0.2) {
-                this.time *= 0.99;
+                this.time /= 1.03;
             }
         } else if (InputFlags["39"]) { // right arrow
-            this.time *= 1.01;
+            if (this.time < 10000) {
+                this.time *= 1.03;
+            }
         }
 
         this.settingsDisplay.innerHTML = "Circles: " + (this.range + 1) + "; Draw Time: " + (Math.floor(this.time * 10)/10) + "; Dot Display: " + this.drawDots + "; Fourier Circle Display: " + this.cyclesVisible + "; All Trace: " + this.all;
@@ -225,7 +230,10 @@ class Fourier {
             }
         }
         else {
-            this.drawFourierPoint( (millis() / 1000 % this.time)/this.time );
+            this.t += (millis() - this.prevTime) / 1000 / this.time;
+            this.t %= 1;
+            this.prevTime = millis();
+            this.drawFourierPoint( this.t );
         }
     }
 
