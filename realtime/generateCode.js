@@ -480,9 +480,9 @@ function drawFrame() {
 
 function drawBackground() {
     // axis names
-    label(proj([axisLength*1.1, 0, 0]), "x", "center", true, {color: GREEN_C});
-    label(proj([0, axisLength*1.1, 0]), "y", "center", true, {color: RED_C});
-    label(proj([0, 0, axisLength*1.1]), "z", "center", true, {color: TEAL_C});
+    label(proj([axisLength*1.1, 0, 0]), "x", "center", true, {color: GREEN_E});
+    label(proj([0, axisLength*1.1, 0]), "y", "center", true, {color: RED_E});
+    label(proj([0, 0, axisLength*1.1]), "z", "center", true, {color: TEAL_E});
 }
 
 /***** main.js *****/
