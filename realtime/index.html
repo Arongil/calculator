@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>3D Grapher</title>
+
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="instructions-box">
+            <div id="instructions">
+                <span id="click-start" style="font-size: 8vw">Click Here to Start</span><br />
+                <span style="font-size: 4vw">WASDQE = Move, Mouse = Rotate</span><br /><br />
+                <span style="font-size: 2vw">Ambient Light</span> <input type="range" min="0" max="1" value="0.5" step = "0.01" class="slider" id="ambient-light">
+                <span style="font-size: 2vw">Light Strength</span> <input type="range" min="0" max="2" value="1" step = "0.02" class="slider" id="light-strength"><br /><br />
+                <textarea id="function" rows="4" cols="60">Math.exp(-(x*x+y*y)*6)</textarea><br />
+                <button onclick="copyCode();" id="copy-code">Generate Code</button>
+                <textarea id="hidden-copier" type="text" style="display: none"></textarea>
+            </div>
+        </div>
+
+        <canvas id="canvas">
+
+        <script src="drawHelp.js"></script>
+        <script src="mathHelper.js"></script>
+        <script src="hexHelper.js"></script>
+        <script src="globals.js"></script>
+        <script src="projection.js"></script>
+        <script src="render.js"></script>
+        <script src="graph.js"></script>
+        <script src="input.js"></script>
+        <script src="main.js"></script>
+
+        <script src="generateCode.js"></script>
+    </body>
+</html>
