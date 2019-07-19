@@ -10,12 +10,9 @@ var occlusionAccuracy = 100;
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-var fElement = document.getElementById("function");
-
-var f = (x, y) => {
-    // Write your scalar field here.
-    return eval(fElement.value);
-}
+var fElement = document.getElementById("function"),
+    functionString = fElement.value;
+eval("var f = (x, y) => { " + (functionString.indexOf("return") == -1 ? "return " + functionString : functionString) + " };");
 
 /*
 Set points to be drawn on the surface; specify x, y, and color.
