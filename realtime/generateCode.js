@@ -25,6 +25,7 @@ function getCode() {
     //// Khan Academy approved color changes, i.e. a white background.
     //// // Reverse the y coordinate in projection.js because HTML5 canvas and Graphie draw the y coordinate in the opposite directions.
 
+    var functionString = document.getElementById("function").value;
     var globals = `
 /* The X and Y ranges of this canvas */
 var range = [[-1, 1], [-1, 1]];
@@ -42,7 +43,7 @@ var occlusionAccuracy = ` + occlusionAccuracy + `;
 
 function f(x, y) {
     // Write your scalar field here.
-    return ` + document.getElementById("function").value + `;
+    ` + (functionString.indexOf("return") == -1 ? "return " + functionString : functionString) + `;
 }
 
 /*
