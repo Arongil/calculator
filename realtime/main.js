@@ -19,7 +19,15 @@ class Graph {
         this.ambientLight = document.getElementById("ambient-light");
     }
 
+    initFunction() {
+        var fElement = document.getElementById("function"),
+            functionString = fElement.value;
+        eval("f = (x, y) => { " + (functionString.indexOf("return") == -1 ? "return " + functionString : functionString) + " };");
+    }
+
     init() {
+        this.initFunction();
+
         paths = [];
         this.active = true;
         drawFrame();
