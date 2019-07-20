@@ -54,7 +54,7 @@ if (havePointerLock) {
     button.addEventListener("click", function() {
         if (!(body === document.pointerLockElement || body === document.mozPointerLockElement || body === document.webkitPointerLockElement)) {
             body.requestPointerLock();
-            document.getElementById("instructions-box").style.display = "none";
+            document.getElementById("idle-box").style.display = "none";
             document.addEventListener("mousemove", mousemove, false);
             graph.init();
         } else {
@@ -63,9 +63,9 @@ if (havePointerLock) {
     }, false);
     document.addEventListener("pointerlockchange", function() {
         if (!(body === document.pointerLockElement || body === document.mozPointerLockElement || body === document.webkitPointerLockElement)) {
-            document.getElementById("instructions-box").style.display = "-webkit-box";
-            document.getElementById("instructions-box").style.display = "-moz-box";
-            document.getElementById("instructions-box").style.display = "box";
+            document.getElementById("idle-box").style.display = "-webkit-box";
+            document.getElementById("idle-box").style.display = "-moz-box";
+            document.getElementById("idle-box").style.display = "box";
             document.removeEventListener("mousemove", mousemove, false);
             graph.active = false;
         }
