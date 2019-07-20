@@ -94,8 +94,8 @@ var data = [
     ]
   },
   {
-    "class": "AP Calculus Practice",
-    "subjectLink": "calculus-practice",
+    "class": "AP Practice",
+    "subjectLink": "ap-practice",
     "color": "#d69bdb",
     "topics": [{
         "topic": "Worked AP Calculus BC Full Exams",
@@ -119,6 +119,12 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=YIVXKfY6rck&list=PLapqQU8bF_-9V-SyVxuHZ6jwa0ny7JQVp&index=8"},{
                 "title": "2009 FRQ 4 (parts B and C)",
                 "link": "https://www.youtube.com/watch?v=qaTyJcRUOYQ&list=PLapqQU8bF_-9V-SyVxuHZ6jwa0ny7JQVp&index=9"}]
+      }, {
+        "topic": "Worked AP Physics C: E&M FRQ Sections",
+        "videos": [{"title": "FRQ Practice | 2013 AP Physics C: E&M",
+                "link": "https://www.youtube.com/watch?v=Lpfawlkybbw&list=PLapqQU8bF_-9xc23Bh2cWriicVznss7PV&index=1"},{
+                "title": "FRQ Practice | 2018 AP Physics C: E&M",
+                "link": "https://www.youtube.com/watch?v=hWOkF4iDdeM&list=PLapqQU8bF_-9xc23Bh2cWriicVznss7PV&index=2"}]
       }
     ]
   },
@@ -238,7 +244,8 @@ var data = [
     "topics": [{
         "topic": "General",
         "videos": [{"title": "Flashcards",
-                "link": "https://www.arongil.com/academy/tools/flashcards"}]
+                "link": "https://www.arongil.com/academy/tools/flashcards"},{"title": "Function Generator",
+                "link": "https://www.arongil.com/academy/tools/function-generator"}]
       }, {
         "topic": "Linear Algebra",
         "videos": [{"title": "Function Fudger",
