@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Arongil Academy Updater</title>
+
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <p style="font-size: 1vw;">Paste "<code>var data = [ ... ];</code>" below.</p>
+        <textarea id="data" rows="4" cols="60"></textarea><br>
+        <button id="generate1" onclick="generateSubjects('generate1');">Generate Subjects Div</button><br>
+        <button id="generate2" onclick="generateSubjectDowndown('generate2');">Generate Subject Dropdown Div</button>
+        <input id="hidden-copier" type="text" style="display: none;">
+
+        <script src="main.js"></script>
+
+        <div id="academy">
+          <div class="dropdown-content" id="subject-dropdown"></div>
+          <div id="subjects"></div>
+        </div>
+    </body>
+</html>
