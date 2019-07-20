@@ -46,7 +46,7 @@ function renderPath(p) {
         surfaceNormal = normalize(surfaceNormal);
         // colorScale is what to multiply the color by: the dot product of the surface normal and the light direction. Intuitively, there's 0% that hits a surface perpendicular to the light, and 100% hits a surface directly facing the light.
         colorScale = dot3D(surfaceNormal, lightUnitNormal);
-        colorScale = (colorScale > 0 ? colorScale * lightStrength : 0) + ambientLight;
+        colorScale = Math.abs(colorScale) * lightStrength + ambientLight;
         if (colorScale > 1) {
             colorScale = 1;
         }
