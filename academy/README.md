@@ -10,7 +10,7 @@ Navigate to arongil.com/academy/update. Paste in the array from *data.txt*, and 
 
 ## Step 3
 
-Return to *arongil.com/academy/index.html*. Delete the line holding the div with id "subjects". Paste the new code in its place.
+Return to *index.html*. Delete the line holding the div with id "subjects". Paste the new code in its place.
 
 ## Step 4
 
