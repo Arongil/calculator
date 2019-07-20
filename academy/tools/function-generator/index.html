@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Function Generator</title>
+
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="settings">
+            <p>Special Numbers: </p><input id="numbers" type="text" value="\pi,e">
+            <p>Variables: </p><input id="variables" type="text" value="x,y,z">
+            <p>Functions: </p><input id="functions" type="text" value="\cos,\sin">
+            <p>Multiplication Symbol: </p><input id="mult-symbol" type="text" value="()" placeholder="default is ()">
+            <p>Exponential Symbol: </p><input id="exponential-symbol" type="text" value="^" placeholder="default is ^">
+            <p>Length: </p><input id="length" type="text" value="5">
+        </div><br>
+        <button id="generate" onclick="generate();">Generate!</button>
+        <input id="hidden-copier" type="text" style="display: none;">
+        <p id="output"></p>
+
+        <script src="main.js"></script>
+    </body>
+</html>
