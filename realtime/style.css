@@ -11,16 +11,19 @@ canvas {
   background-color: black;
 }
 
-#instructions-box {
+.slider {
+    width: 8vw;
+}
+
+.bound {
+    width: 5vw;
+}
+
+#idle-box {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
-}
-
-#instructions {
-    width: 100%;
-    height: 100%;
     display: -webkit-box;
     display: -moz-box;
     display: box;
@@ -35,8 +38,4 @@ canvas {
     box-align: center;
     color: #ffffff;
     text-align: center;
-}
-
-.slider {
-    width: 25%;
 }
