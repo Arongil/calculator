@@ -12,7 +12,13 @@ function drawSurface() {
         for (var j = 0; j <= steps; j++) {
             x = range[0][0] + j/steps*(range[0][1] - range[0][0]);
             y = range[1][0] + i/steps*(range[1][1] - range[1][0]);
-            vertices.push([x, y, f(x, y)]);
+            if (!parametric) {
+                // If graphing a scalar field, pretend it's the parametric surface [x, y, f(x, y)].
+                vertices.push([x, y, f(x, y)]);
+            } else {
+                // If graphing a parametric surface, let the function dictate all the coordiantes!
+                vertices.push(f(x, y));
+            }
         }
     }
 
