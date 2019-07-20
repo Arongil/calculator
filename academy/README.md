@@ -6,7 +6,7 @@ Update the *data.txt* file with your additions. The format should be clear.
 
 ## Step 2
 
-Navigate to [Arongil Academy Updator](https://arongil.com/academy/update). Paste in the array from *data.txt*. For each button, executre the following step.
+Navigate to [Arongil Academy Updator](https://arongil.com/academy/update). Paste in the array from *data.txt*. For each button, execute the following step.
 
 ## Step 3
 
