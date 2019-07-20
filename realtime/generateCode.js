@@ -41,9 +41,10 @@ var occlusionAccuracy = ` + occlusionAccuracy + `;
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+var parametric = ` + parametric + `
 function f(x, y) {
     // Write your scalar field here.
-    ` + (functionString.indexOf("return") == -1 ? "return " + functionString : functionString) + `;
+    ` + (functionString.indexOf("return") == -1 ? "return " + functionString + ";" : functionString) + `
 }
 
 /*
@@ -237,7 +238,7 @@ function renderPath(p) {
         surfaceNormal = normalize(surfaceNormal);
         // colorScale is what to multiply the color by: the dot product of the surface normal and the light direction. Intuitively, there's 0% that hits a surface perpendicular to the light, and 100% hits a surface directly facing the light.
         colorScale = dot3D(surfaceNormal, lightUnitNormal);
-        colorScale = (colorScale > 0 ? colorScale * lightStrength : 0) + ambientLight;
+        colorScale = Math.abs(colorScale) * lightStrength + ambientLight;
         if (colorScale > 1) {
             colorScale = 1;
         }
@@ -305,7 +306,13 @@ function drawSurface() {
         for (var j = 0; j <= steps; j++) {
             x = range[0][0] + j/steps*(range[0][1] - range[0][0]);
             y = range[1][0] + i/steps*(range[1][1] - range[1][0]);
-            vertices.push([x, y, f(x, y)]);
+            if (!parametric) {
+               // If graphing a scalar field, pretend it's the parametric surface [x, y, f(x, y)].
+               vertices.push([x, y, f(x, y)]);
+            } else {
+                // If graphing a parametric surface, let the function dictate all the coordiantes!
+                vertices.push(f(x, y));
+            }
         }
     }
 
