@@ -6,11 +6,11 @@ Update the *data.txt* file with your additions. The format should be clear.
 
 ## Step 2
 
-Navigate to [Arongil Academy Updator](https://arongil.com/academy/update). Paste in the array from *data.txt*, and press "Generate". New code will be copied to your clipboard.
+Navigate to [Arongil Academy Updator](https://arongil.com/academy/update). Paste in the array from *data.txt*. For each button, executre the following step.
 
 ## Step 3
 
-Return to *index.html*. Delete the line holding the div with id "subjects". Paste the new code in its place.
+Press the button. Code will be copied to your clipboard. Return to *index.html*. Delete the line holding the div with the id displayed on the button you clicked, either "subjects" or "subject-dropdown". Paste the new code in its place. Move on to step 4 once you've replaced both divs.
 
 ## Step 4
 
