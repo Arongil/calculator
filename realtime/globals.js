@@ -11,7 +11,8 @@ var occlusionAccuracy = 100;
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 var fElement = document.getElementById("function"),
-    functionString = fElement.value;
+    functionString = fElement.value,
+    parametric = false;
 eval("var f = (x, y) => { " + (functionString.indexOf("return") == -1 ? "return " + functionString : functionString) + " };");
 
 /*
