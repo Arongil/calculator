@@ -41,7 +41,7 @@ function drawSurface() {
             vert3 = vertices[face.verts[2]],
             vert4 = vertices[face.verts[3]];
         paths.push({
-            "vertices": [vert1, vert2, vert3, vert4],
+            "vertices": [vert1, vert2, vert3, vert4, vert1],
             "style": {
                 fill: face.color,
                 strokeWidth: 0.2,
