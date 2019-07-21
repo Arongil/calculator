@@ -26,10 +26,12 @@ There are two kinds of functions *Realtime* accepts: 2D scalar fields and parame
 
 ```var u = Math.PI*x, v = Math.PI*y, r1 = 0.6, r2 = 0.3;
 
-return [(r1 + r2*Math.cos(v))*Math.cos(u), (r1 + r2*Math.cos(v))*Math.sin(u), r2*Math.sin(v)];```
+return [(r1 + r2*Math.cos(v))*Math.cos(u), (r1 + r2*Math.cos(v))*Math.sin(u), r2*Math.sin(v)];
+```
 
 ### Sphere
 
 ```var u = Math.PI*x, v = Math.PI/2*y, r = 1;
 
-return [r * Math.cos(u)*Math.cos(v), r * Math.sin(u)*Math.cos(v), r * Math.sin(v)];```
+return [r * Math.cos(u)*Math.cos(v), r * Math.sin(u)*Math.cos(v), r * Math.sin(v)];
+```
