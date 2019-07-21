@@ -10,21 +10,27 @@ There are two kinds of functions *Realtime* accepts: 2D scalar fields and parame
 
 ### Bell Curve
 
-```Math.exp(-(x*x+y*y)*6)```
+```javascript
+Math.exp(-(x*x+y*y)*6)
+```
 
 ### Hilly Terrain
 
-```(Math.sin(4*x) + Math.sin(4*y))/4 + (Math.sin(14*x) + Math.sin(19*y))/19```
+```javascript
+(Math.sin(4*x) + Math.sin(4*y))/4 + (Math.sin(14*x) + Math.sin(19*y))/19
+```
 
 ## Parametric Surfaces: Example Functions
 
 ### XZ Plane
 
-```[x, 0.5, y]```
+```javascript
+[x, 0.5, y]
+```
 
 ### Torus
 
-```
+```javascript
 var u = Math.PI*x, v = Math.PI*y, r1 = 0.6, r2 = 0.3;
 
 return [(r1 + r2*Math.cos(v))*Math.cos(u), (r1 + r2*Math.cos(v))*Math.sin(u), r2*Math.sin(v)];
@@ -32,7 +38,7 @@ return [(r1 + r2*Math.cos(v))*Math.cos(u), (r1 + r2*Math.cos(v))*Math.sin(u), r2
 
 ### Sphere
 
-```
+```javascript
 var u = Math.PI*x, v = Math.PI/2*y, r = 1;
 
 return [r * Math.cos(u)*Math.cos(v), r * Math.sin(u)*Math.cos(v), r * Math.sin(v)];
