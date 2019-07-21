@@ -1,5 +1,9 @@
 # Realtime 3D Grapher
 
+## How to Move
+
+Click "Click Here to Start". Now you can use WASD to move back, forth, left, and right. Q moves you down, and E moves you up. Use the mouse to rotate your view.
+
 ## How to Graph
 
 Write a function in the text box. You are free to fiddle with the lighting and graphing steps as you please.
