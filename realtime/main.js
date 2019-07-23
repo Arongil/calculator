@@ -42,6 +42,28 @@ class Graph {
         render();
     }
 
+    center() {
+        // Center the camera on the surface.
+        // Step 1: Rotate the camera to look at the origin.
+        var radius = Math.sqrt(camera[0]*camera[0] + camera[1]*camera[1]);
+        rotation[2] = Math.atan2(camera[0], camera[1]) + Math.PI;
+        rotation[0] = Math.atan2(camera[2], radius) + Math.PI/2;
+        // Step 2: Move the camera far enough back that every vertex
+        // is visible with a small buffer of space on the edges.
+        var centerBuffer = 0.9; // The percentage of the screen the surface can occupy.
+        var farthestDist = 0, dist, i, j;
+        for (i = 0; i < paths.length; i++) {
+            for (j = 0; j < paths[i].vertices.length; j++) {
+                dist = magnitude(proj(paths[i].vertices[j]));
+                if (dist > farthestDist) {
+                    farthestDist = dist;
+                }
+            }
+        }
+        // We need to zoom so that farthestDist becomes centerBuffer * WIDTH.
+        camera = scale(camera, (1/centerBuffer)*farthestDist*2);
+    }
+
     input() {
         var movement = false; // Does the player move?
         var x = this.speed * Math.cos(rotation[2]),
@@ -60,6 +82,9 @@ class Graph {
             Mouse.dx = 0;
             Mouse.dy = 0;
         }
+
+        // Space bar centers the surface on the screen.
+        if (Keys.space) { this.center(); movement = true;}
 
         if (rotation[0] > pi) {
             rotation[0] = pi;
