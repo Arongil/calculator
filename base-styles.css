@@ -47,12 +47,19 @@
   font-family: sans-serif;
 }
 
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 #nav {
   list-style-type: none;
-  margin: 0;
+  position: absolute;
+  width: 99vw;
+  margin: 0.5vw;
   padding: 0;
-  overflow: hidden;
-  background-color: #d8d8d8;
+  background-color: #F5D059;
+  box-shadow: 0vh 0.4vh 0.5vw 0.2vh rgba(0,0,0,0.4);
 }
 
 #nav li {
@@ -76,7 +83,7 @@
 }
 
 #nav li:not(#logo) a:hover, .dropdown:hover .dropbtn {
-  background-color: #ccf6ff;
+  background-color: #A3E4FC;
 }
 
 #nav li.dropdown {

@@ -31,7 +31,7 @@
 }
 
 #nav li:not(#logo) a:hover, .dropdown:hover .dropbtn {
-  background-color: #ccf6ff;
+  background-color: #A3E4FC;
 }
 
 #nav li.dropdown {
