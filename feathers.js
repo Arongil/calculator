@@ -1,11 +1,13 @@
 // Credit to Alexander Shah at https://zandershah.github.io/ for the concept and original code.
 
+var animationSpeed = 0.8;
+
 // Standard Normal variate using Box-Muller transform.
 function gaussianRandom() {
-    var u = 0, v = 0;
-    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-    while(v === 0) v = Math.random(); //Converting [0,1) to (0,1)
-    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+  var u = 0, v = 0;
+  while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+  while(v === 0) v = Math.random(); //Converting [0,1) to (0,1)
+  return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
 }
 
 function Feather() {
@@ -80,17 +82,23 @@ function init() {
   requestAnimationFrame(animate);
 }
 
+var prevTime = Date.now();
 function animate() {
   
+  let now = Date.now();
+  if (now - prevTime > 1000) {
+	  prevTime = now; // Make sure the feathers never teleport when the user returns to the page after a break.
+  }
   for (let f in feathers.children) {
     let feather = feathers.children[f];
-
-    feather.position.x += feather.opts.position.dx;
-    feather.position.y += feather.opts.position.dy;
-    feather.position.z += feather.opts.position.dz;
-    feather.rotation.x += feather.opts.rotation.dx;
-    feather.rotation.y += feather.opts.rotation.dy;
-    feather.rotation.z += feather.opts.rotation.dz;
+	
+	let step = animationSpeed * 60*(now - prevTime)/1000;
+    feather.position.x += step*feather.opts.position.dx;
+    feather.position.y += step*feather.opts.position.dy;
+    feather.position.z += step*feather.opts.position.dz;
+    feather.rotation.x += step*feather.opts.rotation.dx;
+    feather.rotation.y += step*feather.opts.rotation.dy;
+    feather.rotation.z += step*feather.opts.rotation.dz;
 
     if (feather.position.y >= 400) {
       feather.position.set(
@@ -107,6 +115,7 @@ function animate() {
 
   renderer.render(scene, camera);
   
+  prevTime = Date.now();
   requestAnimationFrame(animate);
 };
 
