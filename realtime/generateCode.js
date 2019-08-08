@@ -267,10 +267,9 @@ function renderPoint(p) {
     drawCircle({
         center: vertices[0],
         radius: p.radius,
-        style: {
-            stroke: "none",
-            fill: p.color
-        }
+        stroke: "none",
+        fillOpacity: 1,
+        fill: p.color
     });
 }
 
