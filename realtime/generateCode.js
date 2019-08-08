@@ -49,7 +49,7 @@ function f(x, y) {
 
 /*
 Set points to be drawn on the surface; specify x, y, and color.
-- if nothing else specified, it draws a point
+- if nothing else specified, it draws a point (optionally set radius [default 0.02] and occlude [default true])
 - gradient: if true, must specify an arrowLength
 - directional derivative: if true, must specify a direction
 - vector: if true, must specify start and end points.
@@ -442,8 +442,9 @@ function drawPoints() {
         } else {
             paths.push({
                 "vertices": [[points[i].x, points[i].y, f(points[i].x, points[i].y) + 0.02]],
-                "radius": 0.02,
+                "radius": (points[i].radius === undefined ? 0.02 : points[i].radius),
                 "color": points[i].color,
+                "occlude": (points[i].occlude === undefined ? true : points[i].occlude),
                 "point": true
             });
         }
