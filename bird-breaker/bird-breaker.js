@@ -491,7 +491,6 @@ var Ball = (function() {
             surfaceAngle = 0.001;
         }
         this.vel.rotate( Math.PI - 2*surfaceAngle - 2*Math.atan2(this.vel.y, this.vel.x) );//2 * (Math.atan(1/Math.tan(surfaceAngle)) - Math.atan2(this.vel.y, this.vel.x)) );
-        console.log(surfaceAngle);
     };
 
     Ball.prototype.getCollisionObjects = function() {
