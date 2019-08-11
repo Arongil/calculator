@@ -2,28 +2,40 @@
 <html>
   <head>
     <title>Bird Breaker</title>
-    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/favicons/manifest.json">
-    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="theme-color" content="#ffffff">
-    
-    <link href="/base-styles.css" rel="stylesheet" type="text/css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <canvas id="canvas"></canvas>
     <div id="game-description" class="center white arial">
       <p class="small">
-        Fly your plane to victory by knocking birds out the sky! Use the left and right arrow keys to steer, and when the ball comes down, hit it back up with your wings or propeller. Be warned, the birds have a nasty temper!
+        Fly your plane to victory! Steer left and right with arrow keys or by touching. Knock those dastardly birds out of the sky!
       </p>
     </div>
     
-    <script src="bird-breaker.js"></script>
-    
-    <script>
-      init();
-    </script>
+    <!-- boilerplate -->
+    <script src="draw.js"></script>
+    <script src="input.js"></script>
+    <script src="Vector2D.js"></script>
+    <script src="geometry.js"></script>
+
+    <!-- core -->
+    <script src="Plane.js"></script>
+    <script src="Propeller.js"></script>
+    <script src="Ball.js"></script>
+    <script src="Bird.js"></script>
+    <script src="Coin.js"></script>
+    <script src="Player.js"></script>
+    <script src="Button.js"></script>
+    <script src="gameData.js"></script>
+    <script src="GameController.js"></script>
+
+    <!-- extra -->
+    <script src="BirdKing.js"></script>
+    <script src="Zombird.js"></script>
+
+    <!-- main -->
+    <script src="main.js"></script>
   </body>
 </html>
