@@ -102,7 +102,10 @@ class Ball {
             }
         }
         if (index !== -1) {
-            collisionObjects[index].code();
+            if (!collisionObjects[index].code()) {
+				// Give the object the option to abort the collision (i.e. an undead zombird).
+				return;
+			}
 
             var object = collisionObjects[index].object;
 
@@ -199,7 +202,7 @@ class Ball {
             collisionObjects.push({
                 "object": new Circle(bird.pos.x, bird.pos.y, bird.radius),
                 "vel": bird.vel,
-                "code": function() { this.hit(); }.bind(bird)
+                "code": function() { return this.hit(); }.bind(bird)
             });
         }
 
@@ -212,7 +215,7 @@ class Ball {
             collisionObjects.push({
                 "object": new Circle(pos.x, pos.y, propeller.radius),
                 "vel": new Vector2D(GC.plane.velEquivalent, 0), // CHALLENGE: account for the rotating of the plane part in the velocity calculation.    .getShifted(Vector2D.FromPolar(
-                "code": (() => { if (this.boostTimer === 0) { this.boostTimer = 4; var mag = this.vel.getMagnitude(); this.vel.scale( (mag + this.boostVel) / mag ); } }).bind(this)
+                "code": (() => { if (this.boostTimer === 0) { this.boostTimer = 4; var mag = this.vel.getMagnitude(); this.vel.scale( (mag + this.boostVel) / mag ); } return true; }).bind(this)
             });
         }
 
@@ -225,7 +228,7 @@ class Ball {
             collisionObjects.push({
                 "object": new Rect(pos.x, pos.y, rectangle.width, rectangle.height, theta),
                 "vel": new Vector2D(GC.plane.velEquivalent, 0), // CHALLENGE: account for the rotating of the plane part in the velocity calculation.    .getShifted(Vector2D.FromPolar(
-                "code": () => {}
+                "code": () => { return true; }
             });
         }
         for (var i = 0; i < GC.plane.parts["circles"].length; i++) {
@@ -235,7 +238,7 @@ class Ball {
             collisionObjects.push({
                 "object": new Circle(pos.x, pos.y, circle.radius),
                 "vel": new Vector2D(GC.plane.velEquivalent, 0), // CHALLENGE: account for the rotating of the plane part in the velocity calculation.    .getShifted(Vector2D.FromPolar(
-                "code": () => {}
+                "code": () => { return true; }
             });
         }
 
