@@ -12,6 +12,9 @@ class Bird {
         this.fallingVel = 0;
         // Affecting the propeller is only a once per bird action.
         this.canAffectPropeller = true;
+        
+        // If false, the bird still gets hit but the ball won't bounce off it.
+		this.hitbox = true;
 
         // Determines how often coins are dropped and, if they are, how many.
         // 0.1 = 10% chance for a bird to drop coins.
@@ -41,6 +44,8 @@ class Bird {
         }
 
         this.falling = true;
+        
+        return this.hitbox;
     };
 
     fall() {
