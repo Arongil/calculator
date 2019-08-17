@@ -10,8 +10,10 @@ class Zombird extends Bird {
 
         // Stores whether the zombird has died already.
         this.undead = false;
+		// Stores whether the zombird can slow the ball.
+		this.slowBall = true;
         // The y-value at which the zombird will become undead.
-        this.undeadY = -HEIGHT/6 + HEIGHT/3 * Math.random();
+        this.undeadY = this.anchorPos.y + HEIGHT/3 * (Math.random() + 1)/2;
     }
 
     display() {
@@ -23,9 +25,11 @@ class Zombird extends Bird {
         if (!this.undead) {
             var fillUndeadPercent = undeadPercent*undeadPercent; // Make the fill transition slower.
             fill(fillUndeadPercent*240 + (1 - fillUndeadPercent) * this.r, fillUndeadPercent*240 + (1 - fillUndeadPercent) * this.g, fillUndeadPercent*240 + (1 - fillUndeadPercent) * this.b, fillUndeadPercent * 0.8 + (1 - fillUndeadPercent));
-        } else {
+        } else if (!this.falling) {
             fill(240, 240, 240, 0.8);
-        }
+        } else {
+			fill(240, 240, 240, 0.6);
+		}
         ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
 
         var xSize = this.radius / 2;
@@ -45,7 +49,18 @@ class Zombird extends Bird {
             line(this.pos.x + 1/2 * xSize, this.pos.y + xSize/2, this.pos.x + 3/2 * xSize, this.pos.y - xSize/2);
         }
     }
-
+	
+	hit() {
+		super.hit();
+		
+		if (this.undead && this.slowBall) {
+			GC.ball.vel.scale(0.5);
+			this.slowBall = false;
+		}
+		
+		return this.hitbox;
+	}
+	
     fall() {
         if (this.falling) {
             this.fallingVel += GRAVITY/2;
@@ -64,6 +79,7 @@ class Zombird extends Bird {
                         this.fallingVel = 0;
                         this.anchorPos = this.pos.clone();
                         this.falling = false;
+						this.hitbox = false; // The undead Zombird won't deflect the ball anymore.
                     }
                 }
             } else {
