@@ -50,7 +50,7 @@ function f(x, y) {
 /*
 Set points to be drawn on the surface; specify x, y, and color.
 - if nothing else specified, it draws a point (optionally set radius [default 0.02] and occlude [default true])
-- gradient: if true, must specify an arrowLength
+- gradient: if true, must specify an arrowLength (optionally set angle, which offsets the vector from the true gradient)
 - directional derivative: if true, must specify a direction
 - vector: if true, must specify start and end points.
 */
@@ -349,7 +349,7 @@ function arrow(start, end, style) {
         diff = scale(add(end, scale(start, -1)), 0.1),
         perp1 = [0, diff[2], -diff[1]],
         perp2 = [-diff[2], 0, diff[0]],
-        perpLength = Math.sqrt(Math.sqrt(diff[0]*diff[0] + diff[1]*diff[1] + diff[2]*diff[2])) * 0.1;
+        perpLength = Math.sqrt(diff[0]*diff[0] + diff[1]*diff[1] + diff[2]*diff[2]);
     // Make perp1 and perp2 have equal magnitude.
     perp1 = scale(normalize(perp1), perpLength);
     perp2 = scale(normalize(perp2), perpLength);
@@ -361,7 +361,7 @@ function arrow(start, end, style) {
     paths.push({
         "vertices": [start, end],
         "style": style,
-        // "occlude": false
+        "occlude": false
     });
     var styleNoStroke = Object.assign({}, style);
     styleNoStroke.stroke = "none";
@@ -369,22 +369,22 @@ function arrow(start, end, style) {
     paths.push({
         "vertices": [end, tip1, tip2],
         "style": styleNoStroke,
-        // "occlude": false
+        "occlude": false
     });
     paths.push({
         "vertices": [end, tip2, tip4],
         "style": styleNoStroke,
-        // "occlude": false
+        "occlude": false
     });
     paths.push({
         "vertices": [end, tip4, tip3],
         "style": styleNoStroke,
-        // "occlude": false
+        "occlude": false
     });
     paths.push({
         "vertices": [end, tip3, tip1],
         "style": styleNoStroke,
-        // "occlude": false
+        "occlude": false
     });
 }
 
@@ -405,19 +405,24 @@ function drawDirectionalDerivative(a, v, length, style) {
 }
 
 // An arrow representing the gradient at point a.
-function drawGradient(a, length, style) {
-    drawDirectionalDerivative(a, gradient(a), length, style);
+function drawGradient(a, length, angle, style) {
+    var grad = gradient(a);
+    var rotated = [
+        Math.cos(angle) * grad[0] - Math.sin(angle) * grad[1],
+        Math.sin(angle) * grad[0] + Math.cos(angle) * grad[1]
+    ];
+    drawDirectionalDerivative(a, rotated, length, style);
 }
 
 function drawPoints() {
     for (var i = 0; i < points.length; i++) {
         // Check for whether the point is a gradient, directional derivative, vector, or else default to a regular point.
         if (!!points[i].gradient) {
-            var length = 0.2;
+            var length = 0.4;
             if (!!points[i].arrowLength) {
                 length = points[i].arrowLength;
             }
-            drawGradient([points[i].x, points[i].y], length, {
+            drawGradient([points[i].x, points[i].y], length, points[i].angle, {
                 fill: points[i].color,
                 stroke: points[i].color
             });
@@ -426,7 +431,7 @@ function drawPoints() {
             if (!!points[i].arrowLength) {
                 length = points[i].arrowLength;
             }
-            drawDirectionalDerivative([points[i].x, points[i].y], points[i].direction, length, {
+            drawDirectionalDerivative([points[i].x, points[i].y], points[i].direction, length, 0, {
                 fill: points[i].color,
                 stroke: points[i].color
             });
