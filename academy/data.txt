@@ -125,6 +125,10 @@ var data = [
                 "link": "https://www.youtube.com/watch?v=Lpfawlkybbw&list=PLapqQU8bF_-9xc23Bh2cWriicVznss7PV&index=1"},{
                 "title": "FRQ Practice | 2018 AP Physics C: E&M",
                 "link": "https://www.youtube.com/watch?v=hWOkF4iDdeM&list=PLapqQU8bF_-9xc23Bh2cWriicVznss7PV&index=2"}]
+      }, {
+        "topic": "Worked AP Chemistry FRQ Sections",
+        "videos": [{"title": "FRQ Practice | 2017 AP Chemistry",
+                "link": "https://www.youtube.com/watch?v=Pv_kB077O0k&list=PLapqQU8bF_-_25Y8dTD5eRhCtuXFcBdKe&index=1"}]
       }
     ]
   },
@@ -160,9 +164,23 @@ var data = [
     "topics": [{
         "topic": "Programs",
         "videos": [{"title": "Sandbox Game",
-                "link": "hhttps://www.youtube.com/watch?v=Y0nwoa6MfbI&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=1"},{
+                "link": "https://www.youtube.com/watch?v=Y0nwoa6MfbI&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=1"},{
                 "title": "Gravity Crash",
                 "link": "https://www.youtube.com/watch?v=CdYFsDW2-is&list=PLapqQU8bF_-84L3uXfRLwhnyp4pOuZ6JH&index=2"}]
+      },{
+        "topic": "Self Study",
+        "videos": [{"title": "Strategies for Math",
+                "link": "https://www.youtube.com/watch?v=4IH8JKGN9Y0&list=PLapqQU8bF_-8waAcQcTLf0ypp0511qWjX&index=1"},{
+                "title": "Map of Mathematics",
+                "link": "https://www.youtube.com/watch?v=lapgPfFAgr4&list=PLapqQU8bF_-8waAcQcTLf0ypp0511qWjX&index=2"},{
+                "title": "Linear Algebra",
+                "link": "https://www.youtube.com/watch?v=Z7cOJtt4rkE&list=PLapqQU8bF_-8waAcQcTLf0ypp0511qWjX&index=3"},{
+                "title": "Multivariable Calculus",
+                "link": "https://www.youtube.com/watch?v=kBgsnqpoaeM&list=PLapqQU8bF_-8waAcQcTLf0ypp0511qWjX&index=4"},{
+                "title": "Abstract Algebra",
+                "link": "https://www.youtube.com/watch?v=2ihiR8hJlMs&list=PLapqQU8bF_-8waAcQcTLf0ypp0511qWjX&index=5"},{
+                "title": "Galois Theory",
+                "link": "https://www.youtube.com/watch?v=SU85UMa0Kfg&list=PLapqQU8bF_-8waAcQcTLf0ypp0511qWjX&index=6"}]
       },{
         "topic": "Miscellaneous",
         "videos": [{"title": "Children's Book Narrated: The Magic Seed",
@@ -244,7 +262,10 @@ var data = [
     "topics": [{
         "topic": "General",
         "videos": [{"title": "Flashcards",
-                "link": "https://www.arongil.com/academy/tools/flashcards"},{"title": "Function Generator",
+                "link": "https://www.arongil.com/academy/tools/flashcards"},{
+                "title": "Rebel Reader",
+                "link": "https://github.com/Arongil/Rebel-Reader"},{
+                "title": "Function Generator",
                 "link": "https://www.arongil.com/academy/tools/function-generator"}]
       }, {
         "topic": "Linear Algebra",
