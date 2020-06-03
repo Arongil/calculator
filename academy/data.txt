@@ -266,7 +266,7 @@ var data = [
                 "title": "Function Generator",
                 "link": "https://www.arongil.com/academy/tools/function-generator"},{
                 "title": "Rebel Reader (Tool)",
-                "link": "https://github.com/Arongil/Rebel-Reader"},{
+                "link": "https://rebel-reader.arongil.com"},{
                 "title": "Rebel Reader (Video)",
                 "link": "https://www.youtube.com/watch?v=wp9-1mRunuM"}]
       }, {
