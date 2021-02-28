@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(140, 140, 140);
+  font-family: arial;
+  margin: auto;
+  text-align: center;
+  width: 40%;
+}
+
+#settings {
+    margin-top: 10%;
+}
