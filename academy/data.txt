@@ -1,8 +1,85 @@
 var data = [
   {
+    "class": "Linear Algebra",
+    "subjectLink": "linear-algebra",
+    "color": "#5ec9ad",
+    "topics": [{
+        "topic": "Introduction",
+        "videos": [{"title": "Why Linear Algebra and Course Overview",
+                "link": "https://www.youtube.com/watch?v=l2mr3Z5GAQ8&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=1"},{
+                "title": "Discussion of Essence of Linear Algebra Chapters 1-6",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=2"},{
+                "title": "Intro to Set Theory, Quantifiers, and Proofs",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=3"},{
+                "title": "Discussion of Essence of Linear Algebra Chapters 7-9 and 13-15",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=4"},]
+      }, {
+        "topic": "Vector Spaces and Linear Maps",
+        "videos": [{
+                "title": "Vector Spaces and Intro to Axler",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=5"},{
+                "title": "Subspaces, Direct Sums, Span, and Linear Independence",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=6"},{
+                "title": "Markov Chains Guest Lecture",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=7"},{
+                "title": "Basis and Dimension",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=8"},{
+                "title": "Linear Maps, Null Space, and Range",
+                "link": "https://www.youtube.com/watch?v=X_VKTQbBzms&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=9"}]
+      }, {
+        "topic": "Matrices and Eigenvectors",
+        "videos": [{"title": "Matrices and Inverses",
+                "link": "https://www.youtube.com/watch?v=uG5DkhTW9aU&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=11"},{
+                "title": "Gaussian Elimination",
+                "link": "https://www.youtube.com/watch?v=92qOC1yaT3M&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=12"},{
+                "title": "Polynomials",
+                "link": "https://www.youtube.com/watch?v=-8_7-6Apsg4&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=13"},{
+                "title": "Eigenvalues and Eigenvectors",
+                "link": "https://www.youtube.com/watch?v=oKvjgXOJl50&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=14"},{
+                "title": "Quotient Spaces",
+                "link": "https://www.youtube.com/watch?v=ZsMQ4JOid-M&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=15"},{
+                "title": "Eigenspaces and Diagonalization",
+                "link": "https://www.youtube.com/watch?v=u0rfuskWgL4&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=16"}]
+      }, {
+        "topic": "Inner Product Spaces and the Spectral Theorem",
+        "videos": [{"title": "Inner Product Spaces",
+                "link": "https://www.youtube.com/watch?v=i6lorS3GgA4&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=17"},{
+                "title": "Gram-Schmidt and Minimization",
+                "link": "https://www.youtube.com/watch?v=W-aZIOEVht8&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=18"},{
+                "title": "Adjoints and the Spectral Theorem",
+                "link": "https://www.youtube.com/watch?v=2zzeFlJ4Xfs&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=19"},{
+                "title": "Positive Operators, Isometries, and the Polar Decomposition",
+                "link": "https://www.youtube.com/watch?v=89oTcio0dPU&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=22"}]
+      }, {
+        "topic": "Additional Topics",
+        "videos": [{
+                 "title": "Generalized Eigenvectors",
+                "link": "https://www.youtube.com/watch?v=pwYWcA95WNw&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=23"},{
+                "title": "Characteristic Polynomials and Jordan Form",
+                "link": "https://www.youtube.com/watch?v=1yQcurmCWuc&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=24"},{
+                "title": "Recommender Systems Guest Lecture",
+                "link": "https://www.youtube.com/watch?v=ZzipUhQV7Uc&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=25"},{
+                "title": "Determinants",
+                "link": "https://www.youtube.com/watch?v=Ln5_cxw-GsI&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=27"}]
+      }, {
+        "topic": "Higher Math Beyond Linear Algebra",
+        "videos": [{
+                "title": "Higher Math Beyond Linear Algebra I",
+                "link": "https://www.youtube.com/watch?v=XxBHzWTqBnI&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=29"},{
+                "title": "Higher Math Beyond Linear Algebra II",
+                "link": "https://www.youtube.com/watch?v=pYZKUWqZ92Q&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=30"}]
+      }, {
+        "topic": "The Birth of the Course",
+        "videos": [{
+                "title": "Teaching Linear Algebra in the 21st Century",
+                "link": "https://www.youtube.com/watch?v=crXd-Zo3IWY&list=PLapqQU8bF_-_hXoCddMwi8ahlWLg9WQ_U&index=30"}]
+      }
+    ]
+  },
+  {
     "class": "Differential Equations",
     "subjectLink": "differential-equations",
-    "color": "#5ec9ad",
+    "color": "#ff9ccc",
     "topics": [{
         "topic": "Verification",
         "videos": [{"title": "Introduction",
