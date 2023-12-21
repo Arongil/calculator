@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sudoku</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <table id="nav">
+    <tr>
+      <td>
+        <button onclick="checkPossible();">Check Possible</button>
+        <!-- <button>Solve</button> -->
+      </td>
+    </tr>
+  </table>
+
+  <table id="board">
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td> 
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+    <tr>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+      <td><input type="text" maxlength="1"></td>
+    </tr>
+  </table>
+
+  <div class="title-container">
+    <div class="title-possible">POSSIBLE</div>
+  </div>
+  
+  <script src="sudoku.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>

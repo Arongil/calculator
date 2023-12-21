@@ -1,0 +1,136 @@
+#board {
+  border-collapse: collapse;
+  width: 80vh; 
+  height: 80vh;
+  margin: 0 auto;
+  font-size: 1rem;  
+}
+
+#board td {
+  border: 0.05rem solid black;
+}
+
+#board td input {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  border: none;
+}
+
+/* Grid borders */ 
+
+#board tr:nth-child(3n) td {
+  border-bottom: 0.1rem solid black; 
+}
+
+#board tr td:nth-child(3n) {
+  border-right: 0.1rem solid black;
+}
+
+#board tr:nth-child(1) td {
+  border-top: 0.1rem solid black;  
+}
+
+#board td:first-child {
+  border-left: 0.1rem solid black;
+}
+
+/*
+#board {
+  border-collapse: collapse; 
+  width: 40%;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+#board td {
+  padding-bottom: 5%;
+  padding-right: 5%;
+  border: 0.05rem solid black; 
+}
+
+#board td input {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  border: none;
+}
+
+/* Grid borders */ 
+
+#board tr:nth-child(3n) td {
+  border-bottom: 0.1rem solid black;
+}
+
+#board tr td:nth-child(3n) {
+  border-right: 0.1rem solid black;  
+}
+
+#board tr:nth-child(1) td {
+   border-top: 0.1rem solid black;
+}
+
+#board td:first-child {
+   border-left: 0.1rem solid black; 
+}
+
+/* Nav */
+
+#nav {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#nav button {
+  padding: 0.5rem 1rem;  
+  margin-top: 0.4rem;
+  margin-bottom: 0.8rem;
+
+  border: none;
+  border-radius: 0.25rem;
+
+  border-top-left-radius: 0.625rem;
+  border-bottom-left-radius: 0.625rem;  
+  border-top-right-radius: 0.625rem;
+  border-bottom-right-radius: 0.625rem;
+
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: white;
+   
+  background: linear-gradient(to bottom,#4eb5e5 0%,#389ed5 100%);
+  box-shadow: 0px 0.125rem 0.1875rem rgba(0,0,0,0.3);
+   
+  cursor: pointer; 
+  transition: all 0.15s ease;  
+}
+
+#nav button:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0px 0.1875rem 0.375rem rgba(0,0,0,0.4);  
+}
+
+#nav button:active {
+  transform: translateY(0px);
+  box-shadow: 0px 0.0625rem 0.1875rem rgba(0,0,0,0.2);   
+}
+
+/* Invisible Button Text */
+
+.title-container {
+  text-align: center;
+}
+
+.title-possible {
+  font-family: sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  color: lightgreen;
+
+  margin-top: 0.5rem;
+}
