@@ -562,11 +562,14 @@ var sudoku = (function() {
 
 	function squareCount(difficulty) {
 		if (difficulty == 'easy') {
-			return 35;
+			return 32;
 		} else if (difficulty == 'medium') {
-			return 28;
-		}
-		return 20;
+			return 26;
+		} else if (difficulty == 'hard') {
+            return 20;
+        } else {
+            return 17;
+        }
 	}
 
 	function generate(difficulty) {
@@ -730,20 +733,48 @@ function getBoardState() {
   return boardState;
 }
 
+function getDictKey(row, col) {
+  // Given an integer row and col, return a dictionary key, such as (1, 5) -> A6.
+  digitConversion = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I"};
+  return digitConversion[row] + (col + 1);
+}
+
 function convertBoardState(boardState) {
   // Convert to board state the library can read.
-  digitConversion = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I"};
   board = {};
   for (var row = 0; row < 9; row++) {
     for (var col = 0; col < 9; col++) {
-      let rowKey = digitConversion[row];
-      let key = rowKey + (col + 1);
+      const key = getDictKey(row, col);
       if (boardState[row][col] != -1) {
         board[key] = "" + boardState[row][col];
       }
     }
   }
   return board;
+}
+
+function setBoardState(boardState) {
+  // Given a board state dictionary (as from convertBoardState), set the board in the HTML.
+  
+  // Get all 81 input elements
+  const inputs = document.querySelectorAll('#board td input');
+  
+  // Set array slots based on input values 
+  inputs.forEach((input, idx) => {
+    const row = Math.floor(idx / 9);
+    const col = idx % 9;
+    const key = getDictKey(row, col);
+    
+    if (key in boardState) {
+      // Set value and lock the input
+      input.value = boardState[key];
+      input.disabled = "disabled";
+    } else {
+      // Set to blank and allow input
+      input.value = "";
+      input.disabled = "";
+    }
+  });
 }
 
 function setPossibleText(possible) {
@@ -756,6 +787,15 @@ function setPossibleText(possible) {
     title.style.color = "red";
     title.textContent = "IMPOSSIBLE";
   }
+  
+  // Set the text to animate in, then disappear.
+  title.className = "title-possible-animated";
+  title.style.display = "";
+
+  setTimeout(function(){
+    title.className = "title-possible";    
+    title.style.display = "none";
+  }, 2000);
 }
 
 function checkPossible() {
@@ -764,4 +804,11 @@ function checkPossible() {
   solvable = sudoku.solve(boardState);
   possible = !(solvable == false);
   setPossibleText(possible);
+}
+
+function generate(difficulty) {
+  // Difficulty is one of "easy", "medium", or "hard".
+  // Mutates the board state to have a new puzzle generated.
+  puzzle = sudoku.generate(difficulty);  
+  setBoardState(puzzle);
 }

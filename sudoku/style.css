@@ -120,13 +120,21 @@
   box-shadow: 0px 0.0625rem 0.1875rem rgba(0,0,0,0.2);   
 }
 
-/* Invisible Button Text */
+/* Animated Text */
+
+@keyframes popInOut {
+  0%   { transform: scale(0); }
+  30%  { transform: scale(1.2); }
+  80%  { transform: scale(1.2); }
+  100% { transform: scale(0); }
+}
+
+.title-possible-animated {
+  animation: popInOut 2s;  
+}
 
 .title-container {
   text-align: center;
-}
-
-.title-possible {
   font-family: sans-serif;
   font-size: 3rem;
   font-weight: bold;

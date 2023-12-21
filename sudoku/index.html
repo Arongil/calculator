@@ -9,7 +9,9 @@
     <tr>
       <td>
         <button onclick="checkPossible();">Check Possible</button>
-        <!-- <button>Solve</button> -->
+        <button onclick="generate('easy')">Generate Easy</button>
+        <button onclick="generate('medium')">Generate Medium</button>
+        <button onclick="generate('hard')">Generate Hard</button>
       </td>
     </tr>
   </table>
@@ -117,10 +119,9 @@
   </table>
 
   <div class="title-container">
-    <div class="title-possible">POSSIBLE</div>
+    <div class="title-possible" style="display: none;">POSSIBLE</div>
   </div>
   
-  <script src="sudoku.js"></script>
   <script src="main.js"></script>
 
 </body>
