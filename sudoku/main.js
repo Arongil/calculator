@@ -753,8 +753,11 @@ function convertBoardState(boardState) {
   return board;
 }
 
+// Store globally which squares in the puzzle are static.
+var fixedSquares;
+
 function setBoardState(boardState) {
-  // Given a board state dictionary (as from convertBoardState), set the board in the HTML.
+  // Given a board state dictionary (as from convertBoardState), set the board in the HTML. The fixedSquares argument is the same as board state, except only contains entries for squares that are static in the puzzle.
   
   // Get all 81 input elements
   const inputs = document.querySelectorAll('#board td input');
@@ -765,15 +768,9 @@ function setBoardState(boardState) {
     const col = idx % 9;
     const key = getDictKey(row, col);
     
-    if (key in boardState) {
-      // Set value and lock the input
-      input.value = boardState[key];
-      input.disabled = "disabled";
-    } else {
-      // Set to blank and allow input
-      input.value = "";
-      input.disabled = "";
-    }
+    // Set value or set to blank.
+    input.value = key in boardState ? boardState[key] : "";
+    input.disabled = key in fixedSquares ? "disabled" : "";
   });
 }
 
@@ -809,6 +806,41 @@ function checkPossible() {
 function generate(difficulty) {
   // Difficulty is one of "easy", "medium", or "hard".
   // Mutates the board state to have a new puzzle generated.
-  puzzle = sudoku.generate(difficulty);  
-  setBoardState(puzzle);
+  fixedSquares = sudoku.generate(difficulty);  
+  setBoardState(fixedSquares); // all squares are fixed
 }
+
+// Save the current board state into localStorage.
+function save() {
+  boardState = convertBoardState(getBoardState());
+  localStorage.setItem("arongil-sudoku-fixedSquares", JSON.stringify(fixedSquares));
+  localStorage.setItem("arongil-sudoku-boardState", JSON.stringify(boardState));
+}
+
+// On page load, check whether the user had a previously completed sudoku. If so, load that one.
+function load() {
+  // Set the global fixedSquares variable.
+  fixedSquares = JSON.parse(localStorage.getItem("arongil-sudoku-fixedSquares"));
+  boardState = JSON.parse(localStorage.getItem("arongil-sudoku-boardState"));
+  setBoardState(boardState);
+}
+
+function initSaveEventListeners() {
+  // Set up event listeners to trigger the save.
+  const inputs = document.querySelectorAll('#board td input');
+  inputs.forEach((input, idx) => {
+    input.addEventListener("change", (event) => {
+      save();
+    });
+  });
+
+  const buttons = document.querySelectorAll('#nav button');
+  buttons.forEach((button, idx) => {
+    button.addEventListener("click", (event) => {
+      save();
+    });
+  });
+}
+
+initSaveEventListeners();
+load();
