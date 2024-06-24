@@ -1,0 +1,239 @@
+<!-- NOTE: code created in collaboration with Claude 3.5 Sonnet, June 2024 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars - Made with Claude</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        #rainbowButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            z-index: 10;
+            position: relative;
+        }
+        
+        #rainbowButton:active {
+            transform: scale(0.95);
+        }
+        
+        @keyframes flyOffScreen {
+            0% { transform: translateY(0); }
+            20% { transform: translateY(-6vh); }
+            100% { transform: translateY(200vh); }
+        }
+        
+        @keyframes flyBackOnScreen {
+            0% { transform: translateY(200vh); opacity: 0; }
+            80% { transform: translateY(-6vh); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .fly-off {
+            animation: flyOffScreen 2s forwards;
+        }
+        
+        .fly-back {
+            animation: flyBackOnScreen 2s forwards;
+        }
+        
+        #animationContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            perspective: 400px;
+            overflow: hidden;
+        }
+        
+        .star-wars-rainbow {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 18em;
+            height: 50em;
+            margin-left: -9em;
+            background: linear-gradient(to bottom, red, orange, yellow, green, blue, indigo, violet);
+            transform-origin: 50% 100%;
+            animation: crawl 30s linear forwards;
+        }
+        
+        @keyframes crawl {
+            0% {
+                top: 100%;
+                transform: rotateX(20deg) translateZ(0);
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                top: -250%;
+                transform: rotateX(25deg) translateZ(-2500px);
+                opacity: 0;
+            }
+        }
+        
+        #shareContainer {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+        
+        #shareText {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        #nameInput {
+            font-size: 24px;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 300px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #createLinkButton:active {
+            transform: scale(0.95);
+        }
+        
+        #createLinkButton {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #copiedMessage {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(128, 128, 128, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            display: none;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <button id="rainbowButton">Press me, Luke!</button>
+    <div id="animationContainer"></div>
+    <div id="shareContainer">
+        <div id="shareText">Share with a friend</div>
+        <input type="text" id="nameInput" placeholder="Name">
+        <button id="createLinkButton">Create custom link</button>
+    </div>
+    <div id="copiedMessage">Copied to clipboard</div>
+    <audio id="backgroundMusic">
+        <source src="https://dn720701.ca.archive.org/0/items/13BinarySunsetAlternate/01%20The%20Imperial%20March%20%28Darth%20Vader%C2%92%27s%20Theme%29.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const button = document.getElementById('rainbowButton');
+        const container = document.getElementById('animationContainer');
+        const music = document.getElementById('backgroundMusic');
+        const shareContainer = document.getElementById('shareContainer');
+        const nameInput = document.getElementById('nameInput');
+        const createLinkButton = document.getElementById('createLinkButton');
+        const copiedMessage = document.getElementById('copiedMessage');
+
+        function createRainbowStrip() {
+            const strip = document.createElement('div');
+            strip.className = 'star-wars-rainbow';
+            strip.style.left = `${Math.random() * 100}%`;
+            strip.style.animationDelay = `${Math.random() * 40}s`;
+            container.appendChild(strip);
+
+            strip.addEventListener('animationend', () => {
+                strip.remove();
+                createRainbowStrip();
+            });
+        }
+
+        button.addEventListener('click', () => {
+            container.style.display = 'block';
+            container.innerHTML = '';
+            
+            button.classList.add('fly-off');
+            
+            music.currentTime = 0;
+            music.play().catch(e => console.log("Audio playback failed:", e));
+            
+            for (let i = 0; i < 25; i++) {
+                createRainbowStrip();
+            }
+
+            setTimeout(() => {
+                container.style.display = 'none';
+                container.innerHTML = '';
+                music.pause();
+                music.currentTime = 0;
+                
+                button.style.display = 'none';
+                shareContainer.style.display = 'flex';
+                shareContainer.classList.add('fly-back');
+                
+                setTimeout(() => {
+                    shareContainer.classList.remove('fly-back');
+                }, 2000);
+            }, 183000);
+        });
+
+        createLinkButton.addEventListener('click', () => {
+            const name = nameInput.value.trim() || 'Luke';
+            const customLink = `https://www.arongil.com/starwars?name=${encodeURIComponent(name)}`;
+            
+            navigator.clipboard.writeText(customLink).then(() => {
+                copiedMessage.style.display = 'block';
+                setTimeout(() => {
+                    copiedMessage.style.display = 'none';
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const name = getQueryParameter('name');
+
+        if (name) {
+            button.textContent = `Press me, ${name}!`;
+        }
+    </script>
+</body>
+</html>
