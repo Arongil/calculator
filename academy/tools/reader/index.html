@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebrew Reader</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0e6d2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #content {
+            background-color: #fff9e6;
+            max-width: 500px;
+            width: 90%;
+            padding: 40px 80px 60px 80px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            text-align: right;
+        }
+        .file-input-wrapper {
+            position: relative;
+            text-align: center;
+        }
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+        .custom-file-input {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .custom-file-input:hover {
+            background-color: #45a049;
+        }
+        #bookContent {
+            font-family: 'David Libre', serif;
+            font-size: 18px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="file-input-wrapper">
+            <h2>Hebrew Book Reader</h2>
+            <button class="custom-file-input" style="text-align: center;">Select File</button>
+            <input type="file" id="fileInput" accept=".txt">
+        </div>
+        <div id="bookContent"></div>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector('.file-input-wrapper').style.display = 'none';
+                document.getElementById('bookContent').textContent = e.target.result;
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
